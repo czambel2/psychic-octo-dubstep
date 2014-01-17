@@ -1,0 +1,134 @@
+@import url(//fonts.googleapis.com/css?family=Alef|Grand+Hotel|Oxygen+Mono);
+
+body {
+	background-color: beige;
+	font-family: Alef, sans-serif;
+	text-shadow: 1px 1px 1px silver;
+}
+
+
+body.special h1 {
+	text-align: center;
+	margin: 64px auto;
+}
+
+h1 {
+	font-family: "Grand Hotel", cursive;
+	font-size: 48pt;
+	text-shadow: 1px 1px 1px #26697F;
+}
+
+.text-centered {
+	text-align: center;
+}
+
+body.special .message {
+	margin: 32px auto;
+	font-size: 14pt;
+}
+
+pre, code {
+	font-family: "Oxygen Mono", monospace;
+	background: #ff9;
+}
+
+/*body {
+	background-color: beige;
+	cursor: default;
+	text-align: center;
+	font-family: Alef, sans-serif;
+	font-size: 18pt;
+	text-shadow: 1px 1px 1px silver;
+}
+
+h1 {
+	font-family: "Pinyon Script", cursive;
+	font-size: 48pt;
+	font-weight: normal;
+	text-shadow: 1px 1px 4px gray;
+}
+
+.exception h1 {
+	margin-top: 128px;
+	font-size: 108pt;
+}
+
+h1 a:link, h1 a:visited {
+	display: inline-block;
+	color: #8b0000;
+	text-decoration: none;
+	transition-property: color, transform;
+	transition-duration: 1000ms;
+}
+
+h1 a:hover, h1 a:active {
+	color: #f33;
+	transform: rotate(-1deg);
+	transition-property: color, transform;
+	transition-duration: 1000ms;
+}
+
+p {
+	margin: 64px 0;
+}
+
+.smaller {
+	font-size: 12pt;
+}
+
+.exception pre {
+	width: 75%;
+	text-align: left;
+	margin: 4px auto;
+}
+
+form.lisere {
+	width: 50%;
+	margin: 4px auto;
+	border: 1px #c7c391 solid;
+}
+
+form.lisere p label {
+	margin: 0;
+	padding: 4px;
+	display: inline-block;
+	width: 256px;
+	text-align: right;
+	background: linear-gradient(to bottom, #f5f5dc 0%,#ffffe5 50%,#f5f5dc 100%);
+	border-top: 1px #7f7f4c solid;
+	border-left: 1px #7f7f4c solid;
+	border-bottom: 1px #7f7f4c solid;
+	vertical-align: top;
+	border-top-left-radius: 8px;
+	border-bottom-left-radius: 8px;
+}
+
+form.lisere p input {
+	display: inline-block;
+	width: 256px;
+	margin: 0;
+	padding: 4px;
+	background-color: white;
+	border: 1px #7f7f4c solid;
+	vertical-align: top;
+	font-family: Alef, sans-serif;
+	font-size: 18pt;
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
+
+form.lisere p.button-area {
+	text-align: center;
+}
+
+form.lisere button {
+	border: 1px #7f7f4c solid;
+	background: linear-gradient(to bottom, #f5f5dc 0%,#ffffe5 50%,#f5f5dc 100%);
+	border-radius: 8px;
+	font-family: Alef, sans-serif;
+	font-size: 18pt;
+}
+
+pre.xdebug-var-dump {
+	text-align: left;
+}*/
