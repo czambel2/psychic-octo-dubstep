@@ -31,6 +31,15 @@ class Session implements ArrayAccess {
 	 */
 	protected function __construct() {
 		session_start();
+
+		$this->parameters = $_SESSION;
+	}
+
+	/**
+	 * Destructeur.
+	 */
+	public function __destruct() {
+		$_SESSION = $this->parameters;
 	}
 
 	/**
@@ -38,23 +47,35 @@ class Session implements ArrayAccess {
 	 * @param string $offset La clé de l'élément.
 	 * @return bool Si l'élément existe.
 	 */
-	public function offsetExists($offset)
-	{
+	public function offsetExists($offset) {
 		return array_key_exists($offset, $this->parameters);
 	}
 
-	public function offsetGet($offset)
-	{
-		return $this->parameters[$offset];
+	public function offsetGet($offset) {
+		if(array_key_exists($offset, $this->parameters)) {
+			return $this->parameters[$offset];
+		} else {
+			return null;
+		}
 	}
 
-	public function offsetSet($offset, $value)
-	{
+	public function offsetSet($offset, $value) {
 		$this->parameters[$offset] = $value;
 	}
 
-	public function offsetUnset($offset)
-	{
+	public function offsetUnset($offset) {
 		unset($this->parameters[$offset]);
+	}
+
+	public function get($key) {
+		return $this->offsetGet($key);
+	}
+
+	public function set($key, $value) {
+		$this->offsetSet($key, $value);
+	}
+
+	public function is($key) {
+		return (bool) $this->get($key);
 	}
 }
