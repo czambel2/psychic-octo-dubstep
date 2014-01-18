@@ -20,12 +20,47 @@ abstract class Form {
 	protected $errors = array();
 
 	/**
+	 * @var bool Définit si le formulaire a été validé ou non.
+	 */
+	protected $isValidated = false;
+
+	/**
 	 * Ajoute un message d'erreur au champ spécifié.
 	 * @param string $field Le nom du champ.
 	 * @param string $error Le message d'erreur à afficher.
 	 */
 	public function addError($field, $error) {
 		$this->errors[$field] = $error;
+	}
+
+	/**
+	 * Vérifie si le champ fourni en paramètre a un message d'erreur.
+	 * @param string $field Le nom du champ.
+	 * @return boolean si le champ fourni en paramètre a un message d'erreur.
+	 */
+	public function hasError($field) {
+		return array_key_exists($field, $this->errors);
+	}
+
+	/**
+	 * Récupère le message d'erreur associé au champ.
+	 * @param string $field Le nom du champ.
+	 * @return string le message d'erreur à afficher.
+	 */
+	public function getError($field) {
+		return $this->errors[$field];
+	}
+
+	/**
+	 * Vérifie si le formulaire est valide (i.e. il ne contient aucun message d'erreur)
+	 * @return boolean si le formulaire est valide ou non.
+	 */
+	public function isValid() {
+		if(!$this->isValidated) {
+			$this->validate();
+		}
+
+		return count($this->errors) == 0;
 	}
 
 	/**
@@ -40,11 +75,11 @@ abstract class Form {
 	 * Vérifie si les données entrées par l'utilisateur sont valides.
 	 * @return boolean true si les données sont valides, false sinon.
 	 */
-	public abstract function validate();
+	protected abstract function validate();
 
 	/**
 	 * Récupère le code HTML du formulaire.
 	 * @return string le code HTML du formulaire.
 	 */
-	public abstract function getHtml();
+	public abstract function __toString();
 }
