@@ -11,6 +11,8 @@ class Layout {
 
 	protected $type;
 
+	protected $showMenu = true;
+
 	/**
 	 * Récupère l'instance actuelle du design de la page.
 	 * @return Layout l'instance actuelle du design de la page.
@@ -21,6 +23,10 @@ class Layout {
 		}
 
 		return self::$instance;
+	}
+
+	public function showMenu($show) {
+		$this->showMenu = (bool) $show;
 	}
 
 	/**
@@ -34,6 +40,8 @@ class Layout {
 
 	public function __destruct() {
 		$layoutContents = ob_get_clean();
+
+		$showMenu = $this->showMenu;
 
 		require_once "/../views/layout.php" ;
 	}
