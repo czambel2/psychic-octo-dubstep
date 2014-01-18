@@ -57,6 +57,9 @@ abstract class Router {
 			case 'login.showForm':
 				$url = '/connexion';
 				break;
+			case 'login.logout':
+				$url = '/deconnexion';
+				break;
 			default:
 				throw new RouterException($route);
 		}

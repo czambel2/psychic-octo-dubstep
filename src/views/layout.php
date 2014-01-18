@@ -13,6 +13,35 @@
 </head>
 <body class="special">
 
+	<?php if($showMenu): ?>
+		<nav class="top-bar">
+			<ul>
+				<!-- Title Area -->
+				<li class="name">
+					<h1>
+						<a href="<?= url('home.index') ?>">
+							La Lionne
+						</a>
+					</h1>
+				</li>
+				<li class="toggle-topbar"><a href="#"></a></li>
+			</ul>
+
+			<section>
+
+				<!-- Right Nav Section -->
+				<ul class="right">
+					<li class="divider show-for-medium-and-up"></li>
+					<li class="has-button">
+						<a class="small button" href="<?= url('login.logout') ?>">
+							Se déconnecter
+						</a>
+					</li>
+				</ul>
+			</section>
+		</nav>
+	<?php endif; ?>
+
 	<?= $layoutContents ?>
 
 </body>
