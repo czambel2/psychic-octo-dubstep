@@ -32,6 +32,11 @@ pre, code {
 	background: #ff9;
 }
 
+.top-bar {
+	font-family: Arial, sans-serif;
+	text-shadow: none;
+}
+
 /*body {
 	background-color: beige;
 	cursor: default;
