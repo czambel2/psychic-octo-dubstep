@@ -9,6 +9,11 @@ class Layout {
 	 */
 	protected static $instance;
 
+	/**
+	 * @var bool S'il faut afficher ou non le layout.
+	 */
+	protected $enabled = true;
+
 	protected $type;
 
 	protected $showMenu = true;
@@ -30,6 +35,20 @@ class Layout {
 	}
 
 	/**
+	 * Désactive l'affichage du design pour cette page.
+	 */
+	public function disable() {
+		$this->enabled = false;
+	}
+
+	/**
+	 * Active l'affichage du design pour cette page.
+	 */
+	public function enable() {
+		$this->enabled = true;
+	}
+
+	/**
 	 * Constructeur.
 	 */
 	protected function __construct() {
@@ -41,8 +60,11 @@ class Layout {
 	public function __destruct() {
 		$layoutContents = ob_get_clean();
 
-		$showMenu = $this->showMenu;
-
-		require_once "/../views/layout.php" ;
+		if($this->enabled) {
+			$showMenu = $this->showMenu;
+			require_once "/../views/layout.php" ;
+		} else {
+			echo $layoutContents;
+		}
 	}
 }

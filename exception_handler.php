@@ -23,6 +23,9 @@ set_exception_handler(function(Exception $ex) {
 			break;
 	}
 
+	// On désactive l'affichage du design
+	Layout::getInstance()->disable();
+
 	// On appelle la pseudo template
 	require_once 'exception_handler.tpl';
 });
