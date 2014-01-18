@@ -57,6 +57,8 @@ abstract class Router {
 			case 'login.showForm':
 				$url = '/connexion';
 				break;
+			default:
+				throw new RouterException($route);
 		}
 
 		return $url;
