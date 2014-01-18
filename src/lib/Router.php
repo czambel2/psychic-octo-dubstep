@@ -43,11 +43,11 @@ abstract class Router {
 		return $returnValue;
 	}
 
-	public static function generateUrl($controller, $action, array $parameters = array()) {
+	public static function generateUrl($route, array $parameters = array()) {
 
 		$url = Config::get('basePath');
 
-		switch($controller . '.' . $action) {
+		switch($route) {
 			case 'home.index':
 				$url = '/';
 				break;

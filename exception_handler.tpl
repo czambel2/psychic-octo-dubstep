@@ -17,7 +17,7 @@
 	<div class="row">
 		<div class="eight columns centered text-centered">
 			<h1>
-				<a href="<?= url('home', 'index'); ?>"><?= $errorTitle; ?></a>
+				<a href="<?= url('home.index'); ?>"><?= $errorTitle; ?></a>
 			</h1>
 		</div>
 	</div>
@@ -36,7 +36,7 @@
 	<?php endif; ?>
 	<div class="row">
 		<p class="eight columns centered text-centered message">
-			Si vous êtes perdu, vous pouvez <a href="<?= url('home', 'index') ?>">retourner à la page d'accueil</a>.
+			Si vous êtes perdu, vous pouvez <a href="<?= url('home.index') ?>">retourner à la page d'accueil</a>.
 		</p>
 	</div>
 </body>

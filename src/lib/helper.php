@@ -2,13 +2,12 @@
 
 /**
  * Génère une URL.
- * @param string $controller le contrôleur à appeler.
- * @param string $action l'action à appeler.
+ * @param string $route la route à appeler.
  * @param array $parameters les paramètres.
  * @return string l'URL retournée.
  */
-function url($controller, $action, array $parameters = array()) {
-	return Router::generateUrl($controller, $action, $parameters);
+function url($route, array $parameters = array()) {
+	return Router::generateUrl($route, $parameters);
 }
 
 /**
