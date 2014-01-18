@@ -31,7 +31,7 @@
 	</div>
 	<?php if($errorTrace): ?>
 	<div class="row">
-		<pre class="eight columns centered exception trace"><?= $errorTrace ?></pre>
+		<pre class="twelve columns centered exception trace"><?= $errorTrace ?></pre>
 	</div>
 	<?php endif; ?>
 	<div class="row">
