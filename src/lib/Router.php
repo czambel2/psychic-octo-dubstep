@@ -27,6 +27,9 @@ abstract class Router {
 		} elseif(preg_match("#^/connexion$#", $url)) {
 			// Formulaire de connexion
 			$route = "login.showForm";
+		} elseif(preg_match("#^/deconnexion$#", $url)) {
+			// Déconnexion
+			$route = "login.logout";
 		} else {
 			// L'URL ne correspond à aucune route : on lève une exception
 			throw new Http404Exception($url);

@@ -4,6 +4,8 @@ abstract class Config {
 	protected static $configuration = array(
 		// Le dossier vers la racine du site
 		'basePath' => '',
+		// Le mot de passe de l'application
+		'password' => 'lionne',
 	);
 
 	/**
