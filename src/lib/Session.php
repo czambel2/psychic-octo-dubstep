@@ -78,4 +78,35 @@ class Session implements ArrayAccess {
 	public function is($key) {
 		return (bool) $this->get($key);
 	}
+
+	/**
+	 * Ajoute un élément dans un tableau contenu dans un élément de la session.
+	 * @param string $key La clé de l'élément.
+	 * @param mixed $value L'élément à ajouter.
+	 */
+	public function add($key, $value) {
+		if(!array_key_exists($key, $this->parameters)) {
+			$this->parameters[$key] = array();
+		}
+
+		if(is_array($this->parameters[$key])) {
+			$this->parameters[$key][] = $value;
+		} else {
+			throw new Exception("L'élément <code>$key</code> de la session existe déjà et n'est pas un tableau.");
+		}
+	}
+
+	/**
+	 * Récupère puis supprime l'élément `flash'.
+	 * @return array(Flash)
+	 */
+	public function getFlashes() {
+		if(array_key_exists('flash', $this->parameters)) {
+			$flashes = $this->parameters['flash'];
+			unset($this->parameters['flash']);
+			return $flashes;
+		} else {
+			return array();
+		}
+	}
 }

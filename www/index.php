@@ -2,8 +2,8 @@
 
 require_once '../autoloader.php';
 
-Session::getInstance();
 Layout::getInstance();
+Session::getInstance();
 
 $requestedRoute = Router::parseUrl($_SERVER['REQUEST_URI']);
 

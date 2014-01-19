@@ -12,6 +12,16 @@ body.special h1 {
 	margin: 64px auto;
 }
 
+.row {
+	width: 94%;
+}
+
+@media only screen and (max-width: 767px) {
+	.row {
+		width: auto;
+	}
+}
+
 h1 {
 	font-family: "Grand Hotel", cursive;
 	font-size: 48pt;

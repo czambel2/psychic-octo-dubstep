@@ -13,6 +13,8 @@ abstract class Utility {
 
 		$url = preg_replace("#\r|\n#", "", $url);
 
+		Layout::getInstance()->disable();
+
 		header("HTTP/1.1 301 Moved Permanently");
 		header("Location: " . $url);
 		exit;

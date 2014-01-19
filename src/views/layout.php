@@ -42,6 +42,12 @@
 		</nav>
 	<?php endif; ?>
 
+	<?php foreach(Session::getInstance()->getFlashes() as $flash): ?>
+		<div class="row">
+			<?= $flash ?>
+		</div>
+	<?php endforeach; ?>
+
 	<?= $layoutContents ?>
 
 </body>

@@ -4,6 +4,7 @@ class LoginController extends Controller {
 	public function showForm() {
 		if(Session::getInstance()->is('logged')) {
 			// Si l'utilisateur est déjà connecté, on le redirige vers la page d'accueil
+			Session::getInstance()->add('flash', new Flash('Vous êtes déjà connecté.'));
 			Utility::redirect(Router::generateUrl('home.index'));
 		}
 
@@ -30,7 +31,11 @@ class LoginController extends Controller {
 	}
 
 	public function logout() {
-		Session::getInstance()->set('logged', false);
+		if(Session::getInstance()->is('logged')) {
+			Session::getInstance()->set('logged', false);
+			Session::getInstance()->add('flash', new Flash('Vous avez été déconnecté avec succès.', Flash::FLASH_SUCCESS));
+		}
+
 		Utility::redirect(Router::generateUrl('home.index'));
 	}
 }
