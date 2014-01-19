@@ -6,6 +6,12 @@ abstract class Config {
 		'basePath' => '',
 		// Le mot de passe de l'application
 		'password' => 'lionne',
+		// Le DSN de la connexion à la base de données
+		'db.dsn' => 'odbc:lionne',
+		// Le nom d'utilisateur de connexion à la base de données
+		'db.username' => null,
+		// Le mot de passe de connexion à la base de données
+		'db.password' => null,
 	);
 
 	/**
