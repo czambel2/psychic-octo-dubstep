@@ -5,17 +5,17 @@ require_once 'exception_handler.php';
 require_once 'src/lib/helper.php';
 
 /**
- * Enregistre une fonction de callback pour faire un require du fichier appropriÃ©.
- * Permet d'Ã©viter d'avoir Ã  rajouter des "include/require" au dÃ©but de chaque fichier.
+ * Enregistre une fonction de callback pour faire un require du fichier approprié.
+ * Permet d'éviter d'avoir à rajouter des "include/require" au début de chaque fichier.
  */
 spl_autoload_register(function($className) {
 	$directories = array('src/lib/', 'src/controller/', 'src/form/');
 
-	// On supprime les caractÃ¨res interdits dans les noms de classe
+	// On supprime les caractères interdits dans les noms de classe
 	$className = preg_replace('/[^a-zA-Z0-9]/', '', $className);
 
 	foreach($directories as $directory) {
-		// On vÃ©rifie dans chaque rÃ©pertoire si le fichier existe
+		// On vérifie dans chaque répertoire si le fichier existe
 		$filename = __DIR__ . '/' . $directory . $className . '.php';
 		if(file_exists($filename)) {
 			require_once $filename;

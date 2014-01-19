@@ -2,7 +2,7 @@
 
 set_exception_handler(function(Exception $ex) {
 
-	// On dÃ©finit les variables pour la pseudo template
+	// On définit les variables pour la pseudo template
 	$basePath = Config::get('basePath');
 	$errorMessage = $ex->getMessage();
 	$errorTrace = $ex->getTraceAsString();
@@ -11,11 +11,11 @@ set_exception_handler(function(Exception $ex) {
 	switch($ex->getCode()) {
 		case 403:
 			header('HTTP/1.1 403 Forbidden');
-			$errorTitle = "AccÃ¨s refusÃ©";
+			$errorTitle = "Accès refusé";
 			break;
 		case 404:
 			header('HTTP/1.1 404 Not Found');
-			$errorTitle = "Page non trouvÃ©e";
+			$errorTitle = "Page non trouvée";
 			break;
 		default:
 			header('HTTP/1.1 500 Internal Server Error');
@@ -23,7 +23,7 @@ set_exception_handler(function(Exception $ex) {
 			break;
 	}
 
-	// On dÃ©sactive l'affichage du design
+	// On désactive l'affichage du design
 	Layout::getInstance()->disable();
 
 	// On appelle la pseudo template

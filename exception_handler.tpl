@@ -2,7 +2,7 @@
 <!--[if IE 8]><html class="no-js lt-ie9" lang="fr"><![endif]-->
 <!--[if gt IE 8]><!--><html class="no-js" lang="fr"><!--<![endif]-->
 <head>
-	<meta charset="utf-8" />
+	<meta charset="iso-8859-1" />
 	<meta name="viewport" content="width=device-width" />
 	<title>Lionne</title>
 
@@ -36,7 +36,7 @@
 	<?php endif; ?>
 	<div class="row">
 		<p class="eight columns centered text-centered message">
-			Si vous Ãªtes perdu, vous pouvez <a href="<?= url('home.index') ?>">retourner Ã  la page d'accueil</a>.
+			Si vous êtes perdu, vous pouvez <a href="<?= url('home.index') ?>">retourner à la page d'accueil</a>.
 		</p>
 	</div>
 </body>

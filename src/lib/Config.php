@@ -9,9 +9,9 @@ abstract class Config {
 	);
 
 	/**
-	 * RÃ©cupÃ¨re un Ã©lÃ©ment de la configuration du site.
-	 * @param string $key La clÃ© Ã  rÃ©cupÃ©rer.
-	 * @return mixed La valeur rÃ©cupÃ©rÃ©e, ou `null' si rien n'est trouvÃ©.
+	 * Récupère un élément de la configuration du site.
+	 * @param string $key La clé à récupérer.
+	 * @return mixed La valeur récupérée, ou `null' si rien n'est trouvé.
 	 */
 	public static function get($key) {
 		if(array_key_exists($key, self::$configuration)) {
@@ -22,8 +22,8 @@ abstract class Config {
 	}
 
 	/**
-	 * DÃ©finit un Ã©lÃ©ment dans la configuration du site.
-	 * @param string $key La clÃ© Ã  modifier.
+	 * Définit un élément dans la configuration du site.
+	 * @param string $key La clé à modifier.
 	 * @param mixed $value La nouvelle valeur.
 	 */
 	public static function set($key, $value) {

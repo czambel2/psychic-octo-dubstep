@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ReprÃ©sente un message d'erreur affichÃ© Ã  l'utilisateur.
+ * Représente un message d'erreur affiché à l'utilisateur.
  */
 class Flash {
 	/**
@@ -10,7 +10,7 @@ class Flash {
 	const FLASH_STANDARD = '';
 
 	/**
-	 * Affiche un message de succÃ¨s (sur fond vert).
+	 * Affiche un message de succès (sur fond vert).
 	 */
 	const FLASH_SUCCESS = 'success';
 
@@ -25,12 +25,12 @@ class Flash {
 	const FLASH_SECONDARY = 'secondary';
 
 	/**
-	 * @var string Le message Ã  afficher Ã  l'Ã©cran.
+	 * @var string Le message à afficher à l'écran.
 	 */
 	protected $message;
 
 	/**
-	 * @var string Le type de message Ã  afficher.
+	 * @var string Le type de message à afficher.
 	 */
 	protected $type;
 
@@ -40,9 +40,9 @@ class Flash {
 	protected $close;
 
 	/**
-	 * CrÃ©e un nouveau message.
-	 * @param string $message Le message Ã  afficher.
-	 * @param string $type Le type de message Ã  afficher.
+	 * Crée un nouveau message.
+	 * @param string $message Le message à afficher.
+	 * @param string $type Le type de message à afficher.
 	 * @param bool $close S'il faut ou non afficher la croix pour fermer le message.
 	 */
 	public function __construct($message, $type = self::FLASH_STANDARD, $close = true) {
@@ -52,7 +52,7 @@ class Flash {
 	}
 
 	/**
-	 * RÃ©cupÃ¨re le code HTML du message.
+	 * Récupère le code HTML du message.
 	 */
 	public function __toString() {
 		if($this->close) {

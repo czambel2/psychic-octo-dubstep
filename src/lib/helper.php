@@ -1,17 +1,17 @@
 <?php
 
 /**
- * GÃ©nÃ¨re une URL.
- * @param string $route la route Ã  appeler.
- * @param array $parameters les paramÃ¨tres.
- * @return string l'URL retournÃ©e.
+ * Génère une URL.
+ * @param string $route la route à appeler.
+ * @param array $parameters les paramètres.
+ * @return string l'URL retournée.
  */
 function url($route, array $parameters = array()) {
 	return Router::generateUrl($route, $parameters);
 }
 
 /**
- * RÃ©cupÃ¨re le dossier vers la racine du site.
+ * Récupère le dossier vers la racine du site.
  * @return string le dossier vers la racine du site.
  */
 function basePath() {

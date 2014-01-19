@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ReprÃ©sente un formulaire de saisie.
+ * Représente un formulaire de saisie.
  */
 abstract class Form {
 	/**
@@ -10,7 +10,7 @@ abstract class Form {
 	protected $fields = array();
 
 	/**
-	 * @var array Les donnÃ©es entrÃ©es par l'utilisateur.
+	 * @var array Les données entrées par l'utilisateur.
 	 */
 	protected $data = array();
 
@@ -20,39 +20,39 @@ abstract class Form {
 	protected $errors = array();
 
 	/**
-	 * @var bool DÃ©finit si le formulaire a Ã©tÃ© validÃ© ou non.
+	 * @var bool Définit si le formulaire a été validé ou non.
 	 */
 	protected $isValidated = false;
 
 	/**
-	 * Ajoute un message d'erreur au champ spÃ©cifiÃ©.
+	 * Ajoute un message d'erreur au champ spécifié.
 	 * @param string $field Le nom du champ.
-	 * @param string $error Le message d'erreur Ã  afficher.
+	 * @param string $error Le message d'erreur à afficher.
 	 */
 	public function addError($field, $error) {
 		$this->errors[$field] = $error;
 	}
 
 	/**
-	 * VÃ©rifie si le champ fourni en paramÃ¨tre a un message d'erreur.
+	 * Vérifie si le champ fourni en paramètre a un message d'erreur.
 	 * @param string $field Le nom du champ.
-	 * @return boolean si le champ fourni en paramÃ¨tre a un message d'erreur.
+	 * @return boolean si le champ fourni en paramètre a un message d'erreur.
 	 */
 	public function hasError($field) {
 		return array_key_exists($field, $this->errors);
 	}
 
 	/**
-	 * RÃ©cupÃ¨re le message d'erreur associÃ© au champ.
+	 * Récupère le message d'erreur associé au champ.
 	 * @param string $field Le nom du champ.
-	 * @return string le message d'erreur Ã  afficher.
+	 * @return string le message d'erreur à afficher.
 	 */
 	public function getError($field) {
 		return $this->errors[$field];
 	}
 
 	/**
-	 * VÃ©rifie si le formulaire est valide (i.e. il ne contient aucun message d'erreur)
+	 * Vérifie si le formulaire est valide (i.e. il ne contient aucun message d'erreur)
 	 * @return boolean si le formulaire est valide ou non.
 	 */
 	public function isValid() {
@@ -64,21 +64,21 @@ abstract class Form {
 	}
 
 	/**
-	 * Lie les entrÃ©es de l'utilisateur aux champs du formulaire.
-	 * @param array $data Les donnÃ©es entrÃ©es par l'utilisateur.
+	 * Lie les entrées de l'utilisateur aux champs du formulaire.
+	 * @param array $data Les données entrées par l'utilisateur.
 	 */
 	public function bind(array $data) {
 		$this->data = $data;
 	}
 
 	/**
-	 * VÃ©rifie si les donnÃ©es entrÃ©es par l'utilisateur sont valides.
-	 * @return boolean true si les donnÃ©es sont valides, false sinon.
+	 * Vérifie si les données entrées par l'utilisateur sont valides.
+	 * @return boolean true si les données sont valides, false sinon.
 	 */
 	protected abstract function validate();
 
 	/**
-	 * RÃ©cupÃ¨re le code HTML du formulaire.
+	 * Récupère le code HTML du formulaire.
 	 * @return string le code HTML du formulaire.
 	 */
 	public abstract function __toString();

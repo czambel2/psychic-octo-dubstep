@@ -19,7 +19,7 @@ class Layout {
 	protected $showMenu = true;
 
 	/**
-	 * RÃ©cupÃ¨re l'instance actuelle du design de la page.
+	 * Récupère l'instance actuelle du design de la page.
 	 * @return Layout l'instance actuelle du design de la page.
 	 */
 	public static function getInstance() {
@@ -35,7 +35,7 @@ class Layout {
 	}
 
 	/**
-	 * DÃ©sactive l'affichage du design pour cette page.
+	 * Désactive l'affichage du design pour cette page.
 	 */
 	public function disable() {
 		$this->enabled = false;

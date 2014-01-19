@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Permet d'accÃ©der aux variables de session.
+ * Permet d'accéder aux variables de session.
  */
 class Session implements ArrayAccess {
 	/**
@@ -15,7 +15,7 @@ class Session implements ArrayAccess {
 	protected $parameters = array();
 
 	/**
-	 * RÃ©cupÃ¨re l'instance actuelle de la session.
+	 * Récupère l'instance actuelle de la session.
 	 * @return Session l'instance actuelle de la session.
 	 */
 	public static function getInstance() {
@@ -43,18 +43,18 @@ class Session implements ArrayAccess {
 	}
 
 	/**
-	 * DÃ©termine si un Ã©lÃ©ment existe dans la session.
-	 * @param string $offset La clÃ© de l'Ã©lÃ©ment.
-	 * @return bool Si l'Ã©lÃ©ment existe.
+	 * Détermine si un élément existe dans la session.
+	 * @param string $offset La clé de l'élément.
+	 * @return bool Si l'élément existe.
 	 */
 	public function offsetExists($offset) {
 		return array_key_exists($offset, $this->parameters);
 	}
 
 	/**
-	 * RÃ©cupÃ¨re un Ã©lÃ©ment de la session.
-	 * @param string $offset La clÃ© de l'Ã©lÃ©ment.
-	 * @return mixed|null L'Ã©lÃ©ment.
+	 * Récupère un élément de la session.
+	 * @param string $offset La clé de l'élément.
+	 * @return mixed|null L'élément.
 	 */
 	public function offsetGet($offset) {
 		if(array_key_exists($offset, $this->parameters)) {
@@ -65,53 +65,53 @@ class Session implements ArrayAccess {
 	}
 
 	/**
-	 * DÃ©finit un Ã©lÃ©ment dans la session.
-	 * @param string $offset La clÃ© de l'Ã©lÃ©ment.
-	 * @param mixed $value La valeur Ã  dÃ©finir.
+	 * Définit un élément dans la session.
+	 * @param string $offset La clé de l'élément.
+	 * @param mixed $value La valeur à définir.
 	 */
 	public function offsetSet($offset, $value) {
 		$this->parameters[$offset] = $value;
 	}
 
 	/**
-	 * Supprime un Ã©lÃ©ment de la session.
-	 * @param string $offset La clÃ© de l'Ã©lÃ©ment.
+	 * Supprime un élément de la session.
+	 * @param string $offset La clé de l'élément.
 	 */
 	public function offsetUnset($offset) {
 		unset($this->parameters[$offset]);
 	}
 
 	/**
-	 * RÃ©cupÃ¨re un Ã©lÃ©ment de la session.
-	 * @param string $key La clÃ© de l'Ã©lÃ©ment.
-	 * @return mixed|null L'Ã©lÃ©ment.
+	 * Récupère un élément de la session.
+	 * @param string $key La clé de l'élément.
+	 * @return mixed|null L'élément.
 	 */
 	public function get($key) {
 		return $this->offsetGet($key);
 	}
 
 	/**
-	 * DÃ©finit un Ã©lÃ©ment dans la session.
-	 * @param string $key La clÃ© de l'Ã©lÃ©ment.
-	 * @param mixed $value La valeur Ã  dÃ©finir.
+	 * Définit un élément dans la session.
+	 * @param string $key La clé de l'élément.
+	 * @param mixed $value La valeur à définir.
 	 */
 	public function set($key, $value) {
 		$this->offsetSet($key, $value);
 	}
 
 	/**
-	 * RÃ©cupÃ¨re un Ã©lÃ©ment de la session sous forme boolÃ©enne.
-	 * @param string $key La clÃ© de l'Ã©lÃ©ment.
-	 * @return bool L'Ã©lÃ©ment sous forme boolÃ©enne, ou false si l'Ã©lÃ©ment n'existe pas.
+	 * Récupère un élément de la session sous forme booléenne.
+	 * @param string $key La clé de l'élément.
+	 * @return bool L'élément sous forme booléenne, ou false si l'élément n'existe pas.
 	 */
 	public function is($key) {
 		return (bool) $this->get($key);
 	}
 
 	/**
-	 * Ajoute un Ã©lÃ©ment dans un tableau contenu dans un Ã©lÃ©ment de la session.
-	 * @param string $key La clÃ© de l'Ã©lÃ©ment.
-	 * @param mixed $value L'Ã©lÃ©ment Ã  ajouter.
+	 * Ajoute un élément dans un tableau contenu dans un élément de la session.
+	 * @param string $key La clé de l'élément.
+	 * @param mixed $value L'élément à ajouter.
 	 */
 	public function add($key, $value) {
 		if(!array_key_exists($key, $this->parameters)) {
@@ -121,12 +121,12 @@ class Session implements ArrayAccess {
 		if(is_array($this->parameters[$key])) {
 			$this->parameters[$key][] = $value;
 		} else {
-			throw new Exception("L'Ã©lÃ©ment <code>$key</code> de la session existe dÃ©jÃ  et n'est pas un tableau.");
+			throw new Exception("L'élément <code>$key</code> de la session existe déjà et n'est pas un tableau.");
 		}
 	}
 
 	/**
-	 * RÃ©cupÃ¨re puis supprime l'Ã©lÃ©ment `flash'.
+	 * Récupère puis supprime l'élément `flash'.
 	 * @return array(Flash)
 	 */
 	public function getFlashes() {

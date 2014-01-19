@@ -2,7 +2,7 @@
 <!--[if IE 8]><html class="no-js lt-ie9" lang="fr"><![endif]-->
 <!--[if gt IE 8]><!--><html class="no-js" lang="fr"><!--<![endif]-->
 <head>
-	<meta charset="utf-8" />
+	<meta charset="iso-8859-1" />
 	<meta name="viewport" content="width=device-width" />
 	<title>Lionne</title>
 
@@ -34,7 +34,7 @@
 					<li class="divider show-for-medium-and-up"></li>
 					<li class="has-button">
 						<a class="small button" href="<?= url('login.logout') ?>">
-							Se dÃ©connecter
+							Se déconnecter
 						</a>
 					</li>
 				</ul>

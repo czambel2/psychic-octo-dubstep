@@ -10,13 +10,13 @@ class LoginForm extends Form {
 
 	protected function validate() {
 		if(!array_key_exists('password', $this->data) or $this->data['password'] != Config::get('password')) {
-			$this->addError('password', 'Le mot de passe entrÃ© est incorrect.');
+			$this->addError('password', 'Le mot de passe entré est incorrect.');
 		}
 	}
 
 	public function __toString() {
 		$passwordClass = $this->hasError('password') ? ' class="error"' : null;
-		$passwordMessage = $this->hasError('password') ? '<small class="error">Le mot de passe que vous avez entrÃ© est invalide.</small>' : null;
+		$passwordMessage = $this->hasError('password') ? '<small class="error">Le mot de passe que vous avez entré est invalide.</small>' : null;
 
 		$html = <<<FORM
 	<div class="row">

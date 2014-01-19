@@ -4,7 +4,7 @@
 
 <div class="row">
 	<p class="eight columns centered text-centered message">
-		Veuillez vous identifier pour accÃ©der Ã  cette page.
+		Veuillez vous identifier pour accéder à cette page.
 	</p>
 </div>
 

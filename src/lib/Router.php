@@ -1,26 +1,26 @@
 <?php
 
 /**
- * Le routeur permet d'associer un tuple (contrÃ´leur, action) Ã  une URL donnÃ©e.
+ * Le routeur permet d'associer un tuple (contrôleur, action) à une URL donnée.
  */
 abstract class Router {
 
 	/**
-	 * RÃ©cupÃ¨re le contrÃ´leur, l'action et les paramÃ¨tres associÃ©s Ã  une URL donnÃ©e.
-	 * @param string $url L'URL demandÃ©e par l'utilisateur.
-	 * @return array Un tableau dÃ©crivant le contrÃ´leur, l'action et les paramÃ¨tres.
+	 * Récupère le contrôleur, l'action et les paramètres associés à une URL donnée.
+	 * @param string $url L'URL demandée par l'utilisateur.
+	 * @return array Un tableau décrivant le contrôleur, l'action et les paramètres.
 	 */
 	public static function parseUrl($url) {
 
-		// PremiÃ¨rement, on enlÃ¨ve de l'URL Ã  analyser le rÃ©pertoire de base
-		// Par exemple, si le rÃ©pertoire de base du site est /lionne/
-		// et que l'on demande l'URL /lionne/accueil, on rÃ©cupÃ¨re uniquement "accueil".
+		// Premièrement, on enlève de l'URL à analyser le répertoire de base
+		// Par exemple, si le répertoire de base du site est /lionne/
+		// et que l'on demande l'URL /lionne/accueil, on récupère uniquement "accueil".
 		$url = preg_replace("#^" . preg_quote(Config::get('basePath')) . '#', '', $url);
 
 		$returnValue = array();
 		$parameters = array();
 
-		// On analyse l'URL pour voir si elle correspond Ã  une route
+		// On analyse l'URL pour voir si elle correspond à une route
 		if(preg_match("#^/$#", $url)) {
 			// Page d'accueil
 			$route = "home.index";
@@ -28,14 +28,14 @@ abstract class Router {
 			// Formulaire de connexion
 			$route = "login.showForm";
 		} elseif(preg_match("#^/deconnexion$#", $url)) {
-			// DÃ©connexion
+			// Déconnexion
 			$route = "login.logout";
 		} else {
-			// L'URL ne correspond Ã  aucune route : on lÃ¨ve une exception
+			// L'URL ne correspond à aucune route : on lève une exception
 			throw new Http404Exception($url);
 		}
 
-		// On convertit le nom du contrÃ´leur, et de l'action
+		// On convertit le nom du contrôleur, et de l'action
 		$controllerAndAction = explode('.', $route);
 		$returnValue["controller"] = lcfirst($controllerAndAction[0] . "Controller");
 		$returnValue["action"] = $controllerAndAction[1];
