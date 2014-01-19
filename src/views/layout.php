@@ -32,6 +32,19 @@
 
 			<section>
 
+				<ul class="left">
+					<li class="divider"></li>
+					<li class="has-dropdown">
+						<a href="#">Impression</a>
+						<ul class="dropdown">
+							<li>
+								<a href="<?= url('display.cyclistes') ?>">Liste des cyclistes</a>
+							</li>
+						</ul>
+					</li>
+					<li class="divider hide-for-small"></li>
+				</ul>
+
 				<!-- Right Nav Section -->
 				<ul class="right">
 					<li class="divider show-for-medium-and-up"></li>
