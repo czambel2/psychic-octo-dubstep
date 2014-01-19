@@ -47,6 +47,32 @@ pre, code {
 	text-shadow: none;
 }
 
+.ui-helper-hidden-accessible {
+	display: none;
+}
+
+.ui-autocomplete {
+	margin: 2px 0;
+	padding: 2px;
+	border-radius: 2px;
+	border: 1px #b3b3b3 solid;
+	background: #fafafa;
+	list-style: none;
+}
+
+.ui-autocomplete li a {
+	color: black;
+}
+
+.ui-state-highlight {
+	color: red;
+}
+
+.ui-state-focus {
+	background-color: lightgray;
+	display: block;
+}
+
 /*body {
 	background-color: beige;
 	cursor: default;

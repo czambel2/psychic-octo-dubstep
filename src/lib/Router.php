@@ -32,6 +32,9 @@ abstract class Router {
 		} elseif(preg_match("#^/deconnexion$#", $url)) {
 			// Déconnexion
 			$route = "login.logout";
+		} elseif(preg_match("#^/api/cyclistes$#", $url)) {
+			// Recherche d'un cycliste
+			$route = "api.autocompleteCyclists";
 		} else {
 			// L'URL ne correspond à aucune route : on lève une exception
 			throw new Http404Exception($url);
