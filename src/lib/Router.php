@@ -16,8 +16,10 @@ abstract class Router {
 		// Par exemple, si le répertoire de base du site est /lionne/
 		// et que l'on demande l'URL /lionne/accueil, on récupère uniquement "accueil".
 		$url = preg_replace("#^" . preg_quote(Config::get('basePath')) . '#', '', $url);
+		$url = preg_replace("#(\?.+)$#", '', $url);
 
 		$returnValue = array();
+		$pregParams = array();
 		$parameters = array();
 
 		// On analyse l'URL pour voir si elle correspond à une route
@@ -40,8 +42,7 @@ abstract class Router {
 		$returnValue["controller"] = lcfirst($controllerAndAction[0] . "Controller");
 		$returnValue["action"] = $controllerAndAction[1];
 
-		// On ajoute les paramÃ¨tres GET (prÃ©sents aprÃ¨s le point d'interrogation dans l'URL)
-		$returnValue["parameters"] = array_merge($parameters, $_GET);
+		$returnValue["parameters"] = $parameters;
 
 		return $returnValue;
 	}
