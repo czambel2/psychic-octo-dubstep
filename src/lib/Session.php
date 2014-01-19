@@ -32,6 +32,9 @@ class Session implements ArrayAccess {
 	protected function __construct() {
 		session_start();
 
+		header("HTTP/1.1 200 OK");
+		header("Content-Type: text/html; charset=iso-8859-1");
+
 		$this->parameters = $_SESSION;
 	}
 
