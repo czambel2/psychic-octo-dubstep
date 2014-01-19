@@ -51,6 +51,11 @@ class Session implements ArrayAccess {
 		return array_key_exists($offset, $this->parameters);
 	}
 
+	/**
+	 * Récupère un élément de la session.
+	 * @param string $offset La clé de l'élément.
+	 * @return mixed|null L'élément.
+	 */
 	public function offsetGet($offset) {
 		if(array_key_exists($offset, $this->parameters)) {
 			return $this->parameters[$offset];
@@ -59,22 +64,46 @@ class Session implements ArrayAccess {
 		}
 	}
 
+	/**
+	 * Définit un élément dans la session.
+	 * @param string $offset La clé de l'élément.
+	 * @param mixed $value La valeur à définir.
+	 */
 	public function offsetSet($offset, $value) {
 		$this->parameters[$offset] = $value;
 	}
 
+	/**
+	 * Supprime un élément de la session.
+	 * @param string $offset La clé de l'élément.
+	 */
 	public function offsetUnset($offset) {
 		unset($this->parameters[$offset]);
 	}
 
+	/**
+	 * Récupère un élément de la session.
+	 * @param string $key La clé de l'élément.
+	 * @return mixed|null L'élément.
+	 */
 	public function get($key) {
 		return $this->offsetGet($key);
 	}
 
+	/**
+	 * Définit un élément dans la session.
+	 * @param string $key La clé de l'élément.
+	 * @param mixed $value La valeur à définir.
+	 */
 	public function set($key, $value) {
 		$this->offsetSet($key, $value);
 	}
 
+	/**
+	 * Récupère un élément de la session sous forme booléenne.
+	 * @param string $key La clé de l'élément.
+	 * @return bool L'élément sous forme booléenne, ou false si l'élément n'existe pas.
+	 */
 	public function is($key) {
 		return (bool) $this->get($key);
 	}
