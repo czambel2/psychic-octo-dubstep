@@ -9,9 +9,10 @@
 	<link rel="stylesheet" type="text/css" href="<?= $basePath ?>/assets/css/foundation.min.css" />
 	<link rel="stylesheet" type="text/css" href="<?= $basePath ?>/assets/css/style.css" />
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="<?= $basePath ?>/assets/js/foundation/modernizr.foundation.js"></script>
-	<script src="<?= $basePath ?>/assets/js/script.js"></script>
+	<script src="<?= basePath() ?>/assets/js/foundation/modernizr.foundation.js"></script>
+	<script src="<?= basePath() ?>/assets/js/foundation/foundation.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	<script src="<?= basePath() ?>/assets/js/script.js"></script>
 </head>
 <body class="special">
 	<div class="row">
