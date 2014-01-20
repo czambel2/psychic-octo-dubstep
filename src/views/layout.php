@@ -35,10 +35,115 @@
 				<ul class="left">
 					<li class="divider"></li>
 					<li class="has-dropdown">
+						<a href="#">Accueil</a>
+						<ul class="dropdown">
+							<li>
+								<a href="#">Accueil administrateur</a>
+							</li>
+						</ul>
+					</li>
+					<li class="divider"></li>
+					<li class="has-dropdown">
+						<a href="#">Gestion de la course</a>
+						<ul class="dropdown">
+							<li>
+								<a href="#">Etat de la course</a>
+							</li>
+							<li>
+								<a href="#">Ajouter une course</a>
+							</li>
+							<li>
+								<a href="#">Démarrer la course</a>
+							</li>
+							<li>
+								<a href="#">Saisie des départs</a>
+							</li>
+							<li>
+								<a href="#">Saisie des retours</a>
+							</li>
+							<li>
+								<a href="#">Clôturer de la course</a>
+							</li>
+							<li>
+								<a href="#">Arrêter la course</a>
+							</li>
+							<li>
+								<a href="#">Gestion des récompenses</a>
+							</li>
+						</ul>
+					</li>
+					<li class="divider"></li>
+					<li class="has-dropdown">
+						<a href="#">Gestions des courses</a>
+						<ul class="dropdown">
+							<li>
+								<a href="#">Afficher toutes les courses</a>
+							</li>
+							<li>
+								<a href="#">Modifier une course</a>
+							</li>
+							<li>
+								<a href="#">Ajouter une nouvelle course</a>
+							</li>
+						</ul>
+					</li>
+					<li class="divider"></li>
+					<li class="has-dropdown">
+						<a href="#">Gestions des cyclistes</a>
+						<ul class="dropdown">
+							<li>
+								<a href="#">Afficher les cyclistes</a>
+							</li>
+							<li>
+								<a href="#">Rechercher un cyclciste</a>
+							</li>
+							<li>
+								<a href="#">Ajouter un nouveau cycliste</a>
+							</li>
+						</ul>
+					</li>
+					<li class="divider"></li>
+					<li class="has-dropdown">
 						<a href="#">Impression</a>
 						<ul class="dropdown">
 							<li>
+								<a href="#">Diplômes</a>
+							</li>
+							<li>
+								<a href="#">Paramétrage des diplômes</a>
+							</li>
+							<li>
 								<a href="<?= url('display.cyclistes') ?>">Liste des cyclistes</a>
+							</li>
+							<li>
+								<a href="#">Liste des courses</a>
+							</li>
+							<li>
+								<a href="#">Etiquettes</a>
+							</li>
+							<li>
+								<a href="#">Paramétrage des étiquettes</a>
+							</li>
+						</ul>
+					</li>
+					<li class="divider"></li>
+					<li class="has-dropdown">
+						<a href="#">Statistiques</a>
+						<ul class="dropdown">
+							<li>
+								<a href="#">Statistiques par années</a>
+							</li>
+							<li>
+								<a href="#">Bilan global</a>
+							</li>
+							<li>
+								<a href="#">Bilan global (EXEL)</a>
+							</li>
+							<li>
+								<a href="#">Bilan simplifié</a>
+							</li>
+							<li>
+								<a href="#">Bilan simplifié (EXEL)</a>
 							</li>
 						</ul>
 					</li>
