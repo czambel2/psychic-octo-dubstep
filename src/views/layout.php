@@ -34,13 +34,8 @@
 
 				<ul class="left">
 					<li class="divider"></li>
-					<li class="has-dropdown">
-						<a href="#">Accueil</a>
-						<ul class="dropdown">
-							<li>
-								<a href="#">Accueil administrateur</a>
-							</li>
-						</ul>
+					<li>
+						<a href="<?= url('home.index') ?>">Accueil</a>
 					</li>
 					<li class="divider"></li>
 					<li class="has-dropdown">
