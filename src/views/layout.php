@@ -108,7 +108,7 @@
 								<a href="#">Paramétrage des diplômes</a>
 							</li>
 							<li>
-								<a href="<?= url('display.cyclistes') ?>">Liste des cyclistes</a>
+								<a href="<?= url('display.cyclists') ?>">Liste des cyclistes</a>
 							</li>
 							<li>
 								<a href="#">Liste des courses</a>
@@ -132,13 +132,13 @@
 								<a href="#">Bilan global</a>
 							</li>
 							<li>
-								<a href="#">Bilan global (EXEL)</a>
+								<a href="#">Bilan global (EXCEL)</a>
 							</li>
 							<li>
 								<a href="#">Bilan simplifié</a>
 							</li>
 							<li>
-								<a href="#">Bilan simplifié (EXEL)</a>
+								<a href="#">Bilan simplifié (EXCEL)</a>
 							</li>
 						</ul>
 					</li>

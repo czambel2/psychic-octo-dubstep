@@ -34,7 +34,7 @@ abstract class Router {
 			$route = "login.logout";
 		} elseif(preg_match("#^/liste-cyclistes$#", $url)) {
 			// Liste des cyclistes enregistrés
-			$route = "display.cyclistes";
+			$route = "display.cyclists";
 		} else {
 			// L'URL ne correspond à aucune route : on lève une exception
 			throw new Http404Exception($url);
@@ -64,7 +64,7 @@ abstract class Router {
 			case 'login.logout':
 				$url = '/deconnexion';
 				break;
-			case 'display.cyclistes':
+			case 'display.cyclists':
 				$url = '/liste-cyclistes';
 				break;
 			default:
