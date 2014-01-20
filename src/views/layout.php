@@ -72,7 +72,7 @@
 						<a href="#">Gestions des courses</a>
 						<ul class="dropdown">
 							<li>
-								<a href="#">Afficher toutes les courses</a>
+								<a href="<?= url('race.display') ?>">Afficher toutes les courses</a>
 							</li>
 							<li>
 								<a href="#">Modifier une course</a>

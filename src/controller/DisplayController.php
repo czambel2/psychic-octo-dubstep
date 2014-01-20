@@ -29,6 +29,6 @@ class DisplayController extends Controller {
 	}
 
 	public function labelParemters() {
-		
+
 	}
 }
