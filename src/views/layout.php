@@ -39,11 +39,12 @@
 					</li>
 					<li class="divider"></li>
 					<li class="has-dropdown">
-						<a href="#">Gestion de la course</a>
+						<a href="#">Gestion de la course actuelle</a>
 						<ul class="dropdown">
 							<li>
-								<a href="#">Etat de la course</a>
+								<a href="#">État de la course</a>
 							</li>
+							<li class="divider"></li>
 							<li>
 								<a href="#">Ajouter une course</a>
 							</li>
@@ -57,11 +58,12 @@
 								<a href="#">Saisie des retours</a>
 							</li>
 							<li>
-								<a href="#">Clôturer de la course</a>
+								<a href="#">Clôturer la course</a>
 							</li>
 							<li>
 								<a href="#">Arrêter la course</a>
 							</li>
+							<li class="divider"></li>
 							<li>
 								<a href="#">Gestion des récompenses</a>
 							</li>
@@ -69,7 +71,7 @@
 					</li>
 					<li class="divider"></li>
 					<li class="has-dropdown">
-						<a href="#">Gestions des courses</a>
+						<a href="#">Gestion des courses</a>
 						<ul class="dropdown">
 							<li>
 								<a href="<?= url('race.display') ?>">Afficher toutes les courses</a>
@@ -84,7 +86,7 @@
 					</li>
 					<li class="divider"></li>
 					<li class="has-dropdown">
-						<a href="#">Gestions des cyclistes</a>
+						<a href="#">Gestion des cyclistes</a>
 						<ul class="dropdown">
 							<li>
 								<a href="#">Afficher les cyclistes</a>
@@ -114,7 +116,7 @@
 								<a href="#">Liste des courses</a>
 							</li>
 							<li>
-								<a href="#">Etiquettes</a>
+								<a href="#">Étiquettes</a>
 							</li>
 							<li>
 								<a href="#">Paramétrage des étiquettes</a>
@@ -126,19 +128,19 @@
 						<a href="#">Statistiques</a>
 						<ul class="dropdown">
 							<li>
-								<a href="#">Statistiques par années</a>
+								<a href="#">Statistiques par année</a>
 							</li>
 							<li>
 								<a href="#">Bilan global</a>
 							</li>
 							<li>
-								<a href="#">Bilan global (EXCEL)</a>
+								<a href="#">Bilan global (Excel)</a>
 							</li>
 							<li>
 								<a href="#">Bilan simplifié</a>
 							</li>
 							<li>
-								<a href="#">Bilan simplifié (EXCEL)</a>
+								<a href="#">Bilan simplifié (Excel)</a>
 							</li>
 						</ul>
 					</li>
