@@ -32,7 +32,7 @@ abstract class Router {
 		} elseif(preg_match("#^/deconnexion$#", $url)) {
 			// Déconnexion
 			$route = "login.logout";
-		} elseif(preg_match("#^/liste-cyclistes$#", $url)) {
+		} elseif(preg_match("#^/impression/liste-cyclistes$#", $url)) {
 			// Liste des cyclistes enregistrés
 			$route = "display.cyclists";
 		} elseif(preg_match("#^/course/liste$#", $url)) {
@@ -68,7 +68,7 @@ abstract class Router {
 				$url = '/deconnexion';
 				break;
 			case 'display.cyclists':
-				$url = '/liste-cyclistes';
+				$url = '/impression/liste-cyclistes';
 				break;
 			case 'race.index' :
 				$url = '/course/liste';
