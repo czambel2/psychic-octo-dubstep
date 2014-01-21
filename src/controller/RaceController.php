@@ -2,7 +2,7 @@
 
 class RaceController extends Controller {
 
-	public function display() {
+	public function index() {
 		$db = DB::getInstance();
 		$q = $db->query("SELECT
 			C.numcourse, C.datecourse, C.anneecourse, C.nbparticipantstotal, C.distancec1, C.distancec2, C.distancec3
