@@ -38,6 +38,9 @@ abstract class Router {
 		} elseif(preg_match("#^/course/liste$#", $url)) {
 			// Liste des courses enregistrés
 			$route = "race.index";
+		} elseif(preg_match('#^/cycliste/liste$#', $url)) {
+			// Liste des cyclistes
+			$route = "cyclist.index";
 		} else {
 			// L'URL ne correspond à aucune route : on lève une exception
 			throw new Http404Exception($url);
@@ -73,6 +76,8 @@ abstract class Router {
 			case 'race.index' :
 				$url = '/course/liste';
 				break;
+			case 'cyclist.index':
+				$url = '/cycliste/liste';
 				break;
 			default:
 				throw new RouterException($route);

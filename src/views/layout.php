@@ -89,7 +89,7 @@
 						<a href="#">Gestion des cyclistes</a>
 						<ul class="dropdown">
 							<li>
-								<a href="#">Afficher les cyclistes</a>
+								<a href="<?= url('cyclist.index') ?>">Afficher les cyclistes</a>
 							</li>
 							<li>
 								<a href="#">Rechercher un cyclciste</a>
