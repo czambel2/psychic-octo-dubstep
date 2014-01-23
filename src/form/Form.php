@@ -53,7 +53,7 @@ abstract class Form {
 
 	protected function errorClass($field) {
 		if($this->hasError($field)) {
-			return 'class="error" ';
+			return ' class="error" ';
 		} else {
 			return null;
 		}
@@ -62,6 +62,30 @@ abstract class Form {
 	protected function errorMessage($field) {
 		if($this->hasError($field)) {
 			return '<small class="error">' . $this->getError($field) . '</small>';
+		} else {
+			return null;
+		}
+	}
+
+	protected function valueChecked($field, $current) {
+		if(array_key_exists($field, $this->data) and $this->data[$field] == $current) {
+			return ' checked="checked" ';
+		} else {
+			return null;
+		}
+	}
+
+	protected function valueSelected($field, $current) {
+		if(array_key_exists($field, $this->data) and $this->data[$field] == $current) {
+			return ' selected="selected" ';
+		} else {
+			return null;
+		}
+	}
+
+	protected function valueEscaped($field) {
+		if(array_key_exists($field, $this->data)) {
+			return htmlspecialchars($this->data[$field]);
 		} else {
 			return null;
 		}

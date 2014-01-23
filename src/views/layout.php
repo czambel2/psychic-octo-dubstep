@@ -97,7 +97,7 @@
 								<a href="#">Rechercher un cyclciste</a>
 							</li>
 							<li>
-								<a href="#">Ajouter un nouveau cycliste</a>
+								<a href="<?= url('cyclist.add') ?>">Ajouter un nouveau cycliste</a>
 							</li>
 						</ul>
 					</li>

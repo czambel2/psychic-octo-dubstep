@@ -7,9 +7,13 @@ body {
 }
 
 
-body.special h1 {
+h1 {
+	/*font-family: "Grand Hotel", cursive;*/
+	margin: 24px auto;
+	padding: 0;
+	font-size: 24pt;
+	text-shadow: 1px 1px 1px #26697F;
 	text-align: center;
-	margin: 64px auto;
 }
 
 .row {
@@ -20,12 +24,6 @@ body.special h1 {
 	.row {
 		width: auto;
 	}
-}
-
-h1 {
-	font-family: "Grand Hotel", cursive;
-	font-size: 48pt;
-	text-shadow: 1px 1px 1px #26697F;
 }
 
 .text-centered {
@@ -45,6 +43,7 @@ pre, code {
 .top-bar {
 	font-family: Arial, sans-serif;
 	text-shadow: none;
+	margin: 0 0 4px;
 }
 
 /*body {

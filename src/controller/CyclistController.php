@@ -20,6 +20,15 @@ class CyclistController extends Controller {
 	}
 
 	public function add() {
+		$form = new CyclistForm();
 
+		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] = 'cyclist') {
+			$form->bind($_POST['data']);
+			if($form->isValid()) {
+				// TODO : add business logic to insert cyclist
+			}
+		}
+
+		$this->render('cyclist.add', array('form' => $form));
 	}
 }
