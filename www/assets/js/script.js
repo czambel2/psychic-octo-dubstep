@@ -11,4 +11,9 @@ jQuery().ready(function () {
 			$('.exception.trace').slideDown(150);
 		}
 	});
+
+	$('table.contains-data').dataTable({
+		"oLanguage": { "sUrl": "/assets/js/vendor/jquery.dataTables.fr.json" },
+		"iDisplayLength": 20
+	});
 });
