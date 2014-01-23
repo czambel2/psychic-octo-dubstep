@@ -15,9 +15,6 @@ class LoginForm extends Form {
 	}
 
 	public function __toString() {
-		$passwordClass = $this->hasError('password') ? ' class="error"' : null;
-		$passwordMessage = $this->hasError('password') ? '<small class="error">Le mot de passe que vous avez entré est invalide.</small>' : null;
-
 		$html = <<<FORM
 	<div class="row">
 		<input type="hidden" name="form" value="login" />
@@ -25,8 +22,8 @@ class LoginForm extends Form {
 		<div class="row">
 			<p class="twelve columns">
 				<label for="password">Mot de passe</label>
-				<input type="password" name="data[password]" id="password" autofocus="autofocus"$passwordClass />
-				$passwordMessage
+				<input type="password" name="data[password]" id="password" autofocus="autofocus"{$this->errorClass('password')} />
+				{$this->errorMessage('password')}
 			</p>
 		</div>
 

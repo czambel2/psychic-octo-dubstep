@@ -51,6 +51,22 @@ abstract class Form {
 		return $this->errors[$field];
 	}
 
+	protected function errorClass($field) {
+		if($this->hasError($field)) {
+			return 'class="error" ';
+		} else {
+			return null;
+		}
+	}
+
+	protected function errorMessage($field) {
+		if($this->hasError($field)) {
+			return '<small class="error">' . $this->getError($field) . '</small>';
+		} else {
+			return null;
+		}
+	}
+
 	/**
 	 * Vérifie si le formulaire est valide (i.e. il ne contient aucun message d'erreur)
 	 * @return boolean si le formulaire est valide ou non.
