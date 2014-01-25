@@ -41,7 +41,10 @@
 					</li>
 					<li class="divider"></li>
 					<li class="has-dropdown">
-						<a href="#">Gestion de la course actuelle</a>
+						<a href="#">
+							<span class="show-for-large-up">Gestion de la course actuelle</span>
+							<span class="hide-for-large-up">Course actuelle</span>
+						</a>
 						<ul class="dropdown">
 							<li>
 								<a href="#">État de la course</a>
@@ -73,7 +76,10 @@
 					</li>
 					<li class="divider"></li>
 					<li class="has-dropdown">
-						<a href="#">Gestion des courses</a>
+						<a href="#">
+							<span class="show-for-large-up">Gestion des courses</span>
+							<span class="hide-for-large-up">Courses</span>
+						</a>
 						<ul class="dropdown">
 							<li>
 								<a href="<?= url('race.index') ?>">Afficher toutes les courses</a>
@@ -88,7 +94,10 @@
 					</li>
 					<li class="divider"></li>
 					<li class="has-dropdown">
-						<a href="#">Gestion des cyclistes</a>
+						<a href="#">
+							<span class="show-for-large-up">Gestion des cyclistes</span>
+							<span class="hide-for-large-up">Cyclistes</span>
+						</a>
 						<ul class="dropdown">
 							<li>
 								<a href="<?= url('cyclist.index') ?>">Afficher les cyclistes</a>

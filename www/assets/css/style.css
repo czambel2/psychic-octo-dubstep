@@ -46,6 +46,14 @@ pre, code {
 	margin: 0 0 4px;
 }
 
+.contains-radio label {
+	display: inline-block;
+}
+
+.contains-radio small {
+	margin-top: 0;
+}
+
 /*body {
 	background-color: beige;
 	cursor: default;

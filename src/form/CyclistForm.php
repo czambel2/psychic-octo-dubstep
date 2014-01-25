@@ -46,7 +46,7 @@ class CyclistForm extends Form {
 	<div class="two columns">
 		<label for="data_title" class="right inline">Titre&nbsp;:</label>
 	</div>
-	<div class="ten columns">
+	<div class="ten columns contains-radio">
 		<label for="data_title_m">
 			<input name="data[title]" required="required" type="radio" id="data_title_m" value="M"{$this->valueChecked('title', 'M')} />
 			Monsieur
