@@ -141,4 +141,12 @@ class Session implements ArrayAccess {
 			return array();
 		}
 	}
+
+	public function addFlash(Flash $flash) {
+		if(!array_key_exists('flash', $this->parameters)) {
+			$this->parameters['flash'] = array();
+		}
+
+		$this->parameters['flash'][] = $flash;
+	}
 }
