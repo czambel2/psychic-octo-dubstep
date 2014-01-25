@@ -4,14 +4,8 @@
  * Le formulaire de connexion.
  */
 class LoginForm extends Form {
-	public function __construct() {
-		$this->fields = array('password');
-	}
-
 	protected function validate() {
-		if(!array_key_exists('password', $this->data) or $this->data['password'] != Config::get('password')) {
-			$this->addError('password', 'Le mot de passe entré est incorrect.');
-		}
+		$this->check()->equals('password', Config::get('password'), 'Le mot de passe entré est incorrect.');
 	}
 
 	public function __toString() {

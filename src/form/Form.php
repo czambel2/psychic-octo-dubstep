@@ -25,12 +25,35 @@ abstract class Form {
 	protected $isValidated = false;
 
 	/**
+	 * @var Validation La classe de validation correspondant au formulaire.
+	 */
+	protected $validation;
+
+	/**
+	 * Constructeur.
+	 */
+	public function __construct() {
+		$this->validation = new Validation($this);
+	}
+
+	/**
 	 * Ajoute un message d'erreur au champ spécifié.
 	 * @param string $field Le nom du champ.
 	 * @param string $error Le message d'erreur à afficher.
 	 */
 	public function addError($field, $error) {
-		$this->errors[$field] = $error;
+		if(!array_key_exists($field, $this->errors)) {
+			// On empêche la cascade des erreurs (seule la première sera prise en compte)
+			$this->errors[$field] = $error;
+		}
+	}
+
+	/**
+	 * Récupère les valeurs de tous les champs du formulaire.
+	 * @return array Les valeurs de tous les champs du formulaire.
+	 */
+	public function getAllData() {
+		return $this->data;
 	}
 
 	/**
@@ -117,7 +140,12 @@ abstract class Form {
 	 */
 	protected function valueEscaped($field) {
 		if(array_key_exists($field, $this->data)) {
-			return htmlspecialchars($this->data[$field]);
+			if($this->data[$field] instanceof DateTime) {
+				// Si la valeur est une date, on la formate avant de l'afficher
+				return $this->data[$field]->format('d/m/Y');
+			} else {
+				return htmlspecialchars($this->data[$field]);
+			}
 		} else {
 			return null;
 		}
@@ -163,6 +191,14 @@ abstract class Form {
 	 */
 	public function setData($field, $value) {
 		$this->data[$field] = $value;
+	}
+
+	/**
+	 * Helper permettant d'appeler des fonctions de validation.
+	 * @return Validation La classe Validation correspondant au formulaire.
+	 */
+	public function check() {
+		return $this->validation;
 	}
 
 	/**
