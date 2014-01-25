@@ -48,17 +48,17 @@ class CyclistForm extends Form {
 	</div>
 	<div class="ten columns">
 		<label for="data_title_m">
-			<input name="data[title]" required="required" type="radio" id="data_title_m" value="m"{$this->valueChecked('title', 'm')} />
+			<input name="data[title]" required="required" type="radio" id="data_title_m" value="M"{$this->valueChecked('title', 'M')} />
 			Monsieur
 		</label>
 
 		<label for="data_title_mme">
-			<input name="data[title]" required="required" type="radio" id="data_title_mme" value="mme"{$this->valueChecked('title', 'mme')} />
+			<input name="data[title]" required="required" type="radio" id="data_title_mme" value="MME"{$this->valueChecked('title', 'MME')} />
 			Madame
 		</label>
 
 		<label for="data_title_mlle">
-			<input name="data[title]" required="required" type="radio" id="data_title_mlle" value="mlle"{$this->valueChecked('title', 'mlle')} />
+			<input name="data[title]" required="required" type="radio" id="data_title_mlle" value="MLLE"{$this->valueChecked('title', 'MLLE')} />
 			Mademoiselle
 		</label>
 
