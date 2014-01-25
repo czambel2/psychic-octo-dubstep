@@ -111,6 +111,18 @@ abstract class Form {
 		$this->data = $data;
 	}
 
+	public function getData($field) {
+		if(array_key_exists($field, $this->data)) {
+			return $this->data[$field];
+		} else {
+			return null;
+		}
+	}
+
+	public function setData($field, $value) {
+		$this->data[$field] = $value;
+	}
+
 	/**
 	 * Vérifie si les données entrées par l'utilisateur sont valides.
 	 * @return boolean true si les données sont valides, false sinon.

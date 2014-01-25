@@ -33,11 +33,17 @@ class CyclistForm extends Form {
 
 		if(array_key_exists('birthDate', $this->data) and $this->data['birthDate'] != null) {
 			$matches = array();
-			if(preg_match('#^([0-9]{1,2})/([0-9]{1,2})/([0-9]{2,4})$#', $this->data['birthDate'], $matches)) {
+			if(preg_match('#^([0-9]{1,2})[/\- ]?([0-9]{1,2})[/\- ]?([0-9]{2,4})$#', $this->data['birthDate'], $matches)) {
 				try {
-					$dateTime = DateTime::createFromFormat('d/m/Y', $this->data['birthDate']);
-					if($dateTime->format('d/m/Y') != $this->data['birthDate']) {
+					if(strlen($matches[3]) == 2) {
+						$matches[3] += 1900;
+					}
+
+					$dateTime = DateTime::createFromFormat('d/m/Y', $matches[1] . '/' . $matches[2] . '/' . $matches[3]);
+					if($dateTime->format('d/m/Y') != $matches[1] . '/' . $matches[2] . '/' . $matches[3]) {
 						$this->addError('birthDate', 'La date entrée est invalide.');
+					} else {
+						$this->setData('birthDate', $dateTime);
 					}
 				} catch(Exception $ex) {
 					$this->addError('birthDate', 'La date entrée est invalide.');
