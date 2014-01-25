@@ -51,6 +51,12 @@ abstract class Form {
 		return $this->errors[$field];
 	}
 
+	/**
+	 * Retourne le code HTML permettant de mettre un champ en erreur.
+	 * Cette méthode est un helper HTML.
+	 * @param string $field Le nom du champ.
+	 * @return null|string Le code HTML si le champ comporte une erreur, null sinon.
+	 */
 	protected function errorClass($field) {
 		if($this->hasError($field)) {
 			return ' class="error" ';
@@ -59,6 +65,12 @@ abstract class Form {
 		}
 	}
 
+	/**
+	 * Retourne le code HTML permettant d'afficher le message d'erreur correspondant à un champ.
+	 * Cette méthode est un helper HTML.
+	 * @param string $field Le nom du champ.
+	 * @return null|string Le code HTML si le champ comporte une erreur, null sinon.
+	 */
 	protected function errorMessage($field) {
 		if($this->hasError($field)) {
 			return '<small class="error">' . $this->getError($field) . '</small>';
@@ -67,6 +79,13 @@ abstract class Form {
 		}
 	}
 
+	/**
+	 * Retourne le code HTML permettant de cocher automatiquement un élément HTML.
+	 * Cette méthode est un helper HTML.
+	 * @param string $field Le nom du champ.
+	 * @param string $current La valeur du champ en cours.
+	 * @return null|string Le code HTML si le champ est coché, null sinon.
+	 */
 	protected function valueChecked($field, $current) {
 		if(array_key_exists($field, $this->data) and $this->data[$field] == $current) {
 			return ' checked="checked" ';
@@ -75,6 +94,13 @@ abstract class Form {
 		}
 	}
 
+	/**
+	 * Retourne le code HTML permettant de sélectionner automatiquement un élément HTML.
+	 * Cette méthode est un helper HTML.
+	 * @param string $field Le nom du champ.
+	 * @param string $current La valeur du champ en cours.
+	 * @return null|string Le code HTML si le champ est sélectionné, null sinon.
+	 */
 	protected function valueSelected($field, $current) {
 		if(array_key_exists($field, $this->data) and $this->data[$field] == $current) {
 			return ' selected="selected" ';
@@ -83,6 +109,12 @@ abstract class Form {
 		}
 	}
 
+	/**
+	 * Retourne la valeur échappée d'un champ.
+	 * Cette méthode est un helper HTML.
+	 * @param string $field Le nom du champ.
+	 * @return null|string La valeur échappée si le champ existe, null sinon.
+	 */
 	protected function valueEscaped($field) {
 		if(array_key_exists($field, $this->data)) {
 			return htmlspecialchars($this->data[$field]);
@@ -111,6 +143,11 @@ abstract class Form {
 		$this->data = $data;
 	}
 
+	/**
+	 * Récupère la valeur d'un champ.
+	 * @param string $field Le nom du champ.
+	 * @return string|null La valeur du champ.
+	 */
 	public function getData($field) {
 		if(array_key_exists($field, $this->data)) {
 			return $this->data[$field];
@@ -119,6 +156,11 @@ abstract class Form {
 		}
 	}
 
+	/**
+	 * Définit la valeur d'un champ.
+	 * @param string $field Le nom du champ.
+	 * @param string $value La valeur du champ.
+	 */
 	public function setData($field, $value) {
 		$this->data[$field] = $value;
 	}
