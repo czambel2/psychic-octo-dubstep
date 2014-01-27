@@ -3,7 +3,7 @@
 class CyclistForm extends Form {
 	function __construct() {
 		parent::__construct();
-		$this->data['title'] = 'm';
+		$this->data['title'] = 'M';
 		$this->data['category'] = ' ';
 	}
 
