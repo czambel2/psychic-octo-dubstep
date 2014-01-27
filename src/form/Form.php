@@ -211,5 +211,19 @@ abstract class Form {
 	 * Récupère le code HTML du formulaire.
 	 * @return string le code HTML du formulaire.
 	 */
-	public abstract function __toString();
+	public function __toString() {
+		$viewName = get_class($this);
+		$viewName = preg_replace('#Form$#', '', $viewName);
+		$viewName = lcfirst($viewName);
+
+		// Petit hack pour éviter de mélanger le formulaire à la page
+		$currentContent = ob_get_clean();
+		ob_start();
+		require_once "/../views/forms/$viewName.php";
+		$returnValue = ob_get_clean();
+		ob_start();
+		echo $currentContent;
+
+		return $returnValue;
+	}
 }
