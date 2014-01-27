@@ -1,7 +1,7 @@
 <h1>Liste des courses</h1>
 
 <div class="row">
-	<table class="twelve">
+	<table class="twelve contains-data first-desc">
 		<thead>
 			<tr>
 				<th>Numéro</th>

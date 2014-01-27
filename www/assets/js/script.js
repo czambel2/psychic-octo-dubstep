@@ -16,4 +16,6 @@ jQuery().ready(function () {
 		"oLanguage": { "sUrl": "/assets/js/vendor/jquery.dataTables.fr.json" },
 		"iDisplayLength": 20
 	});
+
+	$('table.contains-data.first-desc').dataTable().fnSort([0, 'desc']);
 });
