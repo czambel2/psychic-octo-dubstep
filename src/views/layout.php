@@ -14,6 +14,7 @@
 	<script src="<?= basePath() ?>/assets/js/foundation/foundation.min.js"></script>
 	<script src="<?= basePath() ?>/assets/js/vendor/jquery-ui.min.js"></script>
 	<script src="<?= basePath() ?>/assets/js/vendor/jquery.dataTables.min.js"></script>
+	<script src="<?= basePath() ?>/assets/js/vendor/jquery.highlight-4.js"></script>
 	<script src="<?= basePath() ?>/assets/js/script.js"></script>
 </head>
 <body class="special">
