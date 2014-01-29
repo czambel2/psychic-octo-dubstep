@@ -18,16 +18,17 @@ jQuery().ready(function () {
 		"oLanguage": { "sUrl": "/assets/js/vendor/jquery.dataTables.fr.json" },
 		"iDisplayLength": 20,
 		"fnInitComplete": function(oSettings, json) {
-			$('.dataTables_filter input').attr('placeholder', 'Rechercher…').keyup(function(e) {
-				$('table.contains-data').removeHighlight();
-				if($(this).val() != '') {
-					$('table.contains-data').highlight($(this).val());
-				}
-			});
+			$('.dataTables_filter input').attr('placeholder', 'Rechercher…');
 
 			if($(this).is('.first-desc')) {
 				$(this).dataTable().fnSort([ [0, 'desc'] ]);
 			}
+		},
+		"fnDrawCallback": function(oSettings) {
+			$(this).removeHighlight();
+			if($('.dataTables_filter input').val() != '') {
+				$('table.contains-data').highlight($('.dataTables_filter input').val());
+			}
 		}
-	} );
+	});
 });
