@@ -14,11 +14,11 @@
 		<tbody>
 			<?php foreach($cyclistes as $cycliste): ?>
 				<tr>
-					<td><?= $cycliste["numcyc"] ?></td>
-					<td><?= $cycliste["nom"] ?></td>
-					<td><?= $cycliste["prenom"] ?></td>
-					<td><?= $cycliste["adresse"] ?></td>
-					<td><?= $cycliste["ville"] ?></td>
+					<td><?= e($cycliste["numcyc"]) ?></td>
+					<td><?= e($cycliste["nom"]) ?></td>
+					<td><?= e($cycliste["prenom"]) ?></td>
+					<td><?= e($cycliste["adresse"]) ?></td>
+					<td><?= e($cycliste["ville"]) ?></td>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>

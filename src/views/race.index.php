@@ -16,13 +16,13 @@
 		<tbody>
 			<?php foreach($courses as $course): ?>
 				<tr>
-					<td><?= $course["numcourse"] ?></td>
+					<td><?= e($course["numcourse"]) ?></td>
 					<td><?= empty($course["datecourse"]) ? null : (new DateTime($course["datecourse"]))->format('d/m/Y') ?></td>
-					<td><?= $course["anneecourse"] ?></td>
-					<td><?= $course["nbparticipantstotal"] ?></td>
-					<td><?= $course["distancec1"] ?></td>
-					<td><?= $course["distancec2"] ?></td>
-					<td><?= $course["distancec3"] ?></td>
+					<td><?= e($course["anneecourse"]) ?></td>
+					<td><?= e($course["nbparticipantstotal"]) ?></td>
+					<td><?= e($course["distancec1"]) ?></td>
+					<td><?= e($course["distancec2"]) ?></td>
+					<td><?= e($course["distancec3"]) ?></td>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>

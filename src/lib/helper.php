@@ -17,3 +17,12 @@ function url($route, array $parameters = array()) {
 function basePath() {
 	return Config::get('basePath');
 }
+
+/**
+ * Échappe une chaîne de caractères pour l'afficher à l'écran.
+ * @param string $string La chaîne de caractères à afficher.
+ * @return string La chaîne de caractères échappée.
+ */
+function e($string) {
+	return htmlspecialchars($string);
+}
