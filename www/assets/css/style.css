@@ -54,6 +54,10 @@ pre, code {
 	margin-top: 0;
 }
 
+.highlight {
+	background-color: yellow;
+}
+
 /*body {
 	background-color: beige;
 	cursor: default;
