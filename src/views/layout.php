@@ -2,7 +2,7 @@
 <!--[if IE 8]><html xmlns="http://www.w3.org/1999/xhtml" class="no-js lt-ie9" lang="fr"><![endif]-->
 <!--[if gt IE 8]><!--><html xmlns="http://www.w3.org/1999/xhtml" class="no-js" lang="fr"><!--<![endif]-->
 <head>
-	<meta charset="iso-8859-1" />
+	<meta charset="windows-1252" />
 	<meta name="viewport" content="width=device-width" />
 	<title>Lionne</title>
 
