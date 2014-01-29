@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="fr"><![endif]-->
-<!--[if gt IE 8]><!--><html class="no-js" lang="fr"><!--<![endif]-->
+<!--[if IE 8]><html xmlns="http://www.w3.org/1999/xhtml" class="no-js lt-ie9" lang="fr"><![endif]-->
+<!--[if gt IE 8]><!--><html xmlns="http://www.w3.org/1999/xhtml" class="no-js" lang="fr"><!--<![endif]-->
 <head>
 	<meta charset="iso-8859-1" />
 	<meta name="viewport" content="width=device-width" />
