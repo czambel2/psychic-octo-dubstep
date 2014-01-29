@@ -12,10 +12,22 @@ jQuery().ready(function () {
 		}
 	});
 
-	$('table.contains-data').dataTable({
-		"oLanguage": { "sUrl": "/assets/js/vendor/jquery.dataTables.fr.json" },
-		"iDisplayLength": 20
-	});
+	$('.dataTables_wrapper *').css('background-color', 'red');
 
-	$('table.contains-data.first-desc').dataTable().fnSort([0, 'desc']);
+	$('table.contains-data').dataTable( {
+		"oLanguage": { "sUrl": "/assets/js/vendor/jquery.dataTables.fr.json" },
+		"iDisplayLength": 20,
+		"fnInitComplete": function(oSettings, json) {
+			$('.dataTables_filter input').attr('placeholder', 'Rechercher…').keyup(function(e) {
+				$('table.contains-data').removeHighlight();
+				if($(this).val() != '') {
+					$('table.contains-data').highlight($(this).val());
+				}
+			});
+
+			if($(this).is('.first-desc')) {
+				$(this).dataTable().fnSort([ [0, 'desc'] ]);
+			}
+		}
+	} );
 });
