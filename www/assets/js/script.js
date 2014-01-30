@@ -1,6 +1,6 @@
 jQuery().ready(function () {
 	$('.exception.message').css('cursor', 'help');
-	$('.exception.trace').hide();
+	$('.exception.trace, .hide-script').hide();
 
 	$('.exception.message').click(function () {
 		if ($('.exception.trace').is(':visible')) {
@@ -31,4 +31,40 @@ jQuery().ready(function () {
 			}
 		}
 	});
+
+	var recompenseModifiee = null;
+	$('.modifier-recompense').click(function(e) {
+		e.preventDefault();
+
+		recompenseModifiee = $(this).attr('data-number');
+
+		// Désactivation de tous les autres champs
+		$('tr').find('td:has(span) span, td:has(a) .modifier-recompense').show();
+		$('tr').find('td:has(span) input, td:has(a) .ok-modif-recompense').hide();
+
+		var trConcerne = $('tr[data-number=' + recompenseModifiee + ']');
+
+		trConcerne.find('td:has(span) span, td:has(a) .modifier-recompense').hide();
+		trConcerne.find('td:has(span) input, td:has(a) .ok-modif-recompense').show();
+	});
+
+	$('.ajax-editable').submit(function(e) {
+		e.preventDefault();
+
+		$.ajax({
+			'type': 'POST',
+			'url': '/api/modifier-recompense',
+			'data': {
+				'NbParticipation': recompenseModifiee,
+				'LibRecompense': $('tr[data-number=' + recompenseModifiee + '] input').val()
+			},
+			'success': function() {
+				console.log($('tr[data-number=' + recompenseModifiee + '] span'));
+				$('tr[data-number=' + recompenseModifiee + '] span').html($('tr[data-number=' + recompenseModifiee + '] input').val());
+
+				$('tr').find('td:has(span) span, td:has(a) .modifier-recompense').show();
+				$('tr').find('td:has(span) input, td:has(a) .ok-modif-recompense').hide();
+			}
+		});
+	})
 });

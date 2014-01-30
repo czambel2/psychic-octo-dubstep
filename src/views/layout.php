@@ -71,7 +71,7 @@
 							</li>
 							<li class="divider"></li>
 							<li>
-								<a href="#">Gestion des récompenses</a>
+								<a href="<?= url('thisRace.rewards') ?>">Gestion des récompenses</a>
 							</li>
 						</ul>
 					</li>

@@ -44,6 +44,9 @@ abstract class Router {
 		} elseif(preg_match('#^/cycliste/ajouter$#', $url)) {
 			// Ajouter un cycliste
 			$route = "cyclist.add";
+		} elseif(preg_match('#^/course/recompenses$#',$url)) {
+			// Liste des récompenses
+			$route = "thisRace.rewards";
 		} elseif(preg_match("#^/api/modifier-recompense$#", $url)) {
 			// API : Modifier une récompense
 			$route = "api.editReward";
@@ -87,6 +90,9 @@ abstract class Router {
 				break;
 			case 'cyclist.add':
 				$url = '/cycliste/ajouter';
+				break;
+			case 'thisRace.rewards':
+				$url = '/course/recompenses';
 				break;
 			case 'api.editReward':
 				$url = '/api/modifier-recompense';
