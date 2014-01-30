@@ -69,6 +69,10 @@ pre, code {
 	margin-left: 1ex;
 }
 
+.button {
+	text-shadow: 0 0 0;
+}
+
 /*body {
 	background-color: beige;
 	cursor: default;

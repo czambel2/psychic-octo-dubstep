@@ -55,6 +55,9 @@ abstract class Router {
 		} elseif(preg_match("#^/course/recompense/ajout$#", $url)) {
 			// Ajout d'une récompense
 			$route = "thisRace.addReward";
+		} elseif(preg_match("#^/courses/modifier$#", $url)) {
+			// Modification d'une course
+			$route = "race.edit";
 		} else {
 			// L'URL ne correspond à aucune route : on lève une exception
 			throw new Http404Exception($url);
@@ -118,6 +121,9 @@ abstract class Router {
 				break;
 			case 'thisRace.addReward':
 				$url = '/course/recompense/ajout';
+				break;
+			case 'race.edit':
+				$url = '/courses/modifier';
 				break;
 			default:
 				throw new RouterException($route);

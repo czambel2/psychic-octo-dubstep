@@ -17,8 +17,17 @@ class RaceController extends Controller {
 		$this->render("race.index", array('courses' => $courses));
 	}
 
-	public function modify() {
+	public function edit() {
+		$form = new RaceForm();
 
+		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] = 'race') {
+			$form->bind($_POST['data']);
+			if($form->isValid()) {
+
+			}
+		}
+
+		$this->render('race.edit', array('form' => $form));
 	}
 
 	public function add() {

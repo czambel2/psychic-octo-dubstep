@@ -1,7 +1,7 @@
 <h1>Liste des courses</h1>
 
 <div class="row">
-	<table class="twelve columns contains-data first-desc">
+	<table class="twelve contains-data first-desc">
 		<thead>
 			<tr>
 				<th>Numéro</th>
@@ -11,6 +11,7 @@
 				<th>Distance C1</th>
 				<th>Distance C2</th>
 				<th>Distance C2</th>
+				<th>Action</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -23,6 +24,7 @@
 					<td><?= e($course["distancec1"]) ?></td>
 					<td><?= e($course["distancec2"]) ?></td>
 					<td><?= e($course["distancec3"]) ?></td>
+					<td class="text-center"><a class="small button" href="<?= url('race.edit') ?>?id=<?= $course["numcourse"] ?>">Modifier</a></td>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>
