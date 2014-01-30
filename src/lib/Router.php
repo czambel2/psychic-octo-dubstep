@@ -18,7 +18,6 @@ abstract class Router {
 		$url = preg_replace("#^" . preg_quote(Config::get('basePath')) . '#', '', $url);
 		$url = preg_replace("#(\?.+)$#", '', $url);
 
-		$returnValue = array();
 		$pregParams = array();
 		$parameters = array();
 
@@ -35,7 +34,7 @@ abstract class Router {
 		} elseif(preg_match("#^/impression/liste-cyclistes$#", $url)) {
 			// Liste des cyclistes enregistrés
 			$route = "display.cyclists";
-		} elseif(preg_match("#^/course/liste$#", $url)) {
+		} elseif(preg_match("#^/courses/liste$#", $url)) {
 			// Liste des courses enregistrés
 			$route = "race.index";
 		} elseif(preg_match('#^/cycliste/liste$#', $url)) {
@@ -91,7 +90,7 @@ abstract class Router {
 				$url = '/impression/liste-cyclistes';
 				break;
 			case 'race.index' :
-				$url = '/course/liste';
+				$url = '/courses/liste';
 				break;
 			case 'cyclist.index':
 				$url = '/cycliste/liste';
