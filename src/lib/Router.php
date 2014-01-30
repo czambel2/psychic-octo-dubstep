@@ -52,7 +52,18 @@ abstract class Router {
 			throw new Http404Exception($url);
 		}
 
-		// On convertit le nom du contrôleur, et de l'action
+		return self::parseRoute($route, $parameters);
+	}
+
+	/**
+	 * Convertit une route en tuple [contrôleur, action, paramètres]
+	 * @param string $route La route demandée.
+	 * @param array $parameters Les paramètres.
+	 * @return array Le tableau de retour.
+	 */
+	public static function parseRoute($route, $parameters = array()) {
+		$returnValue = array();
+
 		$controllerAndAction = explode('.', $route);
 		$returnValue["controller"] = lcfirst($controllerAndAction[0] . "Controller");
 		$returnValue["action"] = $controllerAndAction[1];
