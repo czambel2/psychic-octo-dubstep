@@ -46,6 +46,12 @@ abstract class Router {
 		} elseif(preg_match('#^/course/etat$#', $url)) {
 			// État de la course
 			$route = "thisRace.status";
+		} elseif(preg_match('#^/course/recompenses$#',$url)) {
+			// Liste des récompenses
+			$route = "thisRace.rewards";
+		} elseif(preg_match("#^/api/modifier-recompense$#", $url)) {
+			// API : Modifier une récompense
+			$route = "api.editReward";
 		} else {
 			// L'URL ne correspond à aucune route : on lève une exception
 			throw new Http404Exception($url);
@@ -100,6 +106,12 @@ abstract class Router {
 				break;
 			case 'thisRace.status':
 				$url = '/course/etat';
+				break;
+			case 'thisRace.rewards':
+				$url = '/course/recompenses';
+				break;
+			case 'api.editReward':
+				$url = '/api/modifier-recompense';
 				break;
 			default:
 				throw new RouterException($route);

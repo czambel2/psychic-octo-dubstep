@@ -127,4 +127,19 @@ class ThisRaceController extends Controller {
 	public  function stop() {
 
 	}
+
+	public function rewards() {
+		$db = DB::getInstance();
+		$q = $db->query("SELECT
+			R.nbparticipation, R.librecompense
+		FROM
+			RECOMPENSE R
+		ORDER BY
+			R.NbParticipation ASC");
+		$q->execute();
+
+		$rewards = $q->fetchAll();
+
+		$this->render("thisRace.rewards", array('rewards' => $rewards));
+	}
 }

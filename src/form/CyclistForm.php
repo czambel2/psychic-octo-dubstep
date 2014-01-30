@@ -15,7 +15,7 @@ class CyclistForm extends Form {
 		$this->check()->length('lastName', null, 25);
 
 		$this->check()->required('firstName');
-		$this->check()->length('lastName', null, 20);
+		$this->check()->length('firstName', null, 20);
 
 		$this->check()->email('email');
 
