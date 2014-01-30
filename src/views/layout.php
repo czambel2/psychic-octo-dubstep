@@ -42,13 +42,13 @@
 					</li>
 					<li class="divider"></li>
 					<li class="has-dropdown">
-						<a href="#">
+						<a href="<?= url('thisRace.status') ?>">
 							<span class="show-for-large-up">Gestion de la course actuelle</span>
 							<span class="hide-for-large-up">Course actuelle</span>
 						</a>
 						<ul class="dropdown">
 							<li>
-								<a href="#">État de la course</a>
+								<a href="<?= url('thisRace.status') ?>">État de la course</a>
 							</li>
 							<li class="divider"></li>
 							<li>

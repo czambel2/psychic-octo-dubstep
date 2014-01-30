@@ -44,6 +44,9 @@ abstract class Router {
 		} elseif(preg_match('#^/cycliste/ajouter$#', $url)) {
 			// Ajouter un cycliste
 			$route = "cyclist.add";
+		} elseif(preg_match('#^/course/etat$#', $url)) {
+			// État de la course
+			$route = "thisRace.status";
 		} else {
 			// L'URL ne correspond à aucune route : on lève une exception
 			throw new Http404Exception($url);
@@ -84,6 +87,9 @@ abstract class Router {
 				break;
 			case 'cyclist.add':
 				$url = '/cycliste/ajouter';
+				break;
+			case 'thisRace.status':
+				$url = '/course/etat';
 				break;
 			default:
 				throw new RouterException($route);
