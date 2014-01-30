@@ -18,7 +18,6 @@ abstract class Router {
 		$url = preg_replace("#^" . preg_quote(Config::get('basePath')) . '#', '', $url);
 		$url = preg_replace("#(\?.+)$#", '', $url);
 
-		$returnValue = array();
 		$pregParams = array();
 		$parameters = array();
 
@@ -35,7 +34,7 @@ abstract class Router {
 		} elseif(preg_match("#^/impression/liste-cyclistes$#", $url)) {
 			// Liste des cyclistes enregistrés
 			$route = "display.cyclists";
-		} elseif(preg_match("#^/course/liste$#", $url)) {
+		} elseif(preg_match("#^/courses/liste$#", $url)) {
 			// Liste des courses enregistrés
 			$route = "race.index";
 		} elseif(preg_match('#^/cycliste/liste$#', $url)) {
@@ -44,6 +43,9 @@ abstract class Router {
 		} elseif(preg_match('#^/cycliste/ajouter$#', $url)) {
 			// Ajouter un cycliste
 			$route = "cyclist.add";
+		} elseif(preg_match('#^/course/etat$#', $url)) {
+			// État de la course
+			$route = "thisRace.status";
 		} elseif(preg_match('#^/course/recompenses$#',$url)) {
 			// Liste des récompenses
 			$route = "thisRace.rewards";
@@ -58,7 +60,18 @@ abstract class Router {
 			throw new Http404Exception($url);
 		}
 
-		// On convertit le nom du contrôleur, et de l'action
+		return self::parseRoute($route, $parameters);
+	}
+
+	/**
+	 * Convertit une route en tuple [contrôleur, action, paramètres]
+	 * @param string $route La route demandée.
+	 * @param array $parameters Les paramètres.
+	 * @return array Le tableau de retour.
+	 */
+	public static function parseRoute($route, $parameters = array()) {
+		$returnValue = array();
+
 		$controllerAndAction = explode('.', $route);
 		$returnValue["controller"] = lcfirst($controllerAndAction[0] . "Controller");
 		$returnValue["action"] = $controllerAndAction[1];
@@ -86,13 +99,16 @@ abstract class Router {
 				$url = '/impression/liste-cyclistes';
 				break;
 			case 'race.index' :
-				$url = '/course/liste';
+				$url = '/courses/liste';
 				break;
 			case 'cyclist.index':
 				$url = '/cycliste/liste';
 				break;
 			case 'cyclist.add':
 				$url = '/cycliste/ajouter';
+				break;
+			case 'thisRace.status':
+				$url = '/course/etat';
 				break;
 			case 'thisRace.rewards':
 				$url = '/course/recompenses';
