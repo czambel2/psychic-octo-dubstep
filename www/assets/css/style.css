@@ -62,6 +62,13 @@ pre, code {
 	margin: 0 !important;
 }
 
+.required:after {
+	content: "*";
+	color: red;
+	font-weight: bold;
+	margin-left: 1ex;
+}
+
 /*body {
 	background-color: beige;
 	cursor: default;

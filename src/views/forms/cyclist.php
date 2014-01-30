@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="two columns">
-		<label for="data_title" class="right inline">Titre&nbsp;:</label>
+		<label for="data_title" class="right inline required">Titre&nbsp;:</label>
 	</div>
 	<div class="ten columns contains-radio">
 		<label for="data_title_m">
@@ -24,14 +24,14 @@
 
 <div class="row">
 	<div class="two columns">
-		<label for="data_lastName" class="right inline">Nom&nbsp;:</label>
+		<label for="data_lastName" class="right inline required">Nom&nbsp;:</label>
 	</div>
 	<div class="four columns">
 		<input name="data[lastName]" required="required" maxlength="25" type="text" id="data_lastName" value="<?= $this->valueEscaped('lastName') ?>"<?= $this->errorClass('lastName') ?> />
 		<?= $this->errorMessage('lastName') ?>
 	</div>
 	<div class="two columns">
-		<label for="data_firstName" class="right inline">Prénom&nbsp;:</label>
+		<label for="data_firstName" class="right inline required">Prénom&nbsp;:</label>
 	</div>
 	<div class="four columns">
 		<input name="data[firstName]" required="required" maxlength="20" type="text" id="data_firstName" value="<?= $this->valueEscaped('firstName') ?>"<?= $this->errorClass('firstName') ?> />
@@ -51,17 +51,18 @@
 
 <div class="row">
 	<div class="two columns">
-		<label for="data_birthDate" class="right inline">Date de naissance&nbsp;:</label>
+		<label for="data_birthDate" class="right inline required">Date de naissance&nbsp;:</label>
 	</div>
-	<div class="ten columns">
+	<div class="four columns">
 		<input name="data[birthDate]" required="required" type="date" id="data_birthDate" value="<?= $this->valueEscaped('birthDate') ?>"<?= $this->errorClass('birthDate') ?> />
 		<?= $this->errorMessage('birthDate') ?>
 	</div>
+	<div class="six columns"></div>
 </div>
 
 <div class="row">
 	<div class="two columns">
-		<label for="data_address" class="right inline">Adresse&nbsp;:</label>
+		<label for="data_address" class="right inline required">Adresse&nbsp;:</label>
 	</div>
 	<div class="ten columns">
 		<input name="data[address]" required="required" maxlength="35" type="text" id="data_address" value="<?= $this->valueEscaped('address') ?>"<?= $this->errorClass('address') ?> />
@@ -72,14 +73,14 @@
 
 <div class="row">
 	<div class="two columns">
-		<label for="data_zipcode" class="right inline">Code postal&nbsp;:</label>
+		<label for="data_zipcode" class="right inline required">Code postal&nbsp;:</label>
 	</div>
 	<div class="four columns">
 		<input name="data[zipcode]" required="required" maxlength="5" type="text" id="data_zipcode" value="<?= $this->valueEscaped('zipcode') ?>"<?= $this->errorClass('zipcode') ?> />
 		<?= $this->errorMessage('zipcode') ?>
 	</div>
 	<div class="two columns">
-		<label for="data_city" class="right inline">Ville&nbsp;:</label>
+		<label for="data_city" class="right inline required">Ville&nbsp;:</label>
 	</div>
 	<div class="four columns">
 		<input name="data[city]" required="required" maxlength="25" type="text" id="data_city" value="<?= $this->valueEscaped('city') ?>"<?= $this->errorClass('city') ?> />

@@ -19,6 +19,7 @@ class CyclistForm extends Form {
 
 		$this->check()->email('email');
 
+		$this->check()->required('birthDate');
 		$this->check()->date('birthDate');
 
 		$this->check()->required('address');
