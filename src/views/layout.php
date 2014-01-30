@@ -77,7 +77,7 @@
 					</li>
 					<li class="divider"></li>
 					<li class="has-dropdown">
-						<a href="#">
+						<a href="<?= url('race.index') ?>">
 							<span class="show-for-large-up">Gestion des courses</span>
 							<span class="hide-for-large-up">Courses</span>
 						</a>
@@ -95,7 +95,7 @@
 					</li>
 					<li class="divider"></li>
 					<li class="has-dropdown">
-						<a href="#">
+						<a href="<?= url('cyclist.index') ?>">
 							<span class="show-for-large-up">Gestion des cyclistes</span>
 							<span class="hide-for-large-up">Cyclistes</span>
 						</a>
