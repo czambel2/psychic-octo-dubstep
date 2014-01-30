@@ -37,3 +37,9 @@
 		</div>
 	</form>
 </div>
+
+<div class="row">
+	<div class="two columns centered text-center">
+		<a class="button" href="<?= url('thisRace.addReward') ?>">Ajouter</a>
+	</div>
+</div>

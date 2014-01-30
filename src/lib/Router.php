@@ -50,6 +50,9 @@ abstract class Router {
 		} elseif(preg_match("#^/api/modifier-recompense$#", $url)) {
 			// API : Modifier une récompense
 			$route = "api.editReward";
+		} elseif(preg_match("#^/course/recompense/ajout$#", $url)) {
+			// Ajout d'une récompense
+			$route = "thisRace.addReward";
 		} else {
 			// L'URL ne correspond à aucune route : on lève une exception
 			throw new Http404Exception($url);
@@ -96,6 +99,9 @@ abstract class Router {
 				break;
 			case 'api.editReward':
 				$url = '/api/modifier-recompense';
+				break;
+			case 'thisRace.addReward':
+				$url = '/course/recompense/ajout';
 				break;
 			default:
 				throw new RouterException($route);
