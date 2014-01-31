@@ -97,10 +97,25 @@ abstract class Router {
 		$returnValue = self::parseRoute($route, $parameters);
 
 		if(array_key_exists($returnValue["controllerShort"], self::$routes) and array_key_exists($returnValue["action"], self::$routes[$returnValue["controllerShort"]])) {
-			return $url . self::$routes[$returnValue["controllerShort"]][$returnValue["action"]];
+			$url .= self::$routes[$returnValue["controllerShort"]][$returnValue["action"]];
 		} else {
 			throw new RouterException($route);
 		}
+
+		// On rajoute les paramètres GET
+		if(count($parameters)) {
+			$url .= '?';
+
+			foreach($parameters as $key => $value) {
+				if($value !== reset($parameters)) {
+					$url .= '&';
+				}
+
+				$url .= urlencode($key) . '=' . urlencode($value);
+			}
+		}
+
+		return $url;
 	}
 
 }
