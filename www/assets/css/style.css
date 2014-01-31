@@ -81,6 +81,10 @@ pre, code {
 	text-indent: -3600px;
 }
 
+.prefix, .postfix {
+	cursor: default;
+}
+
 /*body {
 	background-color: beige;
 	cursor: default;

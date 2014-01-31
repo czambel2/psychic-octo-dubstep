@@ -2,7 +2,7 @@
 
 <form action="" method="post" novalidate="novalidate">
 	<div class="row">
-		<div class="nine columns centered">
+		<div class="four columns centered">
 			<?= $form ?>
 
 			<div class="row">
