@@ -9,6 +9,7 @@
 				<th>Prénom</th>
 				<th>Adresse</th>
 				<th>Ville</th>
+				<th>&nbsp;</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -19,6 +20,7 @@
 					<td><?= e($cyclist["prenom"]) ?></td>
 					<td><?= e($cyclist["adresse"]) ?></td>
 					<td><?= e($cyclist["ville"]) ?></td>
+					<td class="text-center"><a class="edit-button" title="Modifier" href="<?= url('cyclist.edit') ?>?id=<?= $cyclist["numcyc"] ?>">Modifier</a></td>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>

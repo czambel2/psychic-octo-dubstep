@@ -58,6 +58,9 @@ abstract class Router {
 		} elseif(preg_match("#^/courses/modifier$#", $url)) {
 			// Modification d'une course
 			$route = "race.edit";
+		} elseif(preg_match("#^/cycliste/modifier$#", $url)) {
+			// Modification d'un cycliste
+			$route = "cyclist.edit";
 		} else {
 			// L'URL ne correspond à aucune route : on lève une exception
 			throw new NoRouteForUrlException($url);
@@ -124,6 +127,9 @@ abstract class Router {
 				break;
 			case 'race.edit':
 				$url = '/courses/modifier';
+				break;
+			case 'cyclist.edit':
+				$url = '/cycliste/modifier';
 				break;
 			default:
 				throw new RouterException($route);
