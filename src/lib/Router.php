@@ -60,7 +60,7 @@ abstract class Router {
 			$route = "race.edit";
 		} else {
 			// L'URL ne correspond à aucune route : on lève une exception
-			throw new Http404Exception($url);
+			throw new NoRouteForUrlException($url);
 		}
 
 		return self::parseRoute($route, $parameters);
