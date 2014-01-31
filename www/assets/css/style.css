@@ -73,6 +73,14 @@ pre, code {
 	text-shadow: 0 0 0;
 }
 
+.edit-button {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	background: url("../img/edit.png") no-repeat;
+	text-indent: -3600px;
+}
+
 /*body {
 	background-color: beige;
 	cursor: default;
