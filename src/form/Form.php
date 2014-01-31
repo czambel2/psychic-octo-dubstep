@@ -164,6 +164,14 @@ abstract class Form {
 	}
 
 	/**
+	 * Lie les informations de la base de données aux champs du formulaire.
+	 * @param array $data Les données issues de la base de données.
+	 */
+	public function bindDatabase(array $data) {
+		$this->data = $data;
+	}
+
+	/**
 	 * Lie les entrées de l'utilisateur aux champs du formulaire.
 	 * @param array $data Les données entrées par l'utilisateur.
 	 */
