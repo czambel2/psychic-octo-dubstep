@@ -25,7 +25,7 @@
 					<td><?= e($course["distancec2"]) ?></td>
 					<td><?= e($course["distancec3"]) ?></td>
 					<td class="text-center">
-						<a class="edit-button" href="<?= url('race.edit') ?>?id=<?= $course["numcourse"] ?>" title="Modifier">Modifier</a>
+						<a class="edit-button" href="<?= url('race.edit', array('id' => $course['numcourse'])) ?>" title="Modifier">Modifier</a>
 					</td>
 				</tr>
 			<?php endforeach; ?>
