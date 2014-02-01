@@ -46,6 +46,8 @@ jQuery().ready(function () {
 
 		trConcerne.find('td:has(span) span, td:has(a) .modifier-recompense').hide();
 		trConcerne.find('td:has(span) input, td:has(a) .ok-modif-recompense').show();
+
+		trConcerne.find('td:has(span) input').focus();
 	});
 
 	$('.ajax-editable').submit(function(e) {
@@ -59,12 +61,15 @@ jQuery().ready(function () {
 				'LibRecompense': $('tr[data-number=' + recompenseModifiee + '] input').val()
 			},
 			'success': function() {
-				console.log($('tr[data-number=' + recompenseModifiee + '] span'));
 				$('tr[data-number=' + recompenseModifiee + '] span').html($('tr[data-number=' + recompenseModifiee + '] input').val());
-
-				$('tr').find('td:has(span) span, td:has(a) .modifier-recompense').show();
-				$('tr').find('td:has(span) input, td:has(a) .ok-modif-recompense').hide();
+			},
+			'error': function() {
+				$('.ajax-editable>div div.alert-box.alert').remove();
+				$('.ajax-editable>div').prepend($('<div />').addClass('alert-box alert').html('Impossible de mettre à jour l\'élément...'));
 			}
 		});
+
+		$('tr').find('td:has(span) span, td:has(a) .modifier-recompense').show();
+		$('tr').find('td:has(span) input, td:has(a) .ok-modif-recompense').hide();
 	})
 });
