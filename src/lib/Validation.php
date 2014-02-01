@@ -137,4 +137,22 @@ class Validation {
 			$this->parent->addError($field, $message);
 		}
 	}
+
+	/**
+	 * Vérifie si un champ numérique est entre deux bornes.
+	 * @param string $field Le nom du champ.
+	 * @param integer $min La longueur minimale du champ (null si aucune)
+	 * @param integer $max La longueur maximale du champ (null si aucune)
+	 * @param string $minMessage (optionnel) Le message d'erreur à afficher si le champ est trop court.
+	 * @param string $maxMessage (optionnel) Le message d'erreur à afficher si le champ est trop long.
+	 */
+	public function between($field, $min, $max, $minMessage = 'Ce champ doit être supérieur à %d.', $maxMessage = 'Ce champ doit être inférieur à %d.') {
+		if(array_key_exists($field, $this->data) and $this->data[$field] !== null and is_numeric($this->data[$field])) {
+			if($min !== null and $this->data[$field] < $min) {
+				$this->parent->addError($field, sprintf($minMessage, $min));
+			} elseif ($max !== null and $this->data[$field] > $max) {
+				$this->parent->addError($field, sprintf($maxMessage, $max));
+			}
+		}
+	}
 }
