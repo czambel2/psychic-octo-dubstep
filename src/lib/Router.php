@@ -4,7 +4,6 @@
  * Le routeur permet d'associer un tuple (contrôleur, action) à une URL donnée.
  */
 abstract class Router {
-
 	/**
 	 * Contient toutes les routes.
 	 *
@@ -45,6 +44,7 @@ abstract class Router {
 	/**
 	 * Récupère le contrôleur, l'action et les paramètres associés à une URL donnée.
 	 * @param string $url L'URL demandée par l'utilisateur.
+	 * @throws NoRouteForUrlException si aucune route n'est trouvée pour l'URL donnée.
 	 * @return array Un tableau décrivant le contrôleur, l'action et les paramètres.
 	 */
 	public static function parseUrl($url) {
