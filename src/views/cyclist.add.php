@@ -1,6 +1,6 @@
 <h1>Ajout d'un cycliste</h1>
 
-<form action="" method="post" novalidate="novalidate">
+<form action="" method="post">
 	<div class="row">
 		<div class="nine columns centered">
 			<?= $form ?>

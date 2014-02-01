@@ -1,6 +1,6 @@
 <h1>Modification d'une course</h1>
 
-<form action="" method="post" novalidate="novalidate">
+<form action="" method="post">
 	<div class="row">
 		<div class="four columns centered">
 			<div class="row">
