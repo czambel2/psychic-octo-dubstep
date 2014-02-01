@@ -35,7 +35,8 @@ class RaceController extends Controller {
 				throw new Http404Exception('Impossible de trouver la course n<sup>o</sup> ' . (int) $_GET['id'] . '.');
 			}
 		} else {
-			throw new Http404Exception('Aucune course n\'est spécifiée.');
+			Session::getInstance()->addFlash(new Flash('Veuillez sélectionner la course que vous souhaitez modifier.'));
+			Utility::redirectRoute('race.index');
 		}
 
 		$form->bindDatabase(array(

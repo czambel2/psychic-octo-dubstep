@@ -86,7 +86,7 @@
 								<a href="<?= url('race.index') ?>">Afficher toutes les courses</a>
 							</li>
 							<li>
-								<a href="#">Modifier une course</a>
+								<a href="<?= url('race.edit') ?>">Modifier une course</a>
 							</li>
 							<li>
 								<a href="<?= url('race.add') ?>">Ajouter une nouvelle course</a>
