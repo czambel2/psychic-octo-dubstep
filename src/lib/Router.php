@@ -34,6 +34,7 @@ abstract class Router {
 		'cyclist' => array(
 			'index' => '/cyclistes/liste',
 			'add' => '/cyclistes/ajouter',
+			'edit' => '/cyclistes/modifier'
 		),
 		'display' => array(
 			'cyclists' => '/impression/liste-cyclistes',
