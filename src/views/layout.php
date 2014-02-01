@@ -10,12 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="<?= basePath() ?>/assets/css/style.css" />
 	<link rel="stylesheet" type="text/css" href="<?= basePath() ?>/assets/css/jquery.dataTables.css" />
 
-	<script src="<?= basePath() ?>/assets/js/vendor/jquery.min.js"></script>
-	<script src="<?= basePath() ?>/assets/js/foundation/foundation.min.js"></script>
-	<script src="<?= basePath() ?>/assets/js/vendor/jquery-ui.min.js"></script>
-	<script src="<?= basePath() ?>/assets/js/vendor/jquery.dataTables.min.js"></script>
-	<script src="<?= basePath() ?>/assets/js/vendor/jquery.highlight-4.js"></script>
-	<script src="<?= basePath() ?>/assets/js/script.js"></script>
+	<script src="<?= basePath() ?>/assets/js/foundation/modernizr.foundation.js"></script>
 </head>
 <body class="special">
 
@@ -179,6 +174,15 @@
 	<?php endforeach; ?>
 
 	<?= $layoutContents ?>
+
+
+	<script src="<?= basePath() ?>/assets/js/vendor/jquery.min.js"></script>
+	<script src="<?= basePath() ?>/assets/js/foundation/foundation.min.js"></script>
+	<script src="<?= basePath() ?>/assets/js/vendor/jquery-ui.min.js"></script>
+	<script src="<?= basePath() ?>/assets/js/vendor/jquery.dataTables.min.js"></script>
+	<script src="<?= basePath() ?>/assets/js/vendor/jquery.highlight-4.js"></script>
+	<script src="<?= basePath() ?>/assets/js/script.js"></script>
+	<script src="<?= basePath() ?>/assets/js/foundation/app.js"></script>
 
 </body>
 </html>
