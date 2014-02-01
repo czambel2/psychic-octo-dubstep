@@ -89,7 +89,7 @@
 								<a href="#">Modifier une course</a>
 							</li>
 							<li>
-								<a href="#">Ajouter une nouvelle course</a>
+								<a href="<?= url('race.add') ?>">Ajouter une nouvelle course</a>
 							</li>
 						</ul>
 					</li>

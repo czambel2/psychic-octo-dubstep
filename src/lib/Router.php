@@ -24,6 +24,7 @@ abstract class Router {
 		),
 		'race' => array(
 			'index' => '/courses/liste',
+			'add' => '/courses/ajouter',
 			'edit' => '/courses/modifier',
 		),
 		'thisRace' => array(
