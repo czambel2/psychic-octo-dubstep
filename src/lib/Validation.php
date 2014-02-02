@@ -133,7 +133,7 @@ class Validation {
 	 * @param string $message (optionnel) Le message d'erreur à afficher.
 	 */
 	public function integer($field, $message = 'Veuillez entrer un nombre.') {
-		if(array_key_exists($field, $this->data) and $this->data[$field] != null and !is_numeric($this->data[$field])) {
+		if(array_key_exists($field, $this->data) and $this->data[$field] != null and !ctype_digit($this->data[$field])) {
 			$this->parent->addError($field, $message);
 		}
 	}
