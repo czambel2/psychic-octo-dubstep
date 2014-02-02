@@ -47,7 +47,7 @@
 							</li>
 							<li class="divider"></li>
 							<li>
-								<a href="#">Ajouter une course</a>
+								<a href="<?= url('race.add') ?>">Ajouter une course</a>
 							</li>
 							<li>
 								<a href="#">Démarrer la course</a>
