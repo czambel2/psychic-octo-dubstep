@@ -3,7 +3,7 @@
 class ApiController extends Controller {
 	public function __construct() {
 		Layout::getInstance()->disable();
-		//header("Content-Type: application/json, charset=iso-8859-1");
+		header("Content-Type: application/json, charset=iso-8859-1");
 	}
 
 	public function editReward() {
