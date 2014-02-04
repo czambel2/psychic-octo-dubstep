@@ -15,10 +15,12 @@ class ThisRaceController extends Controller {
 	public function status() {
 		$db = DB::getInstance();
 
-		$raceNumber = $this->getLastRaceNumber() - 1;
+		$raceNumber = $this->getLastRaceNumber();
 
 		// On regarde l'état de la course
-		$q = $db->prepare('SELECT decompte, distancec1, distancec2, distancec3 FROM course WHERE numcourse = :numcourse');
+		$q = $db->prepare('SELECT decompte, distancec1, distancec2, distancec3, nb3participations, nb6participations,
+			nb9participations, nb12participations, nb15participations, nb18participations, nb21participations,
+			nb24participations, nb27participations, nb30participations FROM course WHERE numcourse = :numcourse');
 		$q->bindValue('numcourse', $raceNumber);
 		$q->execute();
 
@@ -70,17 +72,9 @@ class ThisRaceController extends Controller {
 		}
 
 		// On récupère le nombre de personnes concernées par les récompenses
-		$q = $db->prepare('SELECT
-			nb3participations, nb6participations, nb9participations, nb12participations, nb15participations,
-			nb18participations, nb21participations, nb24participations, nb27participations, nb30participations
-			FROM course WHERE numcourse = :numcourse');
-		$q->bindValue('numcourse', $raceNumber);
-		$q->execute();
-		$data = $q->fetch();
-
 		$participations = array();
 		for($i = 3; $i <= 30; $i += 3) {
-			$participations[$i] = $data['nb' . $i . 'participations'];
+			$participations[$i] = $race['nb' . $i . 'participations'];
 		}
 
 		// On récupère la liste des récompenses
