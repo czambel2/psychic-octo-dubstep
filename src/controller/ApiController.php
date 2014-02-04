@@ -39,7 +39,7 @@ class ApiController extends Controller {
 			$q = $db->prepare("SELECT TOP 10 c.numcyc, c.nom, c.prenom FROM cycliste c WHERE c.nom LIKE :lastName OR c.prenom LIKE :firstName OR c.numcyc = :cyclistId");
 			$q->bindValue('lastName', $_GET['term'] . '%');
 			$q->bindValue('firstName', $_GET['term'] . '%');
-			$q->bindValue('cyclistNumber', (int) $_GET['term'], PDO::PARAM_INT);
+			$q->bindValue('cyclistId', (int) $_GET['term'], PDO::PARAM_INT);
 			$q->execute();
 			$results = $q->fetchAll();
 
