@@ -1,4 +1,4 @@
-jQuery().ready(function () {
+$(function () {
 	$('.exception.message').css('cursor', 'help');
 	$('.exception.trace, .hide-script').hide();
 
@@ -72,4 +72,18 @@ jQuery().ready(function () {
 		$('tr').find('td:has(span) span, td:has(a) .modifier-recompense').show();
 		$('tr').find('td:has(span) input, td:has(a) .ok-modif-recompense').hide();
 	})
+
+	$('#autocomplete').autocomplete({
+		appendTo: '.autocomplete-results',
+		source: '/api/cyclistes'
+	}).data("ui-autocomplete")._renderItem = function (ul, item) {
+		var newText = String(item.value).replace(
+			new RegExp(this.term, "gi"),
+			"<span class='ui-state-highlight'>$&</span>");
+
+		return $("<li></li>")
+			.data("item.autocomplete", item)
+			.append("<a>" + newText + "</a>")
+			.appendTo(ul);
+	};
 });

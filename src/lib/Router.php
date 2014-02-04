@@ -20,6 +20,7 @@ abstract class Router {
 		),
 		'api' => array(
 			'editReward' => '/api/modifier-recompense',
+			'autocompleteCyclists' => '/api/cyclistes',
 		),
 		'race' => array(
 			'index' => '/courses/liste',
