@@ -97,7 +97,47 @@ class ThisRaceController extends Controller {
 	}
 
 	public function start() {
+		$db = DB::getInstance();
 
+		$today = new DateTime();
+
+		$q = $db->prepare('SELECT c.numcourse, c.decompte, c.datecourse, c.anneecourse FROM course c WHERE c.datecourse = :date');
+		$q->bindValue('date', $today->format('d/m/Y'));
+		$q->execute();
+
+		$race = $q->fetch();
+
+		if($race) {
+			if($race['decompte'] == 'Vrai') {
+				$raceStatus = 'started';
+			} elseif($race['decompte'] == '') {
+				$raceStatus = 'notStarted';
+			} else {
+				$raceStatus = 'ended';
+			}
+		} else {
+			$raceStatus = 'inexistant';
+		}
+
+		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] = 'startRace') {
+			if($raceStatus != 'notStarted') {
+				Session::getInstance()->addFlash(
+					new Flash('La course est déjà commencée.', Flash::FLASH_ALERT)
+				);
+			} else {
+				$q = $db->prepare("UPDATE course SET decompte = 'Vrai' WHERE numcourse = :numcourse");
+				$q->bindValue('numcourse', $race['numcourse']);
+				$q->execute();
+
+				Session::getInstance()->addFlash(new Flash('La course est démarrée.'));
+				Utility::redirectRoute('thisRace.status');
+			}
+		}
+
+		$this->render('thisRace.start', array(
+			'race' => $race,
+			'raceStatus' => $raceStatus,
+		));
 	}
 
 	public function departure() {

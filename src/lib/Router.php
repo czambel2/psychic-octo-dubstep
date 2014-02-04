@@ -29,7 +29,8 @@ abstract class Router {
 		'thisRace' => array(
 			'status' => '/course/etat',
 			'rewards' => '/course/recompenses',
-			'addReward' => '/course/recompenses/ajouter'
+			'addReward' => '/course/recompenses/ajouter',
+			'start' => '/course/demarrer',
 		),
 		'cyclist' => array(
 			'index' => '/cyclistes/liste',

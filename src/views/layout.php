@@ -47,7 +47,7 @@
 							</li>
 							<li class="divider"></li>
 							<li>
-								<a href="#">Démarrer la course</a>
+								<a href="<?= url('thisRace.start') ?>">Démarrer la course</a>
 							</li>
 							<li>
 								<a href="#">Saisie des départs</a>
