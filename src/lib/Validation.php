@@ -108,7 +108,11 @@ class Validation {
 			if(preg_match('#^([0-9]{1,2})[/\- ]?([0-9]{1,2})[/\- ]?([0-9]{2,4})$#', $this->data[$field], $matches)) {
 				try {
 					if(strlen($matches[3]) == 2) {
-						$matches[3] += 1900;
+						if($matches[3] > 40) {
+							$matches[3] += 1900;
+						} else {
+							$matches[3] += 2000;
+						}
 					}
 
 					$dmyDate = $matches[1] . '/' . $matches[2] . '/' . $matches[3];
