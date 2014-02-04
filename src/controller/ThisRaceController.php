@@ -104,10 +104,6 @@ class ThisRaceController extends Controller {
 		));
 	}
 
-	public function add() {
-
-	}
-
 	public function start() {
 
 	}
