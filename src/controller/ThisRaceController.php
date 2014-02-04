@@ -30,14 +30,12 @@ class ThisRaceController extends Controller {
 			throw new Http404Exception('Impossible de trouver de course dans la base !');
 		}
 
-		$decompte = $race['decompte'];
-
-		if($decompte == null) {
-			$raceStatus = "notyet";
-		} elseif($decompte == "Faux") {
-			$raceStatus = "ended";
+		if($race['decompte'] == 'Vrai') {
+			$raceStatus = 'started';
+		} elseif($race['decompte'] == '') {
+			$raceStatus = 'notStarted';
 		} else {
-			$raceStatus = "ongoing";
+			$raceStatus = 'ended';
 		}
 
 		// On récupère les distances

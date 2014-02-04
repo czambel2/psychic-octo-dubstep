@@ -1,11 +1,11 @@
 <h1>État de la course</h1>
 
 <div class="row">
-	<?php if($raceStatus == "notyet"): ?>
+	<?php if($raceStatus == "notStarted"): ?>
 		<div class="alert-box">
 			La course n'a pas encore commencé.
 		</div>
-	<?php elseif($raceStatus == "ongoing"): ?>
+	<?php elseif($raceStatus == "started"): ?>
 		<div class="alert-box">
 			La course est en cours.
 		</div>
