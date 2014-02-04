@@ -73,12 +73,35 @@ $(function () {
 		$('tr').find('td:has(span) input, td:has(a) .ok-modif-recompense').hide();
 	})
 
-	$('#autocomplete').autocomplete({
+	$('.autocomplete-cyclists').autocomplete({
 		appendTo: '.autocomplete-results',
-		source: '/api/cyclistes'
+		source: '/api/cyclistes',
+		delay: 10,
+		select: function(event, ui) {
+			var regex = /^.+ \((\d+)\)$/g;
+			var match = regex.exec(ui.item.value);
+			var id = match[1];
+
+			$.ajax({
+				'type': 'GET',
+				'url': '/api/details-cycliste',
+				'data': {
+					'cyclistId': id
+				},
+				'success': function(data) {
+					$('.sheet').show();
+					$('.sheet .title').html(data.title);
+					$('.sheet .lastName').html(data.lastName);
+					$('.sheet .firstName').html(data.firstName);
+					$('.sheet .address').html(data.address);
+					$('.sheet .zipcode').html(data.zipcode);
+					$('.sheet .city').html(data.city);
+				}
+			})
+		}
 	}).data("ui-autocomplete")._renderItem = function (ul, item) {
 		var newText = String(item.value).replace(
-			new RegExp(this.term, "gi"),
+			new RegExp(this.term.replace(" ", "|"), "gi"),
 			"<span class='ui-state-highlight'>$&</span>");
 
 		return $("<li></li>")

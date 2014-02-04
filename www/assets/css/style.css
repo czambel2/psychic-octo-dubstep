@@ -111,6 +111,11 @@ pre, code {
 	display: block;
 }
 
+.autocomplete-results {
+	position: absolute;
+	z-index: 2;
+}
+
 /*body {
 	background-color: beige;
 	cursor: default;

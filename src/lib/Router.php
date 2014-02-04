@@ -21,6 +21,7 @@ abstract class Router {
 		'api' => array(
 			'editReward' => '/api/modifier-recompense',
 			'autocompleteCyclists' => '/api/cyclistes',
+			'cyclistDetails' => '/api/details-cycliste',
 		),
 		'race' => array(
 			'index' => '/courses/liste',
@@ -32,6 +33,8 @@ abstract class Router {
 			'rewards' => '/course/recompenses',
 			'addReward' => '/course/recompenses/ajouter',
 			'start' => '/course/demarrer',
+			'enterDeparture' => '/course/saisir/depart',
+			'enterArrival' => '/course/saisir/arrivee',
 		),
 		'cyclist' => array(
 			'index' => '/cyclistes/liste',

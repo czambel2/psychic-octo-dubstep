@@ -140,11 +140,111 @@ class ThisRaceController extends Controller {
 		));
 	}
 
-	public function departure() {
+	public function enterDeparture() {
+		$db = DB::getInstance();
 
+		$q = $db->prepare('SELECT numcourse, datecourse, decompte, distancec1, distancec2, distancec3 FROM course
+			WHERE numcourse = :raceNumber');
+		$q->bindValue('raceNumber', $this->getLastRaceNumber());
+		$q->execute();
+
+		$race = $q->fetch();
+
+		$raceNumber = $race['numcourse'];
+
+		if(!$race) {
+			Session::getInstance()->addFlash(new Flash('La course n\'a pas été trouvée.', Flash::FLASH_ALERT));
+			Utility::redirectRoute('race.index');
+		} elseif($race['decompte'] == '') {
+			Session::getInstance()->addFlash(new Flash('La course n\'a pas encore démarré.', Flash::FLASH_ALERT));
+			Utility::redirectRoute('race.index');
+		} elseif($race['decompte'] == 'Faux') {
+			Session::getInstance()->addFlash(new Flash('La course est terminée. Créez une nouvelle course pour saisir des départs.', Flash::FLASH_ALERT));
+			Utility::redirectRoute('race.index');
+		}
+
+		$form = new DepartureForm();
+		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] = 'enterDeparture') {
+			$form->bind($_POST['data']);
+			if($form->isValid()) {
+				if(!preg_match("/^.+ \((\d+)\)$/", $form->getData('cyclistName'), $data)) {
+					$form->addError('cyclistName', 'Ce champ est invalide.');
+				}
+
+				if(array_key_exists(1, $data) and ctype_digit($data[1])) {
+					$cyclistId = $data[1];
+
+					// On vérifie que le cycliste existe
+					$q = $db->prepare('SELECT COUNT(*) AS nb FROM cycliste WHERE numcyc = :cyclistId');
+					$q->bindValue('cyclistId', $cyclistId);
+					$q->execute();
+					$data = $q->fetch();
+
+					if($data['nb'] != 1) {
+						$form->addError('cyclistName', 'Ce cycliste n\'existe pas.');
+					} else {
+						// On vérifie si le cycliste n'est pas déjà inscrit dans la course
+						$q = $db->prepare('SELECT COUNT(*) AS nb FROM participer WHERE numcourse = :raceNumber AND numcyc = :cyclistId');
+						$q->bindValue('raceNumber', $raceNumber);
+						$q->bindValue('cyclistId', $cyclistId);
+						$q->execute();
+						$data = $q->fetch();
+
+						if($data['nb'] > 0) {
+							$form->addError('cyclistName', 'Ce cycliste est déjà parti.');
+						} else {
+							try {
+								$db->beginTransaction();
+
+								$now = new DateTime();
+
+								// On met à jour le nombre de participants à la course
+								$q = $db->prepare('UPDATE course SET :field = :field + 1 WHERE numcourse = :raceNumber');
+								$q->bindValue('field', 'nbparticipantsc' . $form->getData('circuit'));
+								$q->bindValue('raceNumber', $raceNumber);
+								$q->execute();
+
+								// On ajoute la participation
+								$q = $db->prepare('INSERT INTO participer(numcourse, numcyc, numcircuit, hdepart, harrivee)
+									VALUES(:raceNumber, :cyclistId, :circuit, :time, NULL)');
+								$q->bindValue('raceNumber', $raceNumber);
+								$q->bindValue('cyclistId', $cyclistId);
+								$q->bindValue('circuit', $form->getData('circuit'));
+								$q->bindValue('time', $now->format('H:i:s'));
+								$q->execute();
+
+								// On modifie l'heure de départ dans la table cycliste
+								$q = $db->prepare('UPDATE cycliste SET depart = :time WHERE numcyc = :cyclistId');
+								$q->bindValue('time', $now->format('H:i:s'));
+								$q->bindValue('cyclistId', $cyclistId);
+								$q->execute();
+
+								$db->commit();
+							} catch(PDOException $ex) {
+								$db->rollBack();
+								throw $ex;
+							}
+						}
+					}
+				} else {
+					$form->addError('cyclistName', 'Ce champ est invalide.');
+				}
+			}
+		}
+
+		$distances = array();
+		for($i = 1; $i <= 3; $i++) {
+			$distances[$i] = $race['distancec' . $i];
+		}
+		$form->setMiscData('distances', $distances);
+
+		$this->render('thisRace.enterDeparture', array(
+			'form' => $form,
+			'race' => $race,
+		));
 	}
 
-	public function arrival() {
+	public function enterArrival() {
 
 	}
 

@@ -75,10 +75,10 @@
 	<div class="twelve centered columns">
 		<div class="row">
 			<div class="four columns text-center">
-				<a class="large button" href="#">Saisir les départs</a>
+				<a class="large button" href="<?= url('thisRace.enterDeparture') ?>">Saisir les départs</a>
 			</div>
 			<div class="four columns text-center">
-				<a class="large button" href="#">Saisir les arrivées</a>
+				<a class="large button" href="<?= url('thisRace.enterArrival') ?>">Saisir les arrivées</a>
 			</div>
 			<div class="four columns text-center">
 				<a class="large button" href="#">Clôturer la course</a>

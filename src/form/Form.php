@@ -30,6 +30,11 @@ abstract class Form {
 	protected $validation;
 
 	/**
+	 * @var array Les données complémentaires.
+	 */
+	protected $miscData = array();
+
+	/**
 	 * Constructeur.
 	 */
 	public function __construct() {
@@ -207,6 +212,24 @@ abstract class Form {
 	 */
 	public function check() {
 		return $this->validation;
+	}
+
+	/**
+	 * Récupère une donnée complémentaire.
+	 * @param string $name Le nom de la donnée.
+	 * @return mixed La donnée
+	 */
+	public function getMiscData($name) {
+		return $this->miscData[$name];
+	}
+
+	/**
+	 * Définit une donnée complémentaire.
+	 * @param string $name Le nom de la donnée.
+	 * @param mixed $value La valeur de la donnée.
+	 */
+	public function setMiscData($name, $value) {
+		$this->miscData[$name] = $value;
 	}
 
 	/**

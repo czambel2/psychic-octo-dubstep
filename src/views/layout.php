@@ -50,10 +50,10 @@
 								<a href="<?= url('thisRace.start') ?>">Démarrer la course</a>
 							</li>
 							<li>
-								<a href="#">Saisie des départs</a>
+								<a href="<?= url('thisRace.enterDeparture') ?>">Saisie des départs</a>
 							</li>
 							<li>
-								<a href="#">Saisie des retours</a>
+								<a href="<?= url('thisRace.enterArrival') ?>">Saisie des retours</a>
 							</li>
 							<li>
 								<a href="#">Clôturer la course</a>
