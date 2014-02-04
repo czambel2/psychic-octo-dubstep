@@ -47,9 +47,6 @@
 							</li>
 							<li class="divider"></li>
 							<li>
-								<a href="<?= url('race.add') ?>">Ajouter une course</a>
-							</li>
-							<li>
 								<a href="#">Démarrer la course</a>
 							</li>
 							<li>
@@ -97,9 +94,6 @@
 						<ul class="dropdown">
 							<li>
 								<a href="<?= url('cyclist.index') ?>">Afficher les cyclistes</a>
-							</li>
-							<li>
-								<a href="#">Rechercher un cyclciste</a>
 							</li>
 							<li>
 								<a href="<?= url('cyclist.add') ?>">Ajouter un nouveau cycliste</a>
