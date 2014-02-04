@@ -10,6 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="<?= $basePath ?>/assets/css/style.css" />
 
 	<script src="<?= basePath() ?>/assets/js/foundation/modernizr.foundation.js"></script>
+	<script src="<?= basePath() ?>/assets/js/vendor/jquery.min.js"></script>
 	<script src="<?= basePath() ?>/assets/js/foundation/foundation.min.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 	<script src="<?= basePath() ?>/assets/js/script.js"></script>
