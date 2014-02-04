@@ -62,7 +62,7 @@ class RaceController extends Controller {
 					$q = $db->prepare('UPDATE course SET datecourse = :date, anneecourse = :year, distancec1 = :circuit1,
 						distancec2 = :circuit2, distancec3 = :circuit3 WHERE numcourse = :raceNumber');
 
-					$q->bindValue('date', $form->getData('date')->format('Y-m-d H:i:s'));
+					$q->bindValue('date', $form->getData('date')->format('d/m/Y'));
 					$q->bindValue('year', $form->getData('date')->format('Y'));
 					$q->bindValue('circuit1', $form->getData('circuit1'));
 					$q->bindValue('circuit2', $form->getData('circuit2'));
@@ -117,7 +117,7 @@ class RaceController extends Controller {
 						0, 0, 0, 0, 0, 0, 0, :circuit1, :circuit2, :circuit3, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)');
 
 					$q->bindValue('raceNumber', $raceNumber);
-					$q->bindValue('date', $form->getData('date')->format('Y-m-d H:i:s'));
+					$q->bindValue('date', $form->getData('date')->format('d/m/Y'));
 					$q->bindValue('year', $form->getData('date')->format('Y'));
 					$q->bindValue('circuit1', $form->getData('circuit1'));
 					$q->bindValue('circuit2', $form->getData('circuit2'));
