@@ -16,7 +16,21 @@ class CyclistController extends Controller {
 	}
 
 	public function search() {
+		//$db = DB::getInstance();
 
+		$form = new SearchCyclistForm();
+
+		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] = 'searchCyclist') {
+			$form->bind($_POST['data']);
+			if($form->isValid()) {
+				if(!preg_match("/^.+ \((\d+)\)$/", $form->getData('cyclistName'), $data)) {
+					$form->addError('cyclistName', 'Ce champ est invalide.');
+				}
+			}
+		}
+		$this->render('cyclist.search', array(
+			'form' => $form
+		));
 	}
 
 	public function add() {

@@ -96,6 +96,9 @@
 								<a href="<?= url('cyclist.index') ?>">Afficher les cyclistes</a>
 							</li>
 							<li>
+								<a href="<?= url('cyclist.search') ?>">Rechercher un cycliste</a>
+							</li>
+							<li>
 								<a href="<?= url('cyclist.add') ?>">Ajouter un nouveau cycliste</a>
 							</li>
 						</ul>
