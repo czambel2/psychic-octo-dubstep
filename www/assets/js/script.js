@@ -73,6 +73,29 @@ $(function () {
 		$('tr').find('td:has(span) input, td:has(a) .ok-modif-recompense').hide();
 	})
 
+	var showCyclistDetails = function(cyclistId) {
+		$.ajax({
+			'type': 'GET',
+			'url': '/api/details-cycliste',
+			'data': {
+				'cyclistId': cyclistId
+			},
+			'success': function(data) {
+				$('.sheet').show();
+				$('.sheet .title').html(data.title);
+				$('.sheet .lastName').html(data.lastName);
+				$('.sheet .firstName').html(data.firstName);
+				$('.sheet .address').html(data.address);
+				$('.sheet .zipcode').html(data.zipcode);
+				$('.sheet .city').html(data.city);
+
+				$('.sheet .edit-details a').attr('href', function() {
+					return $(this).attr('data-baseurl') + '?id=' + data.cyclistId + '&returnto=' + encodeURIComponent(location.pathname + '?id=' + data.cyclistId);
+				})
+			}
+		});
+	};
+
 	$('.autocomplete-cyclists').each(function() {
 
 		var url = '/api/cyclistes';
@@ -81,6 +104,10 @@ $(function () {
 			url = '/api/cyclistes?filter=departure';
 		} else if($(this).is('.arrival')) {
 			url = '/api/cyclistes?filter=arrival';
+		}
+
+		if($(this).val() != '') {
+			showCyclistDetails($(this).val());
 		}
 
 		$(this).autocomplete({
@@ -92,22 +119,7 @@ $(function () {
 				var match = regex.exec(ui.item.value);
 				var id = match[1];
 
-				$.ajax({
-					'type': 'GET',
-					'url': '/api/details-cycliste',
-					'data': {
-						'cyclistId': id
-					},
-					'success': function(data) {
-						$('.sheet').show();
-						$('.sheet .title').html(data.title);
-						$('.sheet .lastName').html(data.lastName);
-						$('.sheet .firstName').html(data.firstName);
-						$('.sheet .address').html(data.address);
-						$('.sheet .zipcode').html(data.zipcode);
-						$('.sheet .city').html(data.city);
-					}
-				})
+				showCyclistDetails(id);
 			},
 			create: function() {
 				$(this).data('ui-autocomplete')._renderItem = function (ul, item) {

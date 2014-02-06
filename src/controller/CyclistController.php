@@ -155,7 +155,12 @@ class CyclistController extends Controller {
 				$cyclistName = htmlspecialchars($form->getData('firstName') . ' ' . $form->getData('lastName'));
 
 				Session::getInstance()->addFlash(new Flash('Cycliste ' . $cyclistName . ' modifié.', Flash::FLASH_SUCCESS));
-				Utility::redirectRoute('cyclist.index');
+
+				if(array_key_exists('returnto', $_GET)) {
+					Utility::redirect($_GET['returnto']);
+				} else {
+					Utility::redirectRoute('cyclist.index');
+				}
 			}
 		}
 

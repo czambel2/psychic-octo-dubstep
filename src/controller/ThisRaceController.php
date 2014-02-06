@@ -154,6 +154,12 @@ class ThisRaceController extends Controller {
 		}
 
 		$form = new DepartureForm();
+		if(array_key_exists('id', $_GET)) {
+			$form->bindDatabase(array(
+				'cyclistName' => $_GET['id'],
+			));
+		}
+
 		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] = 'enterDeparture') {
 			$form->bind($_POST['data']);
 			if($form->isValid()) {

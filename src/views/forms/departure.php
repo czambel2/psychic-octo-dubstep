@@ -3,16 +3,20 @@
 		<label for="data_cyclistName" class="right inline required">Coureur&nbsp;:</label>
 	</div>
 	<div class="nine columns">
-		<input name="data[cyclistName]" class="autocomplete-cyclists departure <?= $this->errorClass('cyclistName', true) ?>" required="required" id="data_cyclistName" placeholder="Rechercher un cycliste" type="text" />
+		<input name="data[cyclistName]" class="autocomplete-cyclists departure <?= $this->errorClass('cyclistName', true) ?>" required="required" autofocus="autofocus" id="data_cyclistName" placeholder="Rechercher un cycliste" type="text" value="<?= $this->valueEscaped('cyclistName') ?>"/>
 		<?= $this->errorMessage('cyclistName') ?>
 		<div class="autocomplete-results"></div>
 	</div>
 </div>
 
-<div class="panel radius sheet hide">
+<div class="panel radius sheet hide relative">
 	<p><strong><span class="title"></span> <span class="lastName"></span> <span class="firstName"></span></strong></p>
 	<p><span class="address"></span></p>
 	<p><span class="zipcode"></span> <span class="city"></span></p>
+
+	<div class="edit-details">
+		<a href="<?= url('cyclist.edit') ?>" data-baseurl="<?= url('cyclist.edit') ?>" class="small button">Modifier</a>
+	</div>
 </div>
 
 <div class="row">
