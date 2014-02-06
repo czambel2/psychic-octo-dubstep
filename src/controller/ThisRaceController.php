@@ -264,7 +264,149 @@ class ThisRaceController extends Controller {
 	}
 
 	public function enterArrival() {
+		$db = DB::getInstance();
 
+		$raceNumber = $this->getLastRaceNumber();
+
+		$q = $db->prepare('SELECT numcourse, datecourse, decompte, distancec1, distancec2, distancec3 FROM course
+			WHERE numcourse = :raceNumber');
+		$q->bindValue('raceNumber', $raceNumber);
+		$q->execute();
+
+		$race = $q->fetch();
+
+		if(!$race) {
+			Session::getInstance()->addFlash(new Flash('La course n\'a pas été trouvée.', Flash::FLASH_ALERT));
+			Utility::redirectRoute('race.index');
+		} elseif($race['decompte'] == '') {
+			Session::getInstance()->addFlash(new Flash('La course n\'a pas encore démarré.', Flash::FLASH_ALERT));
+			Utility::redirectRoute('race.index');
+		} elseif($race['decompte'] == 'Faux') {
+			Session::getInstance()->addFlash(new Flash('La course est terminée. Créez une nouvelle course pour saisir des départs.', Flash::FLASH_ALERT));
+			Utility::redirectRoute('race.index');
+		}
+
+		$form = new ArrivalForm();
+		$form->setMiscData('raceNumber', $race['numcourse']);
+		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] = 'enterArrival') {
+			$form->bind($_POST['data']);
+			if($form->isValid()) {
+				$cyclistId = null;
+
+				//Si le nom du cycliste envoyé est un nombre et est supérieur à 0 alors on récupère l'id
+				//On consière qu'il s'agit de son id
+				if(ctype_digit($form->getData('cyclistName')) and ((int) $form->getData('cyclistName')) > 0) {
+					$cyclistId = (int) $form->getData('cyclistName');
+				} else {
+					if(!preg_match("/^.+ \((\d+)\)$/", $form->getData('cyclistName'), $data)) {
+						$form->addError('cyclistName', 'Ce champ est invalide.');
+					} else {
+						$cyclistId = $data[1];
+					}
+				}
+
+				if($cyclistId) {
+					// On vérifie que le cycliste existe
+					$q = $db->prepare('SELECT numcyc, nom, prenom, nbcourses FROM cycliste WHERE numcyc = :cyclistId');
+					$q->bindValue('cyclistId', $cyclistId);
+					$q->execute();
+					$cyclist = $q->fetch();
+
+					if(!$cyclist) {
+						$form->addError('cyclistName', 'Ce cycliste n\'existe pas.');
+					} else {
+						// On vérifie si le cycliste est bien inscrit dans la course
+						$q = $db->prepare('SELECT
+								COUNT(*) AS nb
+							FROM
+								participer
+							WHERE
+								numcourse = :raceNumber
+							AND
+								numcyc = :cyclistId
+							AND
+								harrivee IS NULL
+						');
+						$q->bindValue('raceNumber', $raceNumber);
+						$q->bindValue('cyclistId', $cyclistId);
+						$q->execute();
+						$data = $q->fetch();
+
+						if($data['nb'] != 1) {
+							$form->addError('cyclistName', 'Ce cycliste n\'est pas encore parti.');
+						} else {
+							$now = new DateTime();
+
+							//On récupère le numéro du circuit effectué par le coureur
+							$q =$db->prepare('SELECT
+									p.numcircuit
+								FROM
+									participer p
+								WHERE
+									p.numcyc = :cyclistId
+								AND
+									p.numcourse = :raceNumber
+								');
+							$q->bindValue('cyclistId', $cyclistId);
+							$q->bindValue('raceNumber', $raceNumber);
+							$q->execute();
+
+							$circuit = $q->fetch();
+
+							// On met à jour le nombre de retour de la course
+							$circuitField = 'nbretourc' . ((int) $circuit['numcircuit']);
+							$q = $db->prepare("UPDATE course SET $circuitField = $circuitField + 1, nbretourtotal = nbretourtotal + 1 WHERE numcourse = :raceNumber");
+							$q->bindValue('raceNumber', $raceNumber);
+							$q->execute();
+
+							// On modifie l'heure de retour dans la table cycliste
+							/*
+							$q = $db->prepare('UPDATE cycliste SET retour = :time WHERE numcyc = :cyclistId');
+							$q->bindValue('time', $now->format('H:i:s'));
+							$q->bindValue('cyclistId', $cyclistId);
+							$q->execute();
+							*/
+
+							// On ajoute l'heure de retour à la table participer
+							$q = $db->prepare('UPDATE participer SET harrivee = :time WHERE numcyc = :cyclistId');
+							$q->bindValue('time', $now->format('H:i:s'));
+							$q->bindValue('cyclistId', $cyclistId);
+							$q->execute();
+
+							//On récupère la distance parcourue par le cycliste
+							$q = $db->prepare('SELECT
+									c.distancec'. ((int) $circuit['numcircuit']) .' as distance
+								FROM
+									course c
+								WHERE
+									c.numcourse = :raceNumber');
+							$q->bindValue('raceNumber', $raceNumber);
+							$q->execute();
+
+							$distanceCircuit = $q->fetch();
+
+							//On met à jour le nombre de km total parcouru par le cycliste
+							$q = $db->prepare('UPDATE
+									cycliste c
+								SET c.km = c.km + :distance
+								WHERE c.numcyc = :cyclistId');
+							$q->bindValue('cyclistId', $cyclistId);
+							$q->bindValue('distance', $distanceCircuit['distance']);
+							$q->execute();
+
+							Session::getInstance()->addFlash(new Flash($cyclist['prenom'] . " " . $cyclist['nom'] . " : retour enregistré.", Flash::FLASH_SUCCESS));
+							Utility::redirectRoute('thisRace.enterArrival');
+						}
+					}
+				} else {
+					$form->addError('cyclistName', 'Ce champ est invalide.');
+				}
+			}
+		}
+		$this->render('thisRace.enterArrival', array(
+			'form' => $form,
+			'race' => $race
+		));
 	}
 
 	public function close() {
