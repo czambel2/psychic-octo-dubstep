@@ -35,6 +35,7 @@ abstract class Router {
 			'start' => '/course/demarrer',
 			'enterDeparture' => '/course/saisir/depart',
 			'enterArrival' => '/course/saisir/arrivee',
+			'close' => '/course/cloturer',
 		),
 		'cyclist' => array(
 			'index' => '/cyclistes/liste',

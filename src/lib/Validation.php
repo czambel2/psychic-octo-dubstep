@@ -159,4 +159,34 @@ class Validation {
 			}
 		}
 	}
+
+	/**
+	 * Vérifie si un champ correspond à une heure valide.
+	 * Cette méthode est un peu plus complexe car elle va transformer le champ en instance de classe DateTime.
+	 * @param string $field Le nom du champ.
+	 * @param string $message (optionnel) Le message d'erreur à afficher.
+	 */
+	public function time($field, $message = "L'heure entrée est invalide.") {
+		if(array_key_exists($field, $this->data) and $this->data[$field] != null) {
+			$matches = array();
+			if(preg_match('#^([0-9]{1,2})\:?([0-9]{2})$#', $this->data[$field], $matches)) {
+				try {
+					$hmHour = $matches[1] . ':' . $matches[2];
+					if(strlen($hmHour) == 4) {
+						$hmHour = '0' . $hmHour;
+					}
+					$dateTime = DateTime::createFromFormat('H:i', $hmHour);
+					if($dateTime->format('H:i') != $hmHour) {
+						$this->parent->addError($field, $message);
+					} else {
+						$this->parent->setData($field, $dateTime);
+					}
+				} catch(Exception $ex) {
+					$this->parent->addError($field, $message);
+				}
+			} else {
+				$this->parent->addError($field, $message);
+			}
+		}
+	}
 }

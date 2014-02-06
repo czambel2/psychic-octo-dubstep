@@ -268,7 +268,31 @@ class ThisRaceController extends Controller {
 	}
 
 	public function close() {
+		$db = DB::getInstance();
+		$q = $db->prepare("SELECT c.numcourse, c.datecourse, c.decompte FROM course c WHERE c.numcourse = :raceNumber");
+		$q->bindValue('raceNumber', $this->getLastRaceNumber());
+		$q->execute();
+		$race = $q->fetch();
 
+		if($race['decompte'] != 'Vrai') {
+			Session::getInstance()->addFlash(new Flash('Aucune course n\'est en cours&nbsp;!', Flash::FLASH_ALERT));
+			Utility::redirectRoute('race.index');
+		}
+
+		$form = new CloseRaceForm();
+
+		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] = 'closeRace') {
+			$form->bind($_POST['data']);
+			if($form->isValid()) {
+				// On sélectionne
+				$q = $db->prepare('SELECT c.numcyc FROM participe p LEFT JOIN cycliste c ON c.numcyc = p.numcyc WHERE p.numcyc IS NULL');
+			}
+		}
+
+		$this->render('thisRace.close', array(
+			'race' => $race,
+			'form' => $form,
+		));
 	}
 
 	public  function stop() {
@@ -314,7 +338,6 @@ class ThisRaceController extends Controller {
 				Session::getInstance()->addFlash(new Flash('Récompense ajoutée.', Flash::FLASH_SUCCESS));
 				Utility::redirectRoute('thisRace.rewards');
 			}
-			var_dump($form);
 		}
 		$this->render("thisRace.addReward", array('form' => $form));
 	}

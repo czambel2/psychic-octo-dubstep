@@ -56,7 +56,7 @@
 								<a href="<?= url('thisRace.enterArrival') ?>">Saisie des retours</a>
 							</li>
 							<li>
-								<a href="#">Clôturer la course</a>
+								<a href="<?= url('thisRace.close') ?>">Clôturer la course</a>
 							</li>
 							<li>
 								<a href="#">Arrêter la course</a>

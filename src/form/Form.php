@@ -147,13 +147,18 @@ abstract class Form {
 	 * Retourne la valeur échappée d'un champ.
 	 * Cette méthode est un helper HTML.
 	 * @param string $field Le nom du champ.
+	 * @param string $forceType Le type forcé du champ.
 	 * @return null|string La valeur échappée si le champ existe, null sinon.
 	 */
-	protected function valueEscaped($field) {
+	protected function valueEscaped($field, $forceType = null) {
 		if(array_key_exists($field, $this->data)) {
 			if($this->data[$field] instanceof DateTime) {
 				// Si la valeur est une date, on la formate avant de l'afficher
-				return $this->data[$field]->format('d/m/Y');
+				if($forceType == 'time') {
+					return $this->data[$field]->format('H:i');
+				} else {
+					return $this->data[$field]->format('d/m/Y');
+				}
 			} else {
 				return htmlspecialchars($this->data[$field]);
 			}
