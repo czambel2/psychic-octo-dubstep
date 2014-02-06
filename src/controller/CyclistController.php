@@ -164,7 +164,12 @@ class CyclistController extends Controller {
 			}
 		}
 
+		if(array_key_exists('returnto', $_GET)) {
+			$returnUrl = $_GET['returnto'];
+		} else {
+			$returnUrl = null;
+		}
 
-		$this->render('cyclist.edit', array('form' => $form));
+		$this->render('cyclist.edit', array('form' => $form, 'returnUrl' => $returnUrl));
 	}
 }

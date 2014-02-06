@@ -6,8 +6,11 @@
 			<?= $form ?>
 
 			<div class="row">
-				<div class="one column centered">
-					<button class="button" type="submit">Modifier</button>
+				<div class="three column centered text-center">
+					<ul class="button-group">
+						<li><button class="button" type="submit">Modifier</button></li>
+						<li><a class="button" href="<?= $returnUrl ?: url('cyclist.index') ?>">Annuler</a></li>
+					</ul>
 				</div>
 			</div>
 		</div>
