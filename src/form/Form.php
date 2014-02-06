@@ -83,11 +83,17 @@ abstract class Form {
 	 * Retourne le code HTML permettant de mettre un champ en erreur.
 	 * Cette méthode est un helper HTML.
 	 * @param string $field Le nom du champ.
+	 * @param boolean $inline Si true, cette fonction va être insérée dans un attribut class existant.
+	 *                        Si flase, cette fonction va ajouter un attribut class portant la valeur "error".
 	 * @return null|string Le code HTML si le champ comporte une erreur, null sinon.
 	 */
-	protected function errorClass($field) {
+	protected function errorClass($field, $inline = false) {
 		if($this->hasError($field)) {
-			return ' class="error" ';
+			if($inline) {
+				return ' error';
+			} else {
+				return ' class="error" ';
+			}
 		} else {
 			return null;
 		}

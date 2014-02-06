@@ -157,20 +157,26 @@ class ThisRaceController extends Controller {
 		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] = 'enterDeparture') {
 			$form->bind($_POST['data']);
 			if($form->isValid()) {
-				if(!preg_match("/^.+ \((\d+)\)$/", $form->getData('cyclistName'), $data)) {
-					$form->addError('cyclistName', 'Ce champ est invalide.');
+				$cyclistId = null;
+
+				if(ctype_digit($form->getData('cyclistName')) and ((int) $form->getData('cyclistName')) > 0) {
+					$cyclistId = (int) $form->getData('cyclistName');
+				} else {
+					if(!preg_match("/^.+ \((\d+)\)$/", $form->getData('cyclistName'), $data)) {
+						$form->addError('cyclistName', 'Ce champ est invalide.');
+					} else {
+						$cyclistId = $data[1];
+					}
 				}
 
-				if(array_key_exists(1, $data) and ctype_digit($data[1])) {
-					$cyclistId = $data[1];
-
+				if($cyclistId) {
 					// On vérifie que le cycliste existe
-					$q = $db->prepare('SELECT COUNT(*) AS nb FROM cycliste WHERE numcyc = :cyclistId');
+					$q = $db->prepare('SELECT numcyc, nom, prenom, nbcourses FROM cycliste WHERE numcyc = :cyclistId');
 					$q->bindValue('cyclistId', $cyclistId);
 					$q->execute();
-					$data = $q->fetch();
+					$cyclist = $q->fetch();
 
-					if($data['nb'] != 1) {
+					if(!$cyclist) {
 						$form->addError('cyclistName', 'Ce cycliste n\'existe pas.');
 					} else {
 						// On vérifie si le cycliste n'est pas déjà inscrit dans la course
@@ -183,37 +189,54 @@ class ThisRaceController extends Controller {
 						if($data['nb'] > 0) {
 							$form->addError('cyclistName', 'Ce cycliste est déjà parti.');
 						} else {
-							try {
-								$db->beginTransaction();
+							$now = new DateTime();
 
-								$now = new DateTime();
-
-								// On met à jour le nombre de participants à la course
-								$q = $db->prepare('UPDATE course SET :field = :field + 1 WHERE numcourse = :raceNumber');
-								$q->bindValue('field', 'nbparticipantsc' . $form->getData('circuit'));
-								$q->bindValue('raceNumber', $raceNumber);
-								$q->execute();
-
-								// On ajoute la participation
-								$q = $db->prepare('INSERT INTO participer(numcourse, numcyc, numcircuit, hdepart, harrivee)
-									VALUES(:raceNumber, :cyclistId, :circuit, :time, NULL)');
-								$q->bindValue('raceNumber', $raceNumber);
-								$q->bindValue('cyclistId', $cyclistId);
-								$q->bindValue('circuit', $form->getData('circuit'));
-								$q->bindValue('time', $now->format('H:i:s'));
-								$q->execute();
-
-								// On modifie l'heure de départ dans la table cycliste
-								$q = $db->prepare('UPDATE cycliste SET depart = :time WHERE numcyc = :cyclistId');
-								$q->bindValue('time', $now->format('H:i:s'));
-								$q->bindValue('cyclistId', $cyclistId);
-								$q->execute();
-
-								$db->commit();
-							} catch(PDOException $ex) {
-								$db->rollBack();
-								throw $ex;
+							// On met à jour le nombre de participants à la course
+							$circuitField = 'nbparticipantsc' . ((int) $form->getData('circuit'));
+							$nbRacesForCyclist = $cyclist['nbcourses'] + 1;
+							if($nbRacesForCyclist % 3 == 0) {
+								$queryPart = ", nb${nbRacesForCyclist}participations = nb${nbRacesForCyclist}participations + 1";
+							} else {
+								$queryPart = null;
 							}
+							$q = $db->prepare("UPDATE course SET $circuitField = $circuitField + 1, nbparticipantstotal = nbparticipantstotal + 1$queryPart WHERE numcourse = :raceNumber");
+							$q->bindValue('raceNumber', $raceNumber);
+							$q->execute();
+
+							// On met à jour la table Obtenir
+							if($nbRacesForCyclist % 3 == 0) {
+								$q = $db->prepare('INSERT INTO obtenir(nbparticipation, numcyc) VALUES(:nbRaces, :cyclistId)');
+								$q->bindValue('nbRaces', $nbRacesForCyclist);
+								$q->bindValue('cyclistId', $cyclistId);
+								$q->execute();
+							}
+
+							// On modifie l'heure de départ dans la table cycliste
+							/* Utilité ?
+							$q = $db->prepare('UPDATE cycliste SET depart = :time WHERE numcyc = :cyclistId');
+							$q->bindValue('time', $now->format('H:i:s'));
+							$q->bindValue('cyclistId', $cyclistId);
+							$q->execute();
+							*/
+
+							// On met à jour les infos du cycliste
+							$q = $db->prepare('UPDATE cycliste SET nbcourses = nbcourses + 1,
+								dernumcourse = :raceNumber WHERE numcyc = :cyclistId');
+							$q->bindValue('raceNumber', $raceNumber);
+							$q->bindValue('cyclistId', $cyclistId);
+							$q->execute();
+
+							// On ajoute la participation
+							$q = $db->prepare('INSERT INTO participer(numcourse, numcyc, numcircuit, hdepart, harrivee)
+								VALUES(:raceNumber, :cyclistId, :circuit, :time, NULL)');
+							$q->bindValue('raceNumber', $raceNumber);
+							$q->bindValue('cyclistId', $cyclistId);
+							$q->bindValue('circuit', $form->getData('circuit'));
+							$q->bindValue('time', $now->format('H:i:s'));
+							$q->execute();
+
+							Session::getInstance()->addFlash(new Flash($cyclist['prenom'] . " " . $cyclist['nom'] . " : départ enregistré.", Flash::FLASH_SUCCESS));
+							Utility::redirectRoute('thisRace.enterDeparture');
 						}
 					}
 				} else {
