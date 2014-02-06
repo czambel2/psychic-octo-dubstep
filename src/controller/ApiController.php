@@ -36,18 +36,59 @@ class ApiController extends Controller {
 
 			$_GET['term'] = utf8_decode($_GET['term']);
 
-			$q = $db->prepare("SELECT TOP 10 c.numcyc, c.nom, c.prenom FROM cycliste c WHERE
-				c.nom LIKE :lastName OR
-				c.prenom LIKE :firstName OR
-				c.nom & ' ' & c.prenom LIKE :fullName1 OR
-				c.prenom & ' ' & c.nom LIKE :fullName2 OR
-				c.numcyc = :cyclistId");
-			$q->bindValue('lastName', $_GET['term'] . '%');
-			$q->bindValue('firstName', $_GET['term'] . '%');
-			$q->bindValue('fullName1', '%' . $_GET['term'] . '%');
-			$q->bindValue('fullName2', '%' . $_GET['term'] . '%');
-			$q->bindValue('cyclistId', (int) $_GET['term'], PDO::PARAM_INT);
+			$sql = "SELECT TOP 10 c.numcyc, c.nom, c.prenom FROM cycliste c ";
+
+			if(array_key_exists('filter', $_GET)) {
+				if($_GET['filter'] == 'departure') {
+					$sql .= "LEFT JOIN participer p ON (p.numcyc = c.numcyc AND p.numcourse = :raceNumber) WHERE p.numcyc IS NULL AND ( ";
+				} elseif($_GET['filter'] == 'arrival') {
+					$sql .= "LEFT JOIN participer p ON (p.numcyc = c.numcyc AND p.numcourse = :raceNumber) WHERE p.numcyc IS NOT NULL AND ( ";
+				} else {
+					$sql .= "WHERE (";
+				}
+			} else {
+				$sql .= "WHERE (";
+			}
+
+			$terms = explode(' ', $_GET['term']);
+			foreach($terms as $nb => $term) {
+				if($term != reset($terms)) {
+					$sql .= "OR ";
+				}
+
+				if(ctype_digit($term)) {
+					// Un nombre a été entré
+					$sql .= "c.numcyc = :numTerm${nb} ";
+				} else {
+					// Du texte a été entré, on cherche sur tous les champs
+					$sql .= "c.nom LIKE :searchTerm${nb} ";
+					$sql .= "OR c.prenom LIKE :searchTermX${nb} ";
+				}
+			}
+
+			$sql .= ')';
+
+			$q = $db->prepare($sql);
+
+			foreach($terms as $nb => $term) {
+				if(ctype_digit($term)) {
+					// Un nombre a été entré
+					$q->bindValue('numTerm' . $nb, $term, PDO::PARAM_INT);
+				} else {
+					// Du texte a été entré, on cherche sur tous les champs
+					$q->bindValue('searchTerm' . $nb, $term . '%');
+					$q->bindValue('searchTermX' . $nb, $term . '%');
+				}
+			}
+
+			if(array_key_exists('filter', $_GET)) {
+				if($_GET['filter'] == 'departure' or $_GET['filter'] == 'arrival') {
+					$q->bindValue('raceNumber', $this->getLastRaceNumber());
+				}
+			}
+
 			$q->execute();
+
 			$results = $q->fetchAll();
 
 			$cyclistes = array();

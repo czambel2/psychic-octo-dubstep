@@ -3,7 +3,7 @@
 		<label for="data_cyclistName" class="right inline required">Coureur&nbsp;:</label>
 	</div>
 	<div class="nine columns">
-		<input name="data[cyclistName]" class="autocomplete-cyclists" required="required" id="data_cyclistName" placeholder="Rechercher un cycliste" type="text" <?= $this->errorClass('cyclistName') ?> />
+		<input name="data[cyclistName]" class="autocomplete-cyclists departure" required="required" id="data_cyclistName" placeholder="Rechercher un cycliste" type="text" <?= $this->errorClass('cyclistName') ?> />
 		<?= $this->errorMessage('cyclistName') ?>
 		<div class="autocomplete-results"></div>
 	</div>

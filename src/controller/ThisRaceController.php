@@ -2,16 +2,6 @@
 
 class ThisRaceController extends Controller {
 
-	/**
-	 * Récupère le numéro de la dernière course
-	 */
-	protected function getLastRaceNumber() {
-		$db = DB::getInstance();
-		$q = $db->query('SELECT MAX(NUMCOURSE) AS nb FROM COURSE');
-		$q->execute();
-		return $q->fetch()['nb'];
-	}
-
 	public function status() {
 		$db = DB::getInstance();
 
