@@ -135,4 +135,79 @@ $(function () {
 			}
 		});
 	});
+
+	var showCyclistDetailsForRace = function(cyclistId, raceNumber) {
+		$.ajax({
+			'type': 'GET',
+			'url': '/api/details-cycliste-course',
+			'data': {
+				'cyclistId': cyclistId,
+				'raceNumber': raceNumber
+			},
+			'success': function(data) {
+				$('.sheet').show();
+				$('.sheet .title').html(data.title);
+				$('.sheet .lastName').html(data.lastName);
+				$('.sheet .firstName').html(data.firstName);
+				$('.sheet .address').html(data.address);
+				$('.sheet .zipcode').html(data.zipcode);
+				$('.sheet .city').html(data.city);
+
+				$('.sheet .edit-details a').attr('href', function() {
+					return $(this).attr('data-baseurl') + '?id=' + data.cyclistId + '&returnto=' + encodeURIComponent(location.pathname + '?id=' + data.cyclistId);
+				});
+
+				$('.race .circuit').html(data.circuitNumber);
+				$('.race .distance').html(data.distance);
+				$('.race').show();
+
+				if(data.rewardName && data.rewardName.trim() != '') {
+					$('.reward .nbRaces').html(data.nbRaces);
+					$('.reward .rewardName').html(data.rewardName);
+					$('.reward').show();
+				}
+			}
+		});
+	};
+
+	$('.autocomplete-cyclists-filter').each(function() {
+
+		var url = '/api/cyclistes';
+
+		if($(this).is('.departure')) {
+			url = '/api/cyclistes?filter=departure';
+		} else if($(this).is('.arrival')) {
+			url = '/api/cyclistes?filter=arrival';
+		}
+
+		if($(this).val() != '') {
+			showCyclistDetails($(this).val());
+		}
+
+		$(this).autocomplete({
+			appendTo: '.autocomplete-results',
+			source: url,
+			delay: 10,
+			select: function(event, ui) {
+				var regex = /^.+ \((\d+)\)$/g;
+				var match = regex.exec(ui.item.value);
+				var id = match[1];
+
+				raceNumber = $(this).attr('data-race-number');
+				showCyclistDetailsForRace(id, raceNumber);
+			},
+			create: function() {
+				$(this).data('ui-autocomplete')._renderItem = function (ul, item) {
+					var newText = String(item.value).replace(
+						new RegExp(this.term.replace(" ", "|"), "gi"),
+						"<span class='ui-state-highlight'>$&</span>");
+
+					return $("<li></li>")
+						.data("item.autocomplete", item)
+						.append("<a>" + newText + "</a>")
+						.appendTo(ul);
+				};
+			}
+		});
+	});
 });

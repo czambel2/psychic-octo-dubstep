@@ -42,7 +42,7 @@ class ApiController extends Controller {
 				if($_GET['filter'] == 'departure') {
 					$sql .= "LEFT JOIN participer p ON (p.numcyc = c.numcyc AND p.numcourse = :raceNumber) WHERE p.numcyc IS NULL AND ( ";
 				} elseif($_GET['filter'] == 'arrival') {
-					$sql .= "LEFT JOIN participer p ON (p.numcyc = c.numcyc AND p.numcourse = :raceNumber) WHERE p.numcyc IS NOT NULL AND ( ";
+					$sql .= "INNER JOIN participer p ON (p.numcyc = c.numcyc AND p.numcourse = :raceNumber) WHERE p.harrivee IS NULL AND ( ";
 				} else {
 					$sql .= "WHERE (";
 				}
@@ -106,13 +106,20 @@ class ApiController extends Controller {
 	public function cyclistDetails() {
 		if(array_key_exists('cyclistId', $_GET)) {
 			$db = DB::getInstance();
-			$q = $db->prepare('SELECT c.numcyc, c.polit, c.nom, c.prenom, c.date_n, c.adresse, c.cod_post, c.ville
-				FROM cycliste c WHERE c.numcyc = :cyclistId');
+			$q = $db->prepare('SELECT
+					c.numcyc, c.polit, c.nom, c.prenom, c.date_n, c.adresse, c.cod_post, c.ville, c.nbcourses, r.librecompense
+				FROM
+					cycliste c
+				LEFT JOIN
+					recompense r ON r.nbparticipation = c.nbcourses
+				WHERE
+					c.numcyc = :cyclistId'
+			);
 			$q->bindValue('cyclistId', $_GET['cyclistId']);
 			$q->execute();
 
 			if($cyclist = $q->fetch()) {
-				echo json_encode(array(
+				$data = array(
 					'cyclistId' => $cyclist['numcyc'],
 					'title' => $cyclist['polit'],
 					'lastName' => $cyclist['nom'],
@@ -121,7 +128,82 @@ class ApiController extends Controller {
 					'address' => $cyclist['adresse'],
 					'zipcode' => $cyclist['cod_post'],
 					'city' => $cyclist['ville'],
-				));
+					'nbRaces' => $cyclist['nbcourses'],
+					'rewardName' => $cyclist['librecompense'],
+				);
+
+				echo json_encode($data);
+			} else {
+				header("HTTP/1.1 404 Not Found");
+				echo json_encode(array());
+			}
+		} else {
+			header("HTTP/1.1 400 Bad Request");
+			echo json_encode(array('res' => 'nok'));
+		}
+	}
+
+	public function cyclistDetailsForRace() {
+		if(array_key_exists('cyclistId', $_GET) and array_key_exists('raceNumber', $_GET)) {
+			$raceNumber = $_GET['raceNumber'];
+
+			$db = DB::getInstance();
+			$q = $db->prepare('SELECT
+				c.numcyc, c.polit, c.nom, c.prenom, c.date_n, c.adresse, c.cod_post, c.ville, c.nbcourses, r.librecompense, p.numcircuit
+				FROM
+					(cycliste c
+				LEFT JOIN
+					recompense r ON r.nbparticipation = c.nbcourses)
+				LEFT JOIN
+					participer p ON p.numcyc = c.numcyc
+				WHERE
+					c.numcyc = :cyclistId
+				AND
+					p.numcourse = :raceNumber'
+			);
+
+			$q->bindValue('raceNumber', $raceNumber);
+			$q->bindValue('cyclistId', $_GET['cyclistId']);
+			$q->execute();
+
+			if($cyclist = $q->fetch()) {
+				$data = array(
+					'cyclistId' => $cyclist['numcyc'],
+					'title' => $cyclist['polit'],
+					'lastName' => $cyclist['nom'],
+					'firstName' => $cyclist['prenom'],
+					'birthDate' => DateTime::createFromFormat('Y-m-d H:i:s', $cyclist['date_n'])->format('d/m/Y'),
+					'address' => $cyclist['adresse'],
+					'zipcode' => $cyclist['cod_post'],
+					'city' => $cyclist['ville'],
+					'nbRaces' => $cyclist['nbcourses'],
+					'rewardName' => $cyclist['librecompense'],
+					'circuitNumber' => $cyclist['numcircuit'],
+				);
+
+				$circuit = null;
+				switch($data['circuitNumber']) {
+					case 1: $circuit = 1; break;
+					case 2: $circuit = 2; break;
+					case 3: $circuit = 3; break;
+					default: break;
+				}
+
+				$data2 = array();
+				if($circuit) {
+					$qu = $db->prepare('SELECT
+						c.distancec' . $circuit . ' as distance FROM course c WHERE c.numcourse = :raceNumber');
+					$qu->bindValue('raceNumber', $raceNumber);
+					$qu->execute();
+
+					if($details = $qu->fetch()) {
+						$data2 = array(
+							'distance' => $details['distance']
+						);
+					}
+				}
+
+				echo json_encode(array_merge($data, $data2));
 			} else {
 				header("HTTP/1.1 404 Not Found");
 				echo json_encode(array());
