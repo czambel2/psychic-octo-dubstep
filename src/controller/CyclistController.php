@@ -16,20 +16,41 @@ class CyclistController extends Controller {
 	}
 
 	public function search() {
-		//$db = DB::getInstance();
+		$db = DB::getInstance();
 
 		$form = new SearchCyclistForm();
+		$cyclist = null;
+
+		if($_SERVER['REQUEST_METHOD'] == 'GET' and array_key_exists('id', $_GET)) {
+			$q = $db->prepare('SELECT * FROM cycliste WHERE numcyc = :cyclistId');
+			$q->bindValue('cyclistId', $_GET['id']);
+			$q->execute();
+
+			$cyclist = $q->fetch();
+		}
 
 		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] = 'searchCyclist') {
 			$form->bind($_POST['data']);
 			if($form->isValid()) {
-				if(!preg_match("/^.+ \((\d+)\)$/", $form->getData('cyclistName'), $data)) {
-					$form->addError('cyclistName', 'Ce champ est invalide.');
+				$cyclistId = null;
+				if(ctype_digit($form->getData('cyclistName')) and ((int) $form->getData('cyclistName')) > 0) {
+					$cyclistId = (int) $form->getData('cyclistName');
+				} else {
+					if(!preg_match("/^.+ \((\d+)\)$/", $form->getData('cyclistName'), $data)) {
+						$form->addError('cyclistName', 'Ce champ est invalide.');
+					} else {
+						$cyclistId = $data[1];
+					}
+				}
+
+				if($cyclistId) {
+					Utility::redirectRoute('cyclist.search', array('id' => $cyclistId));
 				}
 			}
 		}
 		$this->render('cyclist.search', array(
-			'form' => $form
+			'form' => $form,
+			'cyclist' => $cyclist,
 		));
 	}
 

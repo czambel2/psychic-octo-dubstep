@@ -210,4 +210,30 @@ $(function () {
 			}
 		});
 	});
+
+	$('.autocomplete-cyclists-search').each(function() {
+
+		var url = '/api/cyclistes';
+
+		$(this).autocomplete({
+			appendTo: '.autocomplete-results',
+			source: url,
+			delay: 10,
+			select: function(event, ui) {
+				$('form').submit();
+			},
+			create: function() {
+				$(this).data('ui-autocomplete')._renderItem = function (ul, item) {
+					var newText = String(item.value).replace(
+						new RegExp(this.term.replace(" ", "|"), "gi"),
+						"<span class='ui-state-highlight'>$&</span>");
+
+					return $("<li></li>")
+						.data("item.autocomplete", item)
+						.append("<a>" + newText + "</a>")
+						.appendTo(ul);
+				};
+			}
+		});
+	});
 });
