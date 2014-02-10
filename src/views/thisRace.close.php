@@ -30,7 +30,7 @@
 	<div class="row">
 		<div class="twelve centered columns text-center">
 			<form method="post" action="">
-				<input type="hidden" name="form" value="startRace" />
+				<input type="hidden" name="form" value="closeRace" />
 				<button type="submit" class="large button">
 					Clôturer la course
 				</button>
