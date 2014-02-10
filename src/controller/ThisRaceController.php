@@ -441,7 +441,7 @@ class ThisRaceController extends Controller {
 					nbretourtotal = nbretourtotal + 1 WHERE numcourse = :raceNumber');
 
 				if(empty($participations)) {
-					Session::getInstance()->addFlash(new Flash('Tous les coureurs sont arrivés&nbsp;: pas besoin de clôturer la course. Vous pouvez la fermer directement.'));
+					Session::getInstance()->addFlash(new Flash('Tous les coureurs sont arrivés&nbsp;: pas besoin de clôturer la course. Vous pouvez l\'arrêter directement.'));
 				} else {
 					foreach($participations as $participation) {
 						// On met à jour l'heure d'arrivée du cycliste
@@ -462,8 +462,9 @@ class ThisRaceController extends Controller {
 						$qUpdateRaceNbParticipations->execute();
 					}
 
-					Session::getInstance()->addFlash(new Flash('Course clôturée&nbsp;: vous pouvez dorénavant fermer la course.'));
+					Session::getInstance()->addFlash(new Flash('Course clôturée&nbsp;: vous pouvez dorénavant arrêter la course.'));
 				}
+				Utility::redirectRoute('thisRace.stop');
 			}
 		}
 
@@ -473,8 +474,46 @@ class ThisRaceController extends Controller {
 		));
 	}
 
-	public  function stop() {
+	public function stop() {
+		$db = DB::getInstance();
+		$q = $db->prepare("SELECT c.numcourse, c.datecourse, c.decompte FROM course c WHERE c.numcourse = :raceNumber");
+		$raceNumber = $this->getLastRaceNumber();
+		$q->bindValue('raceNumber', $raceNumber);
+		$q->execute();
+		$race = $q->fetch();
 
+		if($race['decompte'] == 'Faux') {
+			Session::getInstance()->addFlash(new Flash('La course est déjà terminée.', Flash::FLASH_ALERT));
+			Utility::redirectRoute('race.index');
+		} elseif($race['decompte'] == '') {
+			Session::getInstance()->addFlash(new Flash('La course n\'a pas encore commencé.', Flash::FLASH_ALERT));
+			Utility::redirectRoute('race.index');
+		}
+
+		// On vérifie que tous les cyclistes sont bien arrivés
+		$q = $db->prepare("SELECT COUNT(*) AS nb FROM participer p WHERE p.numcourse = :raceNumber AND p.harrivee IS NULL");
+		$q->bindValue('raceNumber', $raceNumber);
+		$q->execute();
+		$data = $q->fetch();
+		$nb = $data['nb'];
+
+		if($nb > 0) {
+			Session::getInstance()->addFlash(new Flash('Certains cyclistes n\'ont pas terminé la course ! Vous devez clôturer la course avant de l\'arrêter.', Flash::FLASH_ALERT));
+			Utility::redirectRoute('thisRace.close');
+		}
+
+		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] == 'stopRace') {
+			$q = $db->prepare('UPDATE course SET decompte = \'Faux\' WHERE numcourse = :raceNumber');
+			$q->bindValue('raceNumber', $raceNumber);
+			$q->execute();
+
+			Session::getInstance()->addFlash(new Flash('La course a bien été arrêtée.'));
+			Utility::redirectRoute('race.index');
+		}
+
+		$this->render('thisRace.stop', array(
+			'race' => $race,
+		));
 	}
 
 	public function rewards() {

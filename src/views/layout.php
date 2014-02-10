@@ -59,7 +59,7 @@
 								<a href="<?= url('thisRace.close') ?>">Clôturer la course</a>
 							</li>
 							<li>
-								<a href="#">Arrêter la course</a>
+								<a href="<?= url('thisRace.stop') ?>">Arrêter la course</a>
 							</li>
 							<li class="divider"></li>
 							<li>
