@@ -89,24 +89,23 @@ class ThisRaceController extends Controller {
 	public function start() {
 		$db = DB::getInstance();
 
-		$today = new DateTime();
-
-		$q = $db->prepare('SELECT c.numcourse, c.decompte, c.datecourse, c.anneecourse FROM course c WHERE c.datecourse = :date');
-		$q->bindValue('date', $today->format('d/m/Y'));
+		$q = $db->prepare('SELECT c.numcourse, c.decompte, c.datecourse, c.anneecourse FROM course c WHERE c.numcourse = :raceNumber');
+		$q->bindValue('raceNumber', $this->getLastRaceNumber());
 		$q->execute();
 
 		$race = $q->fetch();
 
-		if($race) {
-			if($race['decompte'] == 'Vrai') {
-				$raceStatus = 'started';
-			} elseif($race['decompte'] == '') {
-				$raceStatus = 'notStarted';
-			} else {
-				$raceStatus = 'ended';
-			}
+		if($race['decompte'] == 'Vrai') {
+			Session::getInstance()->addFlash(new Flash("Vous ne pouvez pas lancer la course car elle a déjà démarré.", Flash::FLASH_ALERT));
+			Utility::redirectRoute('race.index');
+		} elseif($race['decompte'] == 'Faux') {
+			Session::getInstance()->addFlash(new Flash("Vous ne pouvez pas démarrer la course car elle est terminée. Vous pouvez créer une nouvelle course.", Flash::FLASH_ALERT));
+			Utility::redirectRoute('race.index');
+		} elseif(DateTime::createFromFormat('Y-m-d H:i:s', $race['datecourse'])->format('Y-m-d') != (new DateTime())->format('Y-m-d')) {
+			Session::getInstance()->addFlash(new Flash("Vous ne pouvez pas démarrer la course car elle n'est pas prévue pour aujourd'hui.", Flash::FLASH_ALERT));
+			Utility::redirectRoute('race.index');
 		} else {
-			$raceStatus = 'inexistant';
+			$raceStatus = 'notStarted';
 		}
 
 		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] == 'startRace') {
