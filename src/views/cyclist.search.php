@@ -1,4 +1,4 @@
-<h1>Rechercher un Cycliste</h1>
+<h1>Rechercher un cycliste</h1>
 
 <form action="" method="post">
 	<div class="row">
