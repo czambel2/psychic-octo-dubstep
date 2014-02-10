@@ -69,8 +69,8 @@ class CyclistController extends Controller {
 				$result = $q->fetch();
 				$lastId = $result['numcyc'];
 
-				$q = $db->prepare('INSERT INTO CYCLISTE(NUMCYC, NOM, PRENOM, POLIT, CAT, ASCAP, SEXE, ADR_USI, USINE, DATE_N, PARTIC, ADRESSE, VILLE, COD_POST, DERNUMCOURSE, DERANCOURSE, DEPART, RETOUR, KM, NBCOURSES, validation)
-				VALUES(:numcyc, :lastName, :firstName, :title, :category, :ascap, :gender, :factoryAddress, :factory, :birthDate, 0, :address, :city, :zipcode, 0, 0, NULL, NULL, 0, 0, 0)');
+				$q = $db->prepare('INSERT INTO CYCLISTE(NUMCYC, NOM, PRENOM, POLIT, CAT, ASCAP, SEXE, ADR_USI, USINE, DATE_N, PARTIC, EMAIL, ADRESSE, VILLE, COD_POST, DERNUMCOURSE, DERANCOURSE, DEPART, RETOUR, KM, NBCOURSES, validation)
+				VALUES(:numcyc, :lastName, :firstName, :title, :category, :ascap, :gender, :factoryAddress, :factory, :birthDate, 0, :email, :address, :city, :zipcode, 0, 0, NULL, NULL, 0, 0, 0)');
 
 				$q->bindValue('numcyc', $lastId + 1);
 				$q->bindValue('lastName', $form->getData('lastName'));
@@ -82,6 +82,7 @@ class CyclistController extends Controller {
 				$q->bindValue('factoryAddress', $form->getData('factoryAddress'));
 				$q->bindValue('factory', $form->getData('factory'));
 				$q->bindValue('birthDate', $form->getData('birthDate')->format('d/m/Y'));
+				$q->bindValue('email', $form->getData('email'));
 				$q->bindValue('address', $form->getData('address'));
 				$q->bindValue('city', $form->getData('city'));
 				$q->bindValue('zipcode', $form->getData('zipcode'));
@@ -104,7 +105,7 @@ class CyclistController extends Controller {
 
 		if(array_key_exists('id', $_GET) and $_GET['id']) {
 			$q = $db->prepare('SELECT
-				c.numcyc, c.nom, c.prenom, c.polit, c.cat, c.ascap, c.adr_usi, c.usine, c.date_n, c.adresse, c.ville, c.cod_post
+				c.numcyc, c.nom, c.prenom, c.polit, c.cat, c.ascap, c.adr_usi, c.usine, c.date_n, c.email, c.adresse, c.ville, c.cod_post
 			FROM
 				cycliste c
 			WHERE
@@ -129,6 +130,7 @@ class CyclistController extends Controller {
 			'factoryAddress' => $cyclist['adr_usi'],
 			'factory' => $cyclist['usine'],
 			'birthDate' => new DateTime($cyclist['date_n']),
+			'email' => $cyclist['email'],
 			'address' => $cyclist['adresse'],
 			'city' => $cyclist['ville'],
 			'zipcode' => $cyclist['cod_post']
@@ -151,6 +153,7 @@ class CyclistController extends Controller {
 					ADR_USI = :factoryAddress,
 					USINE = :factory,
 					DATE_N = :birthDate,
+					EMAIL = :email,
 					ADRESSE = :address,
 					VILLE = :city,
 					COD_POST = :zipcode
@@ -167,6 +170,7 @@ class CyclistController extends Controller {
 				$q->bindValue('factoryAddress', $form->getData('factoryAddress'));
 				$q->bindValue('factory', $form->getData('factory'));
 				$q->bindValue('birthDate', $form->getData('birthDate')->format('d/m/Y'));
+				$q->bindValue('email', $form->getData('email'));
 				$q->bindValue('address', $form->getData('address'));
 				$q->bindValue('city', $form->getData('city'));
 				$q->bindValue('zipcode', $form->getData('zipcode'));
