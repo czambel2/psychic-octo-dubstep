@@ -411,8 +411,9 @@ class ThisRaceController extends Controller {
 
 	public function close() {
 		$db = DB::getInstance();
-		$q = $db->prepare("SELECT c.numcourse, c.datecourse, c.decompte FROM course c WHERE c.numcourse = :raceNumber");
-		$q->bindValue('raceNumber', $this->getLastRaceNumber());
+		$q = $db->prepare("SELECT c.numcourse, c.datecourse, c.decompte, c.distancec1, c.distancec2, c.distancec3 FROM course c WHERE c.numcourse = :raceNumber");
+		$raceNumber = $this->getLastRaceNumber();
+		$q->bindValue('raceNumber', $raceNumber);
 		$q->execute();
 		$race = $q->fetch();
 
@@ -426,8 +427,44 @@ class ThisRaceController extends Controller {
 		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] = 'closeRace') {
 			$form->bind($_POST['data']);
 			if($form->isValid()) {
-				// On sélectionne
-				$q = $db->prepare('SELECT c.numcyc FROM participe p LEFT JOIN cycliste c ON c.numcyc = p.numcyc WHERE p.numcyc IS NULL');
+				// On sélectionne tous les cyclistes qui ne sont pas rentrés
+				$q = $db->prepare('SELECT c.numcyc, p.numcircuit FROM participer p LEFT JOIN cycliste c ON c.numcyc = p.numcyc WHERE p.numcourse = :raceNumber AND p.harrivee IS NULL');
+				$q->bindValue('raceNumber', $raceNumber);
+				$q->execute();
+
+				$participations = $q->fetchAll();
+				var_dump($participations, $q->rowCount());
+
+				$qUpdateArrivalTime = $db->prepare('UPDATE participer SET harrivee = :hour WHERE numcyc = :cyclistId');
+				$qUpdateCyclistKm = $db->prepare('UPDATE cycliste SET km = km + :distance WHERE numcyc = :cyclistId');
+				$qUpdateRaceNbParticipations = $db->prepare('UPDATE course SET nbretourc1 = nbretourc1 + :nbCircuit1,
+					nbretourc2 = nbretourc2 + :nbCircuit2, nbretourc3 = nbretourc3 + :nbCircuit3,
+					nbretourtotal = nbretourtotal + 1 WHERE numcourse = :raceNumber');
+
+				if(empty($participations)) {
+					Session::getInstance()->addFlash(new Flash('Tous les coureurs sont arrivés&nbsp;: pas besoin de clôturer la course. Vous pouvez la fermer directement.'));
+				} else {
+					foreach($participations as $participation) {
+						// On met à jour l'heure d'arrivée du cycliste
+						$qUpdateArrivalTime->bindValue('hour', $form->getData('hour')->format('H:i:s'));
+						$qUpdateArrivalTime->bindValue('cyclistId', $participation['numcyc']);
+						$qUpdateArrivalTime->execute();
+
+						// On met à jour le nombre de kilomètres parcourus par le cycliste
+						$qUpdateCyclistKm->bindValue('distance', $race['distancec' . $participation['numcircuit']]);
+						$qUpdateCyclistKm->bindValue('cyclistId', $participation['numcyc']);
+						$qUpdateCyclistKm->execute();
+
+						// On met à jour le nombre de participants dans la course
+						$qUpdateRaceNbParticipations->bindValue('nbCircuit1', $participation['numcircuit'] == 1 ? 1 : 0);
+						$qUpdateRaceNbParticipations->bindValue('nbCircuit2', $participation['numcircuit'] == 2 ? 1 : 0);
+						$qUpdateRaceNbParticipations->bindValue('nbCircuit3', $participation['numcircuit'] == 3 ? 1 : 0);
+						$qUpdateRaceNbParticipations->bindValue('raceNumber', $race['numcourse']);
+						$qUpdateRaceNbParticipations->execute();
+					}
+
+					Session::getInstance()->addFlash(new Flash('Course clôturée&nbsp;: vous pouvez dorénavant fermer la course.'));
+				}
 			}
 		}
 
