@@ -20,13 +20,33 @@ class CyclistController extends Controller {
 
 		$form = new SearchCyclistForm();
 		$cyclist = null;
+		$rewards = array();
 
 		if($_SERVER['REQUEST_METHOD'] == 'GET' and array_key_exists('id', $_GET)) {
-			$q = $db->prepare('SELECT * FROM cycliste WHERE numcyc = :cyclistId');
+			$q = $db->prepare('SELECT
+				c.numcyc, c.nom, c.prenom, c.polit, c.cat, c.ascap, c.adr_usi, c.usine, c.date_n, c.email, c.adresse,
+				c.ville, c.cod_post, c.nbcourses, c.km, r.librecompense
+			FROM
+				cycliste c
+			LEFT JOIN
+				recompense r ON c.nbcourses >= r.nbparticipation
+			WHERE
+				c.numcyc = :cyclistId');
 			$q->bindValue('cyclistId', $_GET['id']);
 			$q->execute();
 
-			$cyclist = $q->fetch();
+			$data = $q->fetchAll();
+
+			$cyclist = $data[0];
+
+			// Gestion des récompenses
+			foreach($data as $reward) {
+				if($reward['librecompense']) {
+					$rewards[] = $reward['librecompense'];
+				}
+			}
+
+			$cyclist['date_n'] = DateTime::createFromFormat('Y-m-d H:i:s', $cyclist['date_n']);
 		}
 
 		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] == 'searchCyclist') {
@@ -51,6 +71,7 @@ class CyclistController extends Controller {
 		$this->render('cyclist.search', array(
 			'form' => $form,
 			'cyclist' => $cyclist,
+			'rewards' => $rewards,
 		));
 	}
 

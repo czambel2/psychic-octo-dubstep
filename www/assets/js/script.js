@@ -220,6 +220,7 @@ $(function () {
 			source: url,
 			delay: 10,
 			select: function(event, ui) {
+				$('#data_cyclistName').val(ui.item.label);
 				$('form').submit();
 			},
 			create: function() {

@@ -73,12 +73,19 @@ pre, code {
 	text-shadow: 0 0 0;
 }
 
-.edit-button {
+.edit-button, .view-button {
 	display: inline-block;
 	width: 16px;
 	height: 16px;
-	background: url("../img/edit.png") no-repeat;
 	text-indent: -36000px;
+}
+
+.edit-button {
+	background: url("../img/edit.png") no-repeat;
+}
+
+.view-button {
+	background: url("../img/view.png") no-repeat;
 }
 
 .prefix, .postfix {
@@ -135,4 +142,12 @@ pre, code {
 
 .sheet p {
 	margin: 2px 0;
+}
+
+.aerated, .row .aerated, .row .row .aerated {
+	margin: 16px 0;
+}
+
+.aerated.centered, .row .aerated.centered, .row .row .aerated.centered {
+	margin: 16px auto;
 }

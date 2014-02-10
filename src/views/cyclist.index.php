@@ -20,7 +20,10 @@
 					<td><?= e($cyclist["prenom"]) ?></td>
 					<td><?= e($cyclist["adresse"]) ?></td>
 					<td><?= e($cyclist["ville"]) ?></td>
-					<td class="text-center"><a class="edit-button" title="Modifier" href="<?= url('cyclist.edit', array("id" => $cyclist["numcyc"])) ?>">Modifier</a></td>
+					<td class="text-center">
+						<a class="view-button" title="Afficher" href="<?= url('cyclist.search', array("id" => $cyclist["numcyc"])) ?>">Afficher</a>
+						<a class="edit-button" title="Modifier" href="<?= url('cyclist.edit', array("id" => $cyclist["numcyc"])) ?>">Modifier</a>
+					</td>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>
