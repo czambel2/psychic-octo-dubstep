@@ -10,7 +10,7 @@ class LoginController extends Controller {
 
 		$form = new LoginForm();
 
-		if($_SERVER['REQUEST_METHOD'] == "POST" and array_key_exists('form', $_POST) and $_POST['form'] = 'login') {
+		if($_SERVER['REQUEST_METHOD'] == "POST" and array_key_exists('form', $_POST) and $_POST['form'] == 'login') {
 			$form->bind($_POST['data']);
 			if($form->isValid()) {
 

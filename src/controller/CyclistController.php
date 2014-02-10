@@ -29,7 +29,7 @@ class CyclistController extends Controller {
 			$cyclist = $q->fetch();
 		}
 
-		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] = 'searchCyclist') {
+		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] == 'searchCyclist') {
 			$form->bind($_POST['data']);
 			if($form->isValid()) {
 				$cyclistId = null;
@@ -57,7 +57,7 @@ class CyclistController extends Controller {
 	public function add() {
 		$form = new CyclistForm();
 
-		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] = 'cyclist') {
+		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] == 'cyclist') {
 			$form->bind($_POST['data']);
 			if($form->isValid()) {
 
@@ -134,7 +134,7 @@ class CyclistController extends Controller {
 			'zipcode' => $cyclist['cod_post']
 		));
 
-		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] = 'cyclist') {
+		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] == 'cyclist') {
 			$form->bind($_POST['data']);
 			if($form->isValid()) {
 

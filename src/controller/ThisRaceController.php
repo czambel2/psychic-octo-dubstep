@@ -109,7 +109,7 @@ class ThisRaceController extends Controller {
 			$raceStatus = 'inexistant';
 		}
 
-		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] = 'startRace') {
+		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] == 'startRace') {
 			if($raceStatus != 'notStarted') {
 				Session::getInstance()->addFlash(
 					new Flash('La course est déjà commencée.', Flash::FLASH_ALERT)
@@ -160,7 +160,7 @@ class ThisRaceController extends Controller {
 			));
 		}
 
-		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] = 'enterDeparture') {
+		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] == 'enterDeparture') {
 			$form->bind($_POST['data']);
 			if($form->isValid()) {
 				$cyclistId = null;
@@ -288,7 +288,7 @@ class ThisRaceController extends Controller {
 
 		$form = new ArrivalForm();
 		$form->setMiscData('raceNumber', $race['numcourse']);
-		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] = 'enterArrival') {
+		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] == 'enterArrival') {
 			$form->bind($_POST['data']);
 			if($form->isValid()) {
 				$cyclistId = null;
@@ -424,7 +424,7 @@ class ThisRaceController extends Controller {
 
 		$form = new CloseRaceForm();
 
-		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] = 'closeRace') {
+		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] == 'closeRace') {
 			$form->bind($_POST['data']);
 			if($form->isValid()) {
 				// On sélectionne tous les cyclistes qui ne sont pas rentrés
@@ -496,7 +496,7 @@ class ThisRaceController extends Controller {
 	public function addReward() {
 		$form = new RewardForm();
 
-		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] = 'reward') {
+		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] == 'reward') {
 			$form->bind($_POST['data']);
 			if($form->isValid()) {
 				$db = DB::getInstance();

@@ -46,7 +46,7 @@ class RaceController extends Controller {
 			'circuit3' => $race['distancec3'],
 		));
 
-		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] = 'race') {
+		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] == 'race') {
 			$form->bind($_POST['data']);
 			if($form->isValid()) {
 				// On vérifie si une course n'existe pas déjà cette année
@@ -91,7 +91,7 @@ class RaceController extends Controller {
 		$form = new RaceForm();
 		$db = DB::getInstance();
 
-		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] = 'race') {
+		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] == 'race') {
 			$form->bind($_POST['data']);
 			if($form->isValid()) {
 				// On vérifie si une course n'existe pas déjà cette année
