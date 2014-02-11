@@ -286,6 +286,12 @@ class ThisRaceController extends Controller {
 		}
 
 		$form = new ArrivalForm();
+		if(array_key_exists('id', $_GET)) {
+			$form->bindDatabase(array(
+				'cyclistName' => $_GET['id'],
+			));
+		}
+
 		$form->setMiscData('raceNumber', $race['numcourse']);
 		if($_SERVER['REQUEST_METHOD'] == 'POST' and array_key_exists('form', $_POST) and $_POST['form'] == 'enterArrival') {
 			$form->bind($_POST['data']);

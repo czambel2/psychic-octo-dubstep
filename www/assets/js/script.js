@@ -209,6 +209,21 @@ $(function () {
 				$('.sheet .zipcode').html(data.zipcode);
 				$('.sheet .city').html(data.city);
 
+				$('.sheet .birthdate').html('<strong>Date de naissance&nbsp;:</strong> ' + data.birthDate);
+				$('.sheet .email').html(function() {
+					returnVal = '<strong>Adresse e-mail&nbsp;:</strong> ';
+					if(data.email == null) {
+						returnVal += '<span class="label alert radius">Pas saisie</span>';
+					} else {
+						returnVal += data.email;
+					}
+					return returnVal;
+				});
+
+				$('.sheet .nbRaces').html(data.nbRaces);
+				$('.sheet .totalDistance').html(data.totalDistance);
+				$('.sheet .rewards').html(data.rewards);
+
 				$('.sheet .edit-details a').attr('href', function() {
 					return $(this).attr('data-baseurl') + '?id=' + data.cyclistId + '&returnto=' + encodeURIComponent(location.pathname + '?id=' + data.cyclistId);
 				})
@@ -273,6 +288,21 @@ $(function () {
 				$('.sheet .zipcode').html(data.zipcode);
 				$('.sheet .city').html(data.city);
 
+				$('.sheet .birthdate').html('<strong>Date de naissance&nbsp;:</strong> ' + data.birthDate);
+				$('.sheet .email').html(function() {
+					returnVal = '<strong>Adresse e-mail&nbsp;:</strong> ';
+					if(data.email == null) {
+						returnVal += '<span class="label alert radius">Pas saisie</span>';
+					} else {
+						returnVal += data.email;
+					}
+					return returnVal;
+				});
+
+				$('.sheet .nbRaces').html(data.nbRaces);
+				$('.sheet .totalDistance').html(data.totalDistance);
+				$('.sheet .rewards').html(data.rewards);
+
 				$('.sheet .edit-details a').attr('href', function() {
 					return $(this).attr('data-baseurl') + '?id=' + data.cyclistId + '&returnto=' + encodeURIComponent(location.pathname + '?id=' + data.cyclistId);
 				});
@@ -281,10 +311,14 @@ $(function () {
 				$('.race .distance').html(data.distance);
 				$('.race').show();
 
+				$('.reward').show();
+				$('.reward .nbRaces').html(data.nbRaces);
+				$('.reward .reward-yes, .reward .reward-no').hide();
 				if(data.rewardName && data.rewardName.trim() != '') {
-					$('.reward .nbRaces').html(data.nbRaces);
 					$('.reward .rewardName').html(data.rewardName);
-					$('.reward').show();
+					$('.reward .reward-yes').show();
+				} else {
+					$('.reward .reward-no').show();
 				}
 			}
 		});
@@ -300,8 +334,10 @@ $(function () {
 			url = '/api/cyclistes?filter=arrival';
 		}
 
+		raceNumber = $(this).attr('data-race-number');
+
 		if($(this).val() != '') {
-			showCyclistDetails($(this).val());
+			showCyclistDetailsForRace($(this).val(), raceNumber);
 		}
 
 		$(this).autocomplete({
@@ -313,7 +349,6 @@ $(function () {
 				var match = regex.exec(ui.item.value);
 				var id = match[1];
 
-				raceNumber = $(this).attr('data-race-number');
 				showCyclistDetailsForRace(id, raceNumber);
 			},
 			create: function() {

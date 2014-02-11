@@ -4,6 +4,7 @@ class ApiController extends Controller {
 	public function __construct() {
 		Layout::getInstance()->disable();
 		header("Content-Type: application/json, charset=windows-1252");
+		ini_set('html_errors', false);
 	}
 
 	public function editReward() {
@@ -107,7 +108,7 @@ class ApiController extends Controller {
 		if(array_key_exists('cyclistId', $_GET)) {
 			$db = DB::getInstance();
 			$q = $db->prepare('SELECT
-					c.numcyc, c.polit, c.nom, c.prenom, c.date_n, c.adresse, c.cod_post, c.ville, c.nbcourses, r.librecompense
+					c.numcyc, c.polit, c.nom, c.prenom, c.date_n, c.email, c.adresse, c.cod_post, c.ville, c.nbcourses, c.km, r.librecompense
 				FROM
 					cycliste c
 				LEFT JOIN
@@ -125,14 +126,28 @@ class ApiController extends Controller {
 					'lastName' => $cyclist['nom'],
 					'firstName' => $cyclist['prenom'],
 					'birthDate' => DateTime::createFromFormat('Y-m-d H:i:s', $cyclist['date_n'])->format('d/m/Y'),
+					'email' => $cyclist['email'],
 					'address' => $cyclist['adresse'],
 					'zipcode' => $cyclist['cod_post'],
 					'city' => $cyclist['ville'],
 					'nbRaces' => $cyclist['nbcourses'],
 					'rewardName' => $cyclist['librecompense'],
+					'totalDistance' => $cyclist['km'],
 				);
 
-				echo json_encode($data);
+				$data2 = array('rewards' => null);
+				$q = $db->prepare('SELECT r.nbparticipation, r.librecompense FROM recompense r WHERE r.nbparticipation <= :nbTotalRaces');
+				$q->bindValue('nbTotalRaces', $cyclist['nbcourses']);
+				$q->execute();
+				$rewards = $q->fetchAll();
+				foreach($rewards as $reward) {
+					if(reset($rewards) != $reward) {
+						$data2['rewards'] .= ', ';
+					}
+					$data2['rewards'] .= $reward['librecompense'];
+				}
+
+				echo json_encode(array_merge($data, $data2));
 			} else {
 				header("HTTP/1.1 404 Not Found");
 				echo json_encode(array());
@@ -149,7 +164,7 @@ class ApiController extends Controller {
 
 			$db = DB::getInstance();
 			$q = $db->prepare('SELECT
-				c.numcyc, c.polit, c.nom, c.prenom, c.date_n, c.adresse, c.cod_post, c.ville, c.nbcourses, r.librecompense, p.numcircuit
+				c.numcyc, c.polit, c.nom, c.prenom, c.date_n, c.email, c.adresse, c.cod_post, c.ville, c.nbcourses, c.km, r.librecompense, p.numcircuit
 				FROM
 					(cycliste c
 				LEFT JOIN
@@ -173,12 +188,14 @@ class ApiController extends Controller {
 					'lastName' => $cyclist['nom'],
 					'firstName' => $cyclist['prenom'],
 					'birthDate' => DateTime::createFromFormat('Y-m-d H:i:s', $cyclist['date_n'])->format('d/m/Y'),
+					'email' => $cyclist['email'],
 					'address' => $cyclist['adresse'],
 					'zipcode' => $cyclist['cod_post'],
 					'city' => $cyclist['ville'],
 					'nbRaces' => $cyclist['nbcourses'],
 					'rewardName' => $cyclist['librecompense'],
 					'circuitNumber' => $cyclist['numcircuit'],
+					'totalDistance' => $cyclist['km'],
 				);
 
 				$circuit = null;
