@@ -22,7 +22,8 @@ abstract class Router {
 			'editReward' => '/api/modifier-recompense',
 			'autocompleteCyclists' => '/api/cyclistes',
 			'cyclistDetails' => '/api/details-cycliste',
-			'cyclistDetailsForRace' => '/api/details-cycliste-course'
+			'cyclistDetailsForRace' => '/api/details-cycliste-course',
+			'listCyclists' => '/api/liste-cyclistes',
 		),
 		'race' => array(
 			'index' => '/courses/liste',

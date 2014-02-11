@@ -3,7 +3,7 @@
 class ApiController extends Controller {
 	public function __construct() {
 		Layout::getInstance()->disable();
-		header("Content-Type: application/json, charset=iso-8859-1");
+		header("Content-Type: application/json, charset=windows-1252");
 	}
 
 	public function editReward() {
@@ -212,5 +212,152 @@ class ApiController extends Controller {
 			header("HTTP/1.1 400 Bad Request");
 			echo json_encode(array('res' => 'nok'));
 		}
+	}
+
+	protected function createListCyclistQuery(DB $db, $type) {
+
+		// Filtrage
+		$filteringCriteria = NULL;
+
+		if(array_key_exists('sSearch', $_GET)) {
+			$searchTerms = explode(' ', $_GET['sSearch']);
+			foreach($searchTerms as $nb => $search) {
+				if(reset($searchTerms) != $search) {
+					$filteringCriteria .= 'AND ';
+				}
+
+				$filteringCriteria .= '(';
+
+				if(ctype_digit($_GET['sSearch'])) {
+					$filteringCriteria .= 'c.numcyc = :sSearchInt' . $nb . ' ';
+				} else {
+					$filteringCriteria .= 'c.nom LIKE :sSearchLike' . $nb . '_1 OR ' .
+						'c.prenom LIKE :sSearchLike' . $nb . '_2 OR ' .
+						'c.adresse LIKE :sSearchLike' . $nb . '_3 OR ' .
+						'c.ville LIKE :sSearchLike' . $nb . '_4 ';
+				}
+
+				$filteringCriteria .= ')';
+			}
+		}
+
+		$orderCriteria = null;
+		$allowedSortColumns = array('numcyc', 'nom', 'prenom', 'adresse', 'ville');
+		if(array_key_exists('iSortCol_0', $_GET) and array_key_exists($_GET['iSortCol_0'], $allowedSortColumns)) {
+			$orderCriteria .= 'c.' . $allowedSortColumns[$_GET['iSortCol_0']] . ' ';
+
+			if(array_key_exists('sSortDir_0', $_GET) and $_GET['sSortDir_0'] == 'desc') {
+				$orderCriteria .= 'DESC';
+			} else {
+				$orderCriteria .= 'ASC';
+			}
+		}
+
+		$sql = ' FROM cycliste c ';
+
+		if($filteringCriteria) {
+			$sql .= 'WHERE ' . $filteringCriteria . ' ';
+		}
+
+		if($orderCriteria and $type == 'top') {
+			$sql .= 'ORDER BY ' . $orderCriteria . ' ';
+		}
+
+		if($type == 'count') {
+			$q = $db->prepare('SELECT COUNT(*) AS nb ' . $sql);
+		} else {
+
+			if(array_key_exists('iDisplayLength', $_GET) and ctype_digit($_GET['iDisplayLength'])) {
+				$topNb = (int) $_GET['iDisplayLength'];
+			} else {
+				$topNb = 20;
+			}
+
+			if(array_key_exists('iDisplayStart', $_GET) and ctype_digit($_GET['iDisplayStart'])) {
+				$topNb += (int) $_GET['iDisplayStart'];
+			}
+
+			$q = $db->prepare('SELECT DISTINCT TOP ' . $topNb . ' c.numcyc, c.nom, c.prenom, c.adresse, c.ville ' . $sql);
+		}
+
+		if($filteringCriteria) {
+			if(array_key_exists('sSearch', $_GET)) {
+				foreach(explode(' ', $_GET['sSearch']) as $nb => $search) {
+					if(ctype_digit($search)) {
+						$q->bindValue('sSearchInt' . $nb, $search, PDO::PARAM_INT);
+					} else {
+						$search = (iconv('UTF-8', 'ASCII//TRANSLIT', $search));
+						$search = preg_replace('#[^-\w]+#', '', $search);
+						$q->bindValue('sSearchLike' . $nb . '_1', '%' . $search . '%');
+						$q->bindValue('sSearchLike' . $nb . '_2', '%' . $search . '%');
+						$q->bindValue('sSearchLike' . $nb . '_3', '%' . $search . '%');
+						$q->bindValue('sSearchLike' . $nb . '_4', '%' . $search . '%');
+					}
+				}
+			}
+		}
+
+		return $q;
+	}
+
+	public function listCyclists() {
+
+		if(!array_key_exists('sEcho', $_GET)) {
+			header("HTTP/1.1 400 Bad Request");
+			echo json_encode(array(
+				'res' => 'nok',
+			));
+			exit;
+		}
+
+		$db = DB::getInstance();
+
+		$q = $db->query('SELECT COUNT(*) AS nb FROM cycliste c');
+		$q->execute();
+		$data = $q->fetch();
+		$nbTotal = $data['nb'];
+
+		$q = $this->createListCyclistQuery($db, 'count');
+		$q->execute();
+		$data = $q->fetch();
+		$nbFiltered = $data['nb'];
+
+		$q = $this->createListCyclistQuery($db, 'top');
+		$q->execute();
+
+		$queryCyclists = $q->fetchAll();
+
+		if(array_key_exists('iDisplayStart', $_GET) and ctype_digit($_GET['iDisplayStart'])) {
+			$offset = $_GET['iDisplayStart'];
+		}
+
+		if(array_key_exists('iDisplayLength', $_GET) and ctype_digit($_GET['iDisplayLength'])) {
+			$limit = (int) $_GET['iDisplayLength'];
+		}
+
+		array_splice($queryCyclists, 0, $offset);
+		array_splice($queryCyclists, $limit);
+
+		$reply = array();
+
+		$cyclists = array();
+		foreach($queryCyclists as $cyclist) {
+			$cyclists[] = array(
+				utf8_encode($cyclist['numcyc']),
+				utf8_encode($cyclist['nom']),
+				utf8_encode($cyclist['prenom']),
+				utf8_encode($cyclist['adresse']),
+				utf8_encode($cyclist['ville']),
+				'<a class="view-button" title="Afficher" href="' . url('cyclist.search', array("id" => $cyclist["numcyc"])) . '">Afficher</a>' .
+				'<a class="edit-button" title="Modifier" href="' . url('cyclist.edit', array("id" => $cyclist["numcyc"])) . '">Modifier</a>'
+			);
+		}
+
+		$reply['sEcho'] = $_GET['sEcho'];
+		$reply['iTotalRecords'] = $nbTotal;
+		$reply['iTotalDisplayRecords'] = $nbFiltered;
+		$reply['aaData'] = $cyclists;
+
+		echo json_encode($reply);
 	}
 }
