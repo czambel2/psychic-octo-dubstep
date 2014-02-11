@@ -3,7 +3,7 @@
 		<label for="data_cyclistName" class="right inline required">Coureur&nbsp;:</label>
 	</div>
 	<div class="nine columns">
-		<input data-race-number="<?= $this->getMiscData('raceNumber') ?>" name="data[cyclistName]" class="autocomplete-cyclists-filter arrival <?= $this->errorClass('cyclistName', true) ?>" required="required" id="data_cyclistName" placeholder="Rechercher un cycliste" type="text" value="<?= $this->valueEscaped('cyclistName') ?>" />
+		<input data-race-number="<?= $this->getMiscData('raceNumber') ?>" name="data[cyclistName]" class="autocomplete-cyclists-filter arrival <?= $this->errorClass('cyclistName', true) ?>" required="required" autofocus="autofocus" id="data_cyclistName" placeholder="Rechercher un cycliste" type="text" value="<?= $this->valueEscaped('cyclistName') ?>" />
 		<?= $this->errorMessage('cyclistName') ?>
 		<div class="autocomplete-results"></div>
 	</div>
