@@ -216,19 +216,24 @@ class ThisRaceController extends Controller {
 								$q->execute();
 							}
 
-							// On modifie l'heure de départ dans la table cycliste
-							/* Utilité ?
-							$q = $db->prepare('UPDATE cycliste SET depart = :time WHERE numcyc = :cyclistId');
-							$q->bindValue('time', $now->format('H:i:s'));
-							$q->bindValue('cyclistId', $cyclistId);
+							//On récupère la distance parcourue par le cycliste
+							$q = $db->prepare('SELECT
+									c.distancec'. ((int) $form->getData('circuit')) .' as distance
+								FROM
+									course c
+								WHERE
+									c.numcourse = :raceNumber');
+							$q->bindValue('raceNumber', $raceNumber);
 							$q->execute();
-							*/
+
+							$distanceCircuit = $q->fetch();
 
 							// On met à jour les infos du cycliste
 							$q = $db->prepare('UPDATE cycliste SET nbcourses = nbcourses + 1,
-								dernumcourse = :raceNumber WHERE numcyc = :cyclistId');
+								dernumcourse = :raceNumber, km = km + :distance WHERE numcyc = :cyclistId');
 							$q->bindValue('raceNumber', $raceNumber);
 							$q->bindValue('cyclistId', $cyclistId);
+							$q->bindValue('distance', $distanceCircuit['distance']);
 							$q->execute();
 
 							// On ajoute la participation
@@ -364,39 +369,10 @@ class ThisRaceController extends Controller {
 							$q->bindValue('raceNumber', $raceNumber);
 							$q->execute();
 
-							// On modifie l'heure de retour dans la table cycliste
-							/*
-							$q = $db->prepare('UPDATE cycliste SET retour = :time WHERE numcyc = :cyclistId');
-							$q->bindValue('time', $now->format('H:i:s'));
-							$q->bindValue('cyclistId', $cyclistId);
-							$q->execute();
-							*/
-
 							// On ajoute l'heure de retour à la table participer
 							$q = $db->prepare('UPDATE participer SET harrivee = :time WHERE numcyc = :cyclistId');
 							$q->bindValue('time', $now->format('H:i:s'));
 							$q->bindValue('cyclistId', $cyclistId);
-							$q->execute();
-
-							//On récupère la distance parcourue par le cycliste
-							$q = $db->prepare('SELECT
-									c.distancec'. ((int) $circuit['numcircuit']) .' as distance
-								FROM
-									course c
-								WHERE
-									c.numcourse = :raceNumber');
-							$q->bindValue('raceNumber', $raceNumber);
-							$q->execute();
-
-							$distanceCircuit = $q->fetch();
-
-							//On met à jour le nombre de km total parcouru par le cycliste
-							$q = $db->prepare('UPDATE
-									cycliste c
-								SET c.km = c.km + :distance
-								WHERE c.numcyc = :cyclistId');
-							$q->bindValue('cyclistId', $cyclistId);
-							$q->bindValue('distance', $distanceCircuit['distance']);
 							$q->execute();
 
 							Session::getInstance()->addFlash(new Flash($cyclist['prenom'] . " " . $cyclist['nom'] . " : retour enregistré.", Flash::FLASH_SUCCESS));
@@ -441,7 +417,6 @@ class ThisRaceController extends Controller {
 				var_dump($participations, $q->rowCount());
 
 				$qUpdateArrivalTime = $db->prepare('UPDATE participer SET harrivee = :hour WHERE numcyc = :cyclistId');
-				$qUpdateCyclistKm = $db->prepare('UPDATE cycliste SET km = km + :distance WHERE numcyc = :cyclistId');
 				$qUpdateRaceNbParticipations = $db->prepare('UPDATE course SET nbretourc1 = nbretourc1 + :nbCircuit1,
 					nbretourc2 = nbretourc2 + :nbCircuit2, nbretourc3 = nbretourc3 + :nbCircuit3,
 					nbretourtotal = nbretourtotal + 1 WHERE numcourse = :raceNumber');
@@ -454,11 +429,6 @@ class ThisRaceController extends Controller {
 						$qUpdateArrivalTime->bindValue('hour', $form->getData('hour')->format('H:i:s'));
 						$qUpdateArrivalTime->bindValue('cyclistId', $participation['numcyc']);
 						$qUpdateArrivalTime->execute();
-
-						// On met à jour le nombre de kilomètres parcourus par le cycliste
-						$qUpdateCyclistKm->bindValue('distance', $race['distancec' . $participation['numcircuit']]);
-						$qUpdateCyclistKm->bindValue('cyclistId', $participation['numcyc']);
-						$qUpdateCyclistKm->execute();
 
 						// On met à jour le nombre de participants dans la course
 						$qUpdateRaceNbParticipations->bindValue('nbCircuit1', $participation['numcircuit'] == 1 ? 1 : 0);
