@@ -62,6 +62,4 @@
 	</div>
 </div>
 
-
-
 <input type="hidden" name="form" value="enterArrival" />
