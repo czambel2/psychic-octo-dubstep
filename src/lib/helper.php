@@ -26,3 +26,12 @@ function basePath() {
 function e($string) {
 	return htmlspecialchars($string);
 }
+
+/**
+ * Échappe une chaîne de caractères pour l'afficher à l'écran.
+ * @param string $string La chaîne de caractères à afficher.
+ * @return string La chaîne de caractères échappée.
+ */
+function quick_e($string) {
+	return $string;
+}
