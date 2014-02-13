@@ -111,9 +111,6 @@
 								<a href="<?= url('display.diploma') ?>">Diplômes</a>
 							</li>
 							<li>
-								<a href="#">Paramétrage des diplômes</a>
-							</li>
-							<li>
 								<a href="<?= url('display.cyclists') ?>">Liste des cyclistes</a>
 							</li>
 							<li>
@@ -121,9 +118,6 @@
 							</li>
 							<li>
 								<a href="#">Étiquettes</a>
-							</li>
-							<li>
-								<a href="#">Paramétrage des étiquettes</a>
 							</li>
 						</ul>
 					</li>
