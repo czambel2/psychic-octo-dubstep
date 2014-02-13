@@ -7,6 +7,8 @@ set_exception_handler(function(Exception $ex) {
 	$errorMessage = $ex->getMessage();
 	$errorTrace = $ex->getTraceAsString();
 
+	header("Content-Type: text/html, charset=windows-1252");
+
 	// On envoie les headers
 	switch($ex->getCode()) {
 		case 403:
