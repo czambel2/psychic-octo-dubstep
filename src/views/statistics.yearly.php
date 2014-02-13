@@ -26,18 +26,22 @@
 						<td><?= $participants ?></td>
 					</tr>
 				<?php endforeach; ?>
-				<tr>
-					<th>Participant le plus âgé</th>
-					<td><?= e($oldestCyclist['polit'] . ' ' . $oldestCyclist['nom']
-							. ' ' . $oldestCyclist['prenom'] . ', ' . $oldestCyclist['ville'] . ' ('
-							. $oldestCyclist['date_n']->format('d/m/Y') . ')') ?></td>
-				</tr>
-				<tr>
-					<th>Participant le plus jeune</th>
-					<td><?= e($youngestCyclist['polit'] . ' ' . $youngestCyclist['nom']
-							. ' ' . $youngestCyclist['prenom'] . ', ' . $youngestCyclist['ville'] . ' ('
-							. $youngestCyclist['date_n']->format('d/m/Y') . ')') ?></td>
-				</tr>
+				<?php if($oldestCyclist): ?>
+					<tr>
+						<th>Participant le plus âgé</th>
+						<td><?= e($oldestCyclist['polit'] . ' ' . $oldestCyclist['nom']
+								. ' ' . $oldestCyclist['prenom'] . ', ' . $oldestCyclist['ville'] . ' ('
+								. $oldestCyclist['date_n']->format('d/m/Y') . ')') ?></td>
+					</tr>
+				<?php endif; ?>
+				<?php if($youngestCyclist): ?>
+					<tr>
+						<th>Participant le plus jeune</th>
+						<td><?= e($youngestCyclist['polit'] . ' ' . $youngestCyclist['nom']
+								. ' ' . $youngestCyclist['prenom'] . ', ' . $youngestCyclist['ville'] . ' ('
+								. $youngestCyclist['date_n']->format('d/m/Y') . ')') ?></td>
+					</tr>
+				<?php endif; ?>
 			</table>
 		</div>
 	</div>

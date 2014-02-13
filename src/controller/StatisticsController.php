@@ -54,8 +54,9 @@ class StatisticsController extends Controller {
 		                   ORDER BY c.date_n ASC');
 		$q->bindValue('raceNumber', $raceNumber);
 		$q->execute();
-		$oldestCyclist = $q->fetch();
-		$oldestCyclist['date_n'] = DateTime::createFromFormat('Y-m-d H:i:s', $oldestCyclist['date_n']);
+		if($oldestCyclist = $q->fetch()) {
+			$oldestCyclist['date_n'] = DateTime::createFromFormat('Y-m-d H:i:s', $oldestCyclist['date_n']);
+		}
 
 		$q = $db->prepare('SELECT TOP 1 c.polit, c.nom, c.prenom, c.ville, c.date_n
 		                   FROM cycliste c
@@ -64,8 +65,9 @@ class StatisticsController extends Controller {
 		                   ORDER BY c.date_n DESC');
 		$q->bindValue('raceNumber', $raceNumber);
 		$q->execute();
-		$youngestCyclist = $q->fetch();
-		$youngestCyclist['date_n'] = DateTime::createFromFormat('Y-m-d H:i:s', $youngestCyclist['date_n']);
+		if($youngestCyclist = $q->fetch()) {
+			$youngestCyclist['date_n'] = DateTime::createFromFormat('Y-m-d H:i:s', $youngestCyclist['date_n']);
+		}
 
 		$this->render('statistics.yearly', array(
 			'race' => $race,
@@ -78,21 +80,5 @@ class StatisticsController extends Controller {
 			'oldestCyclist' => $oldestCyclist,
 			'youngestCyclist' => $youngestCyclist,
 		));
-	}
-
-	public function globalSummary($csv = false) {
-
-	}
-
-	public function globalSummaryCsv() {
-		$this->globalSummary(true);
-	}
-
-	public function simplifiedSummary($csv = false) {
-
-	}
-
-	public function simplifiedSummaryCsv() {
-		$this->simplifiedSummary(true);
 	}
 }
