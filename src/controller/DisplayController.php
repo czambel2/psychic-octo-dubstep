@@ -112,10 +112,6 @@ class DisplayController extends Controller {
 		echo $diploma->get();
 	}
 
-	public function diplomaParameters() {
-
-	}
-
 	public function cyclists() {
 		$db = DB::getInstance();
 		$q = $db->query("SELECT c.numcyc, c.nom, c.prenom, c.adresse, c.ville FROM CYCLISTE c order by c.numcyc");
@@ -127,14 +123,21 @@ class DisplayController extends Controller {
 	}
 
 	public function races() {
+		$db = DB::getInstance();
+		$q = $db->query("SELECT
+			c.numcourse, c.datecourse, c.anneecourse, c.nbparticipantstotal, c.distancec1, c.distancec2, c.distancec3
+		FROM
+			COURSE c
+		ORDER BY
+			c.numcourse DESC");
+		$q->execute();
 
+		$races = $q->fetchAll();
+
+		$this->render("display.races", array('races' => $races));
 	}
 
 	public function label() {
-
-	}
-
-	public function labelParemters() {
 
 	}
 }

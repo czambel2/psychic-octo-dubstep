@@ -114,7 +114,7 @@
 								<a href="<?= url('display.cyclists') ?>">Liste des cyclistes</a>
 							</li>
 							<li>
-								<a href="#">Liste des courses</a>
+								<a href="<?= url('display.races') ?>">Liste des courses</a>
 							</li>
 							<li>
 								<a href="#">Étiquettes</a>

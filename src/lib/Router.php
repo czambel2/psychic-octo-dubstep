@@ -50,6 +50,7 @@ abstract class Router {
 			'diploma' => '/impression/diplomes',
 			'diplomaPdf' => '/impression/diplome.pdf',
 			'cyclists' => '/impression/liste-cyclistes',
+			'races' => '/impression/liste-courses',
 		),
 
 	);
