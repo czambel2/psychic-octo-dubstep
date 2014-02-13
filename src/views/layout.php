@@ -105,10 +105,10 @@
 					</li>
 					<li class="divider"></li>
 					<li class="has-dropdown">
-						<a href="#">Impression</a>
+						<a href="<?= url('display.diploma') ?>">Impression</a>
 						<ul class="dropdown">
 							<li>
-								<a href="#">Diplômes</a>
+								<a href="<?= url('display.diploma') ?>">Diplômes</a>
 							</li>
 							<li>
 								<a href="#">Paramétrage des diplômes</a>

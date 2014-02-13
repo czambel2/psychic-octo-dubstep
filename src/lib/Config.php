@@ -12,6 +12,9 @@ abstract class Config {
 		'db.username' => null,
 		// Le mot de passe de connexion à la base de données
 		'db.password' => null,
+		// Si true, les fichiers PDF générés seront téléchargés en attachement
+		// Si false, ils seront affichés directement dans le navigateur
+		'download.pdf' => false,
 	);
 
 	/**

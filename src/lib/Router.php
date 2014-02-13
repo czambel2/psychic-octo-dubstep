@@ -47,6 +47,8 @@ abstract class Router {
 			'search' => '/cyclistes/rechercher',
 		),
 		'display' => array(
+			'diploma' => '/impression/diplomes',
+			'diplomaPdf' => '/impression/diplome.pdf',
 			'cyclists' => '/impression/liste-cyclistes',
 		),
 

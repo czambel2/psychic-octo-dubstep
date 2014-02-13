@@ -44,6 +44,8 @@ class ApiController extends Controller {
 					$sql .= "LEFT JOIN participer p ON (p.numcyc = c.numcyc AND p.numcourse = :raceNumber) WHERE p.numcyc IS NULL AND ( ";
 				} elseif($_GET['filter'] == 'arrival') {
 					$sql .= "INNER JOIN participer p ON (p.numcyc = c.numcyc AND p.numcourse = :raceNumber) WHERE p.harrivee IS NULL AND ( ";
+				} elseif($_GET['filter'] == 'diploma') {
+					$sql .= "INNER JOIN participer p ON (p.numcyc = c.numcyc AND p.numcourse = :raceNumber) WHERE ( ";
 				} else {
 					$sql .= "WHERE (";
 				}
@@ -83,7 +85,7 @@ class ApiController extends Controller {
 			}
 
 			if(array_key_exists('filter', $_GET)) {
-				if($_GET['filter'] == 'departure' or $_GET['filter'] == 'arrival') {
+				if($_GET['filter'] == 'departure' or $_GET['filter'] == 'arrival' or $_GET['filter'] == 'diploma') {
 					$q->bindValue('raceNumber', $this->getLastRaceNumber());
 				}
 			}

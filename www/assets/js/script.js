@@ -239,9 +239,11 @@ $(function () {
 			url = '/api/cyclistes?filter=departure';
 		} else if($(this).is('.arrival')) {
 			url = '/api/cyclistes?filter=arrival';
+		} else if($(this).is('.diploma')) {
+			url = '/api/cyclistes?filter=diploma'
 		}
 
-		if($(this).val() != '') {
+		if($(this).is(':not(.no-details)') && $(this).val() != '') {
 			showCyclistDetails($(this).val());
 		}
 
@@ -254,7 +256,9 @@ $(function () {
 				var match = regex.exec(ui.item.value);
 				var id = match[1];
 
-				showCyclistDetails(id);
+				if($(this).is(':not(.no-details)')) {
+					showCyclistDetails(id);
+				}
 			},
 			create: function() {
 				$(this).data('ui-autocomplete')._renderItem = function (ul, item) {
