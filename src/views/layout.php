@@ -123,22 +123,22 @@
 					</li>
 					<li class="divider"></li>
 					<li class="has-dropdown">
-						<a href="#">Statistiques</a>
+						<a href="<?= url('statistics.yearly') ?>">Statistiques</a>
 						<ul class="dropdown">
 							<li>
-								<a href="#">Statistiques par année</a>
+								<a href="<?= url('statistics.yearly') ?>">Statistiques par année</a>
 							</li>
 							<li>
-								<a href="#">Bilan global</a>
+								<a href="<?= url('statistics.globalSummary') ?>">Bilan global</a>
 							</li>
 							<li>
-								<a href="#">Bilan global (Excel)</a>
+								<a href="<?= url('statistics.globalSummaryCsv') ?>">Bilan global (Excel)</a>
 							</li>
 							<li>
-								<a href="#">Bilan simplifié</a>
+								<a href="<?= url('statistics.simplifiedSummary') ?>">Bilan simplifié</a>
 							</li>
 							<li>
-								<a href="#">Bilan simplifié (Excel)</a>
+								<a href="<?= url('statistics.simplifiedSummaryCsv') ?>">Bilan simplifié (Excel)</a>
 							</li>
 						</ul>
 					</li>

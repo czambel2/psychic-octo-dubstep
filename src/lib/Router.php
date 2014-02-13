@@ -52,7 +52,13 @@ abstract class Router {
 			'cyclists' => '/impression/liste-cyclistes',
 			'races' => '/impression/liste-courses',
 		),
-
+		'statistics' => array(
+			'yearly' => '/statistiques/annuelles',
+			'globalSummary' => '/statistiques/bilan-global',
+			'globalSummaryCsv' => '/statistiques/bilan-global.csv',
+			'simplifiedSummary' => '/statistiques/bilan-global',
+			'simplifiedSummaryCsv' => '/statistiques/bilan-global.csv',
+		),
 	);
 
 	/**
