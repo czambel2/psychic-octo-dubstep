@@ -14,7 +14,7 @@ abstract class Config {
 		'db.password' => null,
 		// Si true, les fichiers PDF générés seront téléchargés en attachement
 		// Si false, ils seront affichés directement dans le navigateur
-		'download.pdf' => false,
+		'download.pdf' => true,
 	);
 
 	/**

@@ -1,6 +1,6 @@
 <h1>Saisie d'un retour</h1>
 
-<form action="" method="post">
+<form action="" class="enter-arrival" method="post">
 	<div class="row">
 		<div class="six centered columns">
 			<?= $form ?>

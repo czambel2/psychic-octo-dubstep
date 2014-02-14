@@ -395,4 +395,18 @@ $(function () {
 			}
 		});
 	});
+
+	var enterArrivalFormSubmitted = false;
+	var submitArrivalForm = function() { $('.enter-arrival').submit(); };
+	$('.enter-arrival').submit(function(e) {
+		if(!enterArrivalFormSubmitted) {
+			e.preventDefault();
+			var regex = /^.+ \((\d+)\)$/g;
+			var match = regex.exec($('.autocomplete-cyclists-filter').val());
+			var id = match[1];
+			location.href = "<?= url('display.diplomaPdf', array('id' => '')) ?>" + id;
+			enterArrivalFormSubmitted = true;
+			setTimeout(submitArrivalForm, 500);
+		}
+	})
 });
