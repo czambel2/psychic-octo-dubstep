@@ -59,6 +59,11 @@ abstract class Router {
 			'simplifiedSummary' => '/statistiques/bilan-global',
 			'simplifiedSummaryCsv' => '/statistiques/bilan-global.csv',
 		),
+		'asset' => array(
+			'css' => '/assets.css',
+			'priorityJs' => '/priority.js',
+			'js' => '/assets.js',
+		),
 	);
 
 	/**

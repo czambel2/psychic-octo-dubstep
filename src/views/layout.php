@@ -6,11 +6,9 @@
 	<meta name="viewport" content="width=device-width" />
 	<title>Lionne</title>
 
-	<link rel="stylesheet" type="text/css" href="<?= basePath() ?>/assets/css/foundation.min.css" />
-	<link rel="stylesheet" type="text/css" href="<?= basePath() ?>/assets/css/style.css" />
-	<link rel="stylesheet" type="text/css" href="<?= basePath() ?>/assets/css/jquery.dataTables.css" />
+	<link rel="stylesheet" type="text/css" href="<?= url('asset.css') ?>" />
 
-	<script src="<?= basePath() ?>/assets/js/foundation/modernizr.foundation.js"></script>
+	<script src="<?= url('asset.priorityJs') ?>"></script>
 </head>
 <body class="special">
 
@@ -166,14 +164,6 @@
 
 	<?= $layoutContents ?>
 
-
-	<script src="<?= basePath() ?>/assets/js/vendor/jquery.min.js"></script>
-	<script src="<?= basePath() ?>/assets/js/foundation/foundation.min.js"></script>
-	<script src="<?= basePath() ?>/assets/js/vendor/jquery-ui.min.js"></script>
-	<script src="<?= basePath() ?>/assets/js/vendor/jquery.dataTables.min.js"></script>
-	<script src="<?= basePath() ?>/assets/js/vendor/jquery.highlight-4.js"></script>
-	<script src="<?= basePath() ?>/assets/js/script.js"></script>
-	<script src="<?= basePath() ?>/assets/js/foundation/app.js"></script>
-
+	<script src="<?= url('asset.js') ?>"></script>
 </body>
 </html>

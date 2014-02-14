@@ -1,5 +1,3 @@
-@import url(//fonts.googleapis.com/css?family=Alef|Grand+Hotel|Oxygen+Mono);
-
 body {
 	background-color: beige;
 	font-family: Alef, sans-serif;
@@ -81,11 +79,11 @@ pre, code {
 }
 
 .edit-button {
-	background: url("../img/edit.png") no-repeat;
+	background: url("<?= basePath() ?>assets/img/edit.png") no-repeat;
 }
 
 .view-button {
-	background: url("../img/view.png") no-repeat;
+	background: url("<?= basePath() ?>assets/img/view.png") no-repeat;
 }
 
 .prefix, .postfix {
