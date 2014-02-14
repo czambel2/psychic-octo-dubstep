@@ -7,7 +7,7 @@ Session::getInstance();
 
 $requestedRoute = Router::parseUrl($_SERVER['REQUEST_URI']);
 
-if(Session::getInstance()->is('logged')) {
+if(Session::getInstance()->is('logged') or $requestedRoute["controller"] == 'assetController') {
 	$controller = new $requestedRoute["controller"]();
 	call_user_func_array(array($controller, $requestedRoute["action"]), $requestedRoute["parameters"]);
 } else {
