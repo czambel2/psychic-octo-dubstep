@@ -173,7 +173,7 @@
 
 	<div class="row centered">
 		<div class="two centered columns text-center">
-			<ul class="button-group">
+			<ul class="button-group even two-up">
 				<li>
 					<a href="<?= url('cyclist.edit', array('id' => $cyclist['numcyc'], 'returnto' => url('cyclist.search', array('id' => $cyclist['numcyc'])))) ?>" class="button">
 						Modifier
