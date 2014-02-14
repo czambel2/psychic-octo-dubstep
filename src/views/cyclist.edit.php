@@ -7,7 +7,7 @@
 
 			<div class="row">
 				<div class="three column centered text-center">
-					<ul class="button-group">
+					<ul class="button-group even two-up">
 						<li><button class="button" type="submit">Modifier</button></li>
 						<li><a class="button" href="<?= $returnUrl ?: url('cyclist.index') ?>">Annuler</a></li>
 					</ul>
