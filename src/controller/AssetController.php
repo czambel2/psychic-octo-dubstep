@@ -24,6 +24,10 @@ class AssetController extends Controller {
 
 	function __construct() {
 		Layout::getInstance()->disable();
+
+		header("Pragma: cache");
+		header("Cache-Control: max-age=3600, must-revalidate");
+		header("Expires: " . (new DateTime('+1 hour'))->format('r'));
 	}
 
 	public function css() {
