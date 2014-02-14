@@ -141,7 +141,7 @@
 					<div class="two columns">
 						<span class="label radius">Récompenses&nbsp;:</span>
 					</div>
-					<div class="ten columns">
+					<div class="four columns">
 						<?php if(empty($rewards)) : ?>
 							Aucune
 						<?php else: ?>
@@ -150,6 +150,20 @@
 									<li><?= e($reward) ?></li>
 								<?php endforeach; ?>
 							</ol>
+						<?php endif; ?>
+					</div>
+					<div class="two columns">
+						<span class="label radius">Courses&nbsp;:</span>
+					</div>
+					<div class="four columns">
+						<?php if(empty($races)) : ?>
+							Aucune
+						<?php else: ?>
+							<ul>
+								<?php foreach($races as $race): ?>
+									<li><?= e($race) ?></li>
+								<?php endforeach; ?>
+							</ul>
 						<?php endif; ?>
 					</div>
 				</div>

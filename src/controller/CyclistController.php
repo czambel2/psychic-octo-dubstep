@@ -12,6 +12,7 @@ class CyclistController extends Controller {
 		$form = new SearchCyclistForm();
 		$cyclist = null;
 		$rewards = array();
+		$races = array();
 
 		if($_SERVER['REQUEST_METHOD'] == 'GET' and array_key_exists('id', $_GET)) {
 			$q = $db->prepare('SELECT
@@ -35,6 +36,14 @@ class CyclistController extends Controller {
 				if($reward['librecompense']) {
 					$rewards[] = $reward['librecompense'];
 				}
+			}
+
+			$q = $db->prepare('SELECT c.anneecourse FROM participer p INNER JOIN course c ON p.numcourse = c.numcourse WHERE p.numcyc = :cyclistId ORDER BY c.anneecourse ASC');
+			$q->bindValue('cyclistId', $cyclist['numcyc']);
+			$q->execute();
+
+			foreach($q->fetchAll() as $row) {
+				$races[] = $row['anneecourse'];
 			}
 
 			$cyclist['date_n'] = DateTime::createFromFormat('Y-m-d H:i:s', $cyclist['date_n']);
@@ -63,6 +72,7 @@ class CyclistController extends Controller {
 			'form' => $form,
 			'cyclist' => $cyclist,
 			'rewards' => $rewards,
+			'races' => $races,
 		));
 	}
 
