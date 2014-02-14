@@ -9,6 +9,7 @@
 				<th>Prénom</th>
 				<th>Adresse</th>
 				<th>Ville</th>
+				<th>Participations</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -19,6 +20,7 @@
 					<td><?= $cycliste["prenom"] ?></td>
 					<td><?= $cycliste["adresse"] ?></td>
 					<td><?= $cycliste["ville"] ?></td>
+					<td><?= $cycliste["nbcourses"] ?></td>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>

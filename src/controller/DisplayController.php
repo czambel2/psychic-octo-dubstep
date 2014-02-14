@@ -114,7 +114,7 @@ class DisplayController extends Controller {
 
 	public function cyclists() {
 		$db = DB::getInstance();
-		$q = $db->query("SELECT c.numcyc, c.nom, c.prenom, c.adresse, c.ville FROM CYCLISTE c order by c.numcyc");
+		$q = $db->query("SELECT c.numcyc, c.nom, c.prenom, c.adresse, c.ville, c.nbcourses FROM CYCLISTE c order by c.numcyc");
 		$q->execute();
 
 		$cyclistes = $q->fetchAll();
