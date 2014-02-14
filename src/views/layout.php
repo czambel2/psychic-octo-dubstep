@@ -114,31 +114,11 @@
 							<li>
 								<a href="<?= url('display.races') ?>">Liste des courses</a>
 							</li>
-							<li>
-								<a href="#">Étiquettes</a>
-							</li>
 						</ul>
 					</li>
 					<li class="divider"></li>
-					<li class="has-dropdown">
+					<li>
 						<a href="<?= url('statistics.yearly') ?>">Statistiques</a>
-						<ul class="dropdown">
-							<li>
-								<a href="<?= url('statistics.yearly') ?>">Statistiques par année</a>
-							</li>
-							<li>
-								<a href="<?= url('statistics.globalSummary') ?>">Bilan global</a>
-							</li>
-							<li>
-								<a href="<?= url('statistics.globalSummaryCsv') ?>">Bilan global (Excel)</a>
-							</li>
-							<li>
-								<a href="<?= url('statistics.simplifiedSummary') ?>">Bilan simplifié</a>
-							</li>
-							<li>
-								<a href="<?= url('statistics.simplifiedSummaryCsv') ?>">Bilan simplifié (Excel)</a>
-							</li>
-						</ul>
 					</li>
 					<li class="divider hide-for-small"></li>
 				</ul>

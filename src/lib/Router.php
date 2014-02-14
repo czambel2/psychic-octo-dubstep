@@ -53,11 +53,7 @@ abstract class Router {
 			'races' => '/impression/liste-courses',
 		),
 		'statistics' => array(
-			'yearly' => '/statistiques/annuelles',
-			'globalSummary' => '/statistiques/bilan-global',
-			'globalSummaryCsv' => '/statistiques/bilan-global.csv',
-			'simplifiedSummary' => '/statistiques/bilan-global',
-			'simplifiedSummaryCsv' => '/statistiques/bilan-global.csv',
+			'yearly' => '/statistiques',
 		),
 		'asset' => array(
 			'css' => '/assets.css',
