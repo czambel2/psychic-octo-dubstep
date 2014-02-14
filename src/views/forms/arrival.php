@@ -11,7 +11,7 @@
 
 <div class="reward hide">
 	<div class="alert-box reward-yes">
-		Ce coureur a paticipé à <span class="nbRaces"></span> courses et remporte donc l'objet suivant&nbsp;: <span class="rewardName"></span>.
+		Ce coureur a participé à <span class="nbRaces"></span> courses et remporte donc l'objet suivant&nbsp;: <span class="rewardName"></span>.
 	</div>
 	<div class="alert-box secondary reward-no">
 		Ce coureur a participé à <span class="nbRaces"></span> courses et ne gagne pas de récompense aujourd'hui.
